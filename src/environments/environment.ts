@@ -1,7 +1,7 @@
-import { API_ID, REST_API_KEY } from "./keys";
+import { APP_ID, REST_API_KEY } from "./keys";
 
 export const environment = {
-    apiUrl: 'https://parseapi.back4app.com/classes',
-    API_ID: API_ID,
+    API_URL: 'https://parseapi.back4app.com/classes',
+    APP_ID: APP_ID,
     REST_API_KEY: REST_API_KEY
 };

@@ -1,27 +1,32 @@
-# CinemaETicket
+# Cinema Electronic Ticket Application
+Welcome to the Cinema Electronic Ticket (E-Ticket) Application repository! This project is designed to provide users with a seamless experience for browsing movies, booking tickets, and managing their cinema visits—all from the convenience of their devices.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+## Features
+- Everyone can browse movies and check for upcoming projections.
+- Logged in users can view available seats and choose the perfect spot for their viewing experience.
+- Users can purchase tickets at any time of the day and access them by their mobile device at check-in.
+- Managers can add movies, create schedule and organize the screen halls. They can also read messages sent through the contact form.
+- The administrator has the powers of a manager and can change some of the text and images in static web pages. The administrator can also register manager accounts.
 
-## Development server
+## Technologies Used
+- Frontend: Angular 18
+- Backend & Database: Back4App
+- Authentication: JWT
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Getting Started
 
-## Code scaffolding
+### Requirements
+- Angular 18 installed.
+- APP ID, REST API KEY
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Installation
+1. Install dependencies (npm i);
+2. Navigate to src / environments;
+3. Create a file named keys.ts in environments folder with the following structure:
 
-## Build
+export const APP_ID = '';
+export const  REST_API_KEY = '';
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+where the values should be your APP ID and REST API KEY.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+4. Run the application (ng serve);

@@ -1,0 +1,35 @@
+#ourCinema {
+    height: 300px;
+    background: linear-gradient(180deg, #232c39 0%, #374354 67%);
+    color: #fcf2b1;
+    padding: 20px;
+}
+
+#ourCinema figure {
+    height: 200px;
+    width: 200px;
+}
+
+@media screen and (max-width: 1200px) {
+    #ourCinema {
+        height: max-content;
+        gap: 20px;
+    }
+
+    .gallery {
+        flex-wrap: wrap;
+        height: fit-content;
+        gap: 20px;
+    }
+
+    .gallery figure{
+        flex: 0 1 calc(30%);
+        width: 200px;
+        height: 100px;
+    }
+
+    .gallery figure img {
+        width: inherit;
+        height: inherit;
+    }
+}

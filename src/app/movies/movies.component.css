@@ -1,0 +1,33 @@
+#moviesSection {
+    background-color: #2e3a4a;
+    color: #fcf2b1;
+    padding: 20px;
+    min-height: 1200px;
+}
+
+#moviesSection article {
+    background-color: #232c39;
+    border-radius: 20px;
+}
+
+#moviesSection article:hover {
+    outline: 1px solid #D4AC0D;
+    border-radius: 20px;
+}
+
+#moviesSection article .img-container {
+    width: 260px;
+    height: 290px;
+}
+
+.img-article {
+    height: 100%;
+    width: 260px;
+    max-width: none;
+}
+
+@media screen and (max-width: 611px) {
+    .img-container {
+        display: none;
+    }
+}

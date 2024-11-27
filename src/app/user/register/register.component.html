@@ -1,0 +1,141 @@
+<section id="registerSection" class="d-flex jc-center ai-center">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20" #form="ngForm" (ngSubmit)="registerSubmitHandler(form)">
+        <h2>Register</h2>
+
+        <div class="field relative">
+            <i class="fa-regular fa-circle-user absolute"
+            [class]="isMissing!(inputUsername) || tooShort!(inputUsername) ? 'error-color':''"
+            ></i>
+
+            <label for="username"
+            [class]="isMissing!(inputUsername) || tooShort!(inputUsername) ? 'error-color':''"
+            >Username</label>
+
+            <input type="text" 
+            [class]="isMissing!(inputUsername) || tooShort!(inputUsername) ? 'error-input':''"
+            id="username" 
+            name="username" 
+            placeholder="George123"
+            ngModel
+            #inputUsername="ngModel"
+            required
+            minlength="5"
+            >
+        </div>
+        @if (inputUsername?.touched) {
+            <div>
+                @if(inputUsername?.errors?.['required']) {
+                    <p class="error-msg">Username is required!</p>
+                }
+
+                @if(inputUsername?.errors?.['minlength']) {
+                    <p class="error-msg">Username must be at least 5 characters!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <i class="fa-regular fa-envelope absolute"
+            [class]="isMissing!(inputEmail) || invalidEmail!(inputEmail) ? 'error-color' : ''"
+            ></i>
+
+            <label for="email"
+            [class]="isMissing!(inputEmail) || invalidEmail!(inputEmail) ? 'error-color' : ''"
+            >Email</label>
+
+            <input type="text"
+            [class]="isMissing!(inputEmail) || invalidEmail!(inputEmail) ? 'error-input' : ''"
+            id="email" 
+            name="email" 
+            placeholder="george123@gmail.com"
+            ngModel
+            #inputEmail="ngModel"
+            required
+            [appEmail]="domains"
+            >
+        </div>
+        @if (inputEmail?.touched) {
+            <div>
+                @if(inputEmail?.errors?.['required']) {
+                    <p class="error-msg">Email is required!</p>
+                }
+
+                @if(inputEmail?.errors?.['emailValidator']) {
+                    <p class="error-msg">Email is invalid!</p>
+                }
+            </div>
+        }
+
+        <div ngModelGroup 
+        class="d-flex f-direction-column ai-center gap-20 padding-20"
+        appPasswordsMatching
+        ngModelGroup="passwordGroup"
+        #passwordGroup="ngModelGroup"
+        >
+
+            <div class="field relative">
+                <i class="fa-solid fa-key absolute"
+                [class]="isMissing!(inputPassword) || tooShort!(inputPassword) ? 'error-color':''"
+                ></i>
+
+                <label for="password"
+                [class]="isMissing!(inputPassword) || tooShort!(inputPassword) ? 'error-color':''"
+                >Password</label>
+
+                <input type="password" 
+                [class]="isMissing!(inputPassword) || tooShort!(inputPassword) ? 'error-input':''"
+                id="password" 
+                name="password" 
+                placeholder="************"
+                ngModel
+                #inputPassword="ngModel"
+                required
+                minlength="6"
+                >
+            </div>
+            @if (inputPassword?.touched) {
+                <div>
+                    @if(inputPassword?.errors?.['required']) {
+                        <p class="error-msg">Password is required!</p>
+                    }
+    
+                    @if(inputPassword?.errors?.['minlength']) {
+                        <p class="error-msg">Password must be at least 6 characters.</p>
+                    }
+                </div>
+            }
+    
+            <div class="field relative">
+                <i class="fa-solid fa-key absolute"
+                [class]="mismatchedPasswords!(inputRepassword, passwordGroup) ? 'error-color':''"
+                ></i>
+
+                <label for="repassword"
+                [class]="mismatchedPasswords!(inputRepassword, passwordGroup) ? 'error-color':''"
+                >Repeat Password</label>
+
+                <input type="password" 
+                [class]="mismatchedPasswords!(inputRepassword, passwordGroup) ? 'error-input':''"
+                id="repassword" 
+                name="repassword" 
+                placeholder="************"
+                ngModel
+                #inputRepassword="ngModel"
+                >
+            </div>
+            @if (inputRepassword?.touched) {
+                <div>
+                    @if(passwordGroup?.control?.errors?.['passMatchingValidator']) {
+                        <p class="error-msg">The passwords don't match!</p>
+                    }
+                </div>
+            }
+        </div>
+
+        <p class="c-light">Already have an account? <a routerLink="/login" class="hlink">Log in here</a></p>
+        <button class="button btn-primary"
+        [class]="form.invalid ? 'disabled':''"
+        [disabled]="form.invalid"
+        >Register</button>
+    </form>
+</section>

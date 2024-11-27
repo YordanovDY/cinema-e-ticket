@@ -1,0 +1,33 @@
+<header class="bg-dark c-light padding-20 ">
+    <nav class="header-font d-flex jc-space-between relative">
+        <ul class="site-nav ls-none d-flex gap-20 ai-center">
+            <li><a class="nav-button" routerLink="/home">
+                    <h1>E-TICKET</h1>
+                </a></li>
+            <li><a class="nav-button" routerLink="/movies">Movies</a></li>
+            <li><a class="nav-button" routerLink="/prices">Prices</a></li>
+            <li><a class="nav-button" routerLink="/about">About</a></li>
+            <li><a class="nav-button" routerLink="/contacts">Contacts</a></li>
+        </ul>
+
+        @if(isLoggedIn) {
+            <div class="user-nav d-flex ai-center">
+                <div (click)="showMenu()" class="button round-button btn-primary">
+                    D
+                </div>
+                @if(dropDownMenu){
+                    <app-profile-dropdown />
+                }
+            </div>
+
+        } @else {
+            <div class="guest-nav d-flex ai-center">
+                <ul class="control-nav ls-none d-flex gap-20 ai-center">
+                    <li><a class="button btn-secondary" routerLink="/register">Register</a></li>
+                    <li><a class="button btn-secondary" routerLink="/login">Login</a></li>
+                </ul>
+            </div>
+        }
+
+    </nav>
+</header>

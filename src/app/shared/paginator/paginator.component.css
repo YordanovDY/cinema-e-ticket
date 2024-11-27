@@ -1,0 +1,9 @@
+.paginator a {
+    text-decoration: underline;
+    font-size: 16px;
+}
+
+.current-page{
+    text-decoration: none !important;
+    color: silver;
+}

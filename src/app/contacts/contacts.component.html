@@ -1,0 +1,65 @@
+<section id="contactsSection" class="d-flex jc-center ai-center">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20" #form="ngForm" (ngSubmit)="contactsSubmitHandler(form)">
+        <h2>Contacts</h2>
+        <div class="field relative">
+            <label for="subject"
+            [class]="isMissing!(inputSubject) || tooShort!(inputSubject) ? 'error-color':''"
+            >Subject</label>
+
+            <input type="text" 
+            [class]="isMissing!(inputSubject) || tooShort!(inputSubject) ? 'error-input':''"
+            name="subject" 
+            id="subject"
+            ngModel
+            #inputSubject="ngModel"
+            required
+            minlength="10"
+            >
+        </div>
+        @if (inputSubject?.touched) {
+            <div>
+                @if(inputSubject?.errors?.['required']) {
+                    <p class="error-msg">Subject is required!</p>
+                }
+
+                @if(inputSubject?.errors?.['minlength']) {
+                    <p class="error-msg">Subject must be at least 10 characters!</p>
+                }
+            </div>
+        }
+        <div class="field relative">
+            <label for="message"
+            [class]="isMissing!(textareaMessage) || tooShort!(textareaMessage) ? 'error-color':''"
+            >Message</label>
+            
+            <textarea 
+            [class]="isMissing!(textareaMessage) || tooShort!(textareaMessage) ? 'error-input':''"
+            name="message" 
+            id="message" 
+            rows="10" 
+            cols="10"
+            ngModel
+            #textareaMessage="ngModel"
+            required
+            minlength="16"
+            ></textarea>
+        </div>
+        @if (textareaMessage?.touched) {
+            <div>
+                @if(textareaMessage?.errors?.['required']) {
+                    <p class="error-msg">Message is required!</p>
+                }
+
+                @if(textareaMessage?.errors?.['minlength']) {
+                    <p class="error-msg">Message must be at least 16 characters!</p>
+                }
+            </div>
+        }
+        
+        <button class="button btn-primary"
+            [class]="form?.invalid ? 'disabled' : ''" 
+            [disabled]="form?.invalid">
+            Send
+        </button>
+    </form>
+</section>

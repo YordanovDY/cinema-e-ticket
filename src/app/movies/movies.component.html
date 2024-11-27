@@ -1,0 +1,29 @@
+<section id="moviesSection" class="d-flex f-direction-column gap-30">
+    <h2>All movies</h2>
+    <div class="wrapper">
+        <ul class=" ls-none d-flex f-direction-column gap-30">
+            @if(isLoading) {
+                <app-loader />
+            } @else {
+                @for (movie of movieList; track $index) {
+                    <li>
+                        <a [routerLink]="movie.objectId">
+                            <article class="d-flex gap-20 ai-center padding-20">
+                                <div class="img-container">
+                                    <img class="img-article" src="{{movie.imgUrl}}">
+                                </div>
+                                <div class="movie-info">
+                                    <h3>{{movie.title}}</h3>
+                                    <p>Genre: {{movie.genre}}</p>
+                                </div>
+                            </article>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    @if(!isLoading){
+        <app-paginator />
+    }
+</section>

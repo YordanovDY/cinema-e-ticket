@@ -1,0 +1,71 @@
+    @if(isProjLoading || isPriceLoading){
+        <section id="projectionInfo" class="d-flex jc-center ai-center padding-50">
+            <app-loader />
+        </section>
+    } @else {
+    <section (change)="typeTicketChange(ticketTypeRef)" id="projectionInfo" class="d-flex jc-center ai-center padding-50">
+        <form class="ticket bg-dark d-flex f-direction-column jc-space-between padding-30">
+            <div class="d-flex jc-space-between ai-center f-wrap gap-10">
+                <div class="field">
+                    <label for="movieName">Movie:</label>
+                    <input type="text" id="movieName" name="movieName" disabled [value]="projection?.movie?.title">
+                </div>
+                <div class="field">
+                    <label for="screenName">Screen:</label>
+                    <input type="text" id="screenName" name="screenName" disabled [value]="projection?.screen?.name">
+                </div>
+                <div class="field">
+                    <label for="dateAndTime">Date:</label>
+                    <input type="text" id="dateAndTime" name="dateAndTime" disabled [value]="projection?.dateAndTime?.iso">
+                </div>
+            </div>
+            <div class="d-flex jc-space-between ai-center gap-10">
+                <div class="field">
+                    <label for="row">Row:</label>
+                    <input type="text" id="row" name="row" disabled [value]="chosenRow">
+                </div>
+                <div class="field">
+                    <label for="seat">Seat:</label>
+                    <input type="text" id="seat" name="seat" disabled [value]="chosenSeat">
+                </div>
+            </div>
+    
+            <div class="d-flex jc-space-between ai-center gap-10">
+                <div class="field">
+                    <label for="ticketType">Ticket type:</label>
+                    <select #ticketTypeRef name="ticketType" id="ticketType">
+                        @for (priceInfo of prices; track $index) {
+                            <option [value]="priceInfo.ticketPrice">{{priceInfo.ticketType}}</option>
+                        }
+                    </select>
+                </div>
+    
+                <div class="field">
+                    <label for="ticketPrice">Price:</label>
+                    <input type="text" id="ticketPrice" name="ticketPrice" disabled [value]="ticketPrice">
+                </div>
+            </div>
+            <button href="#" class="button btn-primary">BUY</button>
+        </form>
+    </section>
+    }
+
+<section id="ticketInfo" class="d-flex f-direction-column ai-flex-end gap-30 padding-50">
+    @if(isProjLoading){
+        <app-loader />
+
+    } @else {
+        <div class="map bg-dark d-flex f-direction-column ai-center gap-20 padding-30">
+            <div class="screen">Screen</div>
+            @for (row of rows; track $index; let rowNo = $index) {
+                <div class="row">
+                    @for (seat of seatsPerRow; track $index; let seatNo = $index) {
+                        <div (click)="chooseASeat($event)" class="seat free" [id]="(rowNo + 1) + 'x' + (seatNo + 1)"></div>
+                    }
+    
+                </div>
+    
+                }
+        </div>
+    }
+</section>

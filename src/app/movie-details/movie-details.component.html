@@ -1,0 +1,34 @@
+<section id="movieDetails" class="d-flex gap-30">
+    @if(isLoading) {
+        <app-loader />
+
+    } @else {
+        @if(movie) {
+            <div class="img-container">
+                <img class="img-article" [attr.src]="movie.imgUrl"
+                    alt="{{movie.title}} image">
+            </div>
+            <div class="movie-details d-flex f-direction-column gap-20 relative">
+                <h2>{{movie.title}}</h2>
+                <p>Genre: {{movie.genre}}</p>
+                <p>Duration: {{movie.duration}} min</p>
+                <p>
+                    {{movie.description}}
+                </p>
+                <div class="additional absolute">
+                    <ul class="ls-none d-flex gap-20 ai-center">
+                        <li class="rating"><i class="fa-solid fa-star"></i> {{movie.rating}} / 10</li>
+                        @if(movie.ageRestriction) {
+                            <li class="restriction">{{movie.ageRestriction}}</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    }
+</section>
+@if(isLoading){
+    <app-loader />
+}@else {
+    <app-projections [movieId]="movie?.objectId" />
+}

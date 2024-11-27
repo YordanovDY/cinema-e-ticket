@@ -1,0 +1,28 @@
+<section id="aboutSection" class="padding-20">
+    <div class="about-container padding-30 d-flex gap-30">
+        @if(isLoading){
+            <app-loader />
+
+        }@else {
+            <div class="d-flex f-direction-column gap-20">
+                <div class="img-container">
+                    <img [attr.src]="imgURL" alt="Cinema Image">
+                </div>
+                <div class="d-flex gap-10">
+                    <a href="#" class="button btn-secondary"><i class="fa-solid fa-pencil"></i></a>
+                    <a href="#" class="button btn-secondary"><i class="fa-solid fa-xmark"></i></a>
+                </div>
+            </div>
+        }
+        
+        @if(isLoading){
+            <app-loader />
+
+        }@else {
+            <p>
+                {{text}}
+                <a href="#" class="button btn-secondary"><i class="fa-solid fa-pencil"></i></a>
+            </p>
+        }
+    </div>
+</section>

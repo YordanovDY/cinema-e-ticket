@@ -1,0 +1,72 @@
+#projectionInfo,
+#ticketInfo {
+    background-color: #2e3a4a;
+}
+
+.ticket {
+    width: 90%;
+    height: 300px;
+    color: #fcf2b1;
+    border-radius: 20px;
+}
+
+.map {
+    width: 100%;
+    min-height: 600px;
+    border-radius: 20px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+.seat {
+    border-radius: 0px 0px 100px 100px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.free{
+    background-color: #a3ff18;
+}
+
+.occupied{
+    background-color: #9c6f6f;
+    cursor: not-allowed;
+}
+
+.chosen{
+    background-color: #D4AC0D;
+}
+
+.screen {
+    border: 1px solid gray;
+    color: gray;
+    text-align: center;
+    width: 70%;
+    margin-bottom: 120px;
+}
+
+select,
+input[type=text] {
+    color: #fcf2b1;
+    background: rgba(35, 44, 57, 0.5);
+    padding: 10px 10px 10px 50px;
+    border-radius: 20px;
+    width: max-content;
+    font-size: 16px;
+}
+
+.field{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+button {
+    align-self: center;
+    width: 200px;
+}

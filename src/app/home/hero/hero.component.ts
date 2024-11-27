@@ -1,0 +1,25 @@
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ApiService } from '../../api.service';
+import { LoaderComponent } from '../../shared/loader/loader.component';
+
+@Component({
+  selector: 'app-hero',
+  standalone: true,
+  imports: [RouterLink, LoaderComponent],
+  templateUrl: './hero.component.html',
+  styleUrl: './hero.component.css'
+})
+export class HeroComponent implements OnInit{
+  text: string = ''
+  isLoading = true;
+
+  constructor(private api:ApiService) { }
+
+  ngOnInit(): void {
+    this.api.getInfoObject().subscribe(obj => {
+      this.text = obj.heroText;
+      this.isLoading = false;
+    })
+  }
+}

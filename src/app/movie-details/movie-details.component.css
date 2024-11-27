@@ -1,0 +1,53 @@
+#movieDetails article .img-container {
+    width: 600px;
+    height: 600px;
+}
+
+#movieDetails {
+    background-color: #2e3a4a;
+    color: #fcf2b1;
+    padding: 20px;
+    min-height: 550px;
+}
+
+.img-article {
+    height: 100%;
+    width: 100%;
+}
+
+.img-container {
+    flex: 0 0 30%;
+}
+
+.movie-details {
+    flex-grow: 1;
+}
+
+.additional {
+    right: 30px;
+    top: 30px;
+}
+
+.rating {
+    color: #D4AC0D;
+}
+
+.restriction {
+    padding: 8px;
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    border-radius: 50%;
+    font-size: 11px;
+}
+
+@media screen and (max-width: 611px) {
+    .img-container {
+        display: none;
+    }
+
+    .projection-item {
+        flex-direction: column;
+        gap: 10px
+    }
+}

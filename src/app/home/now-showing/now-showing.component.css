@@ -1,0 +1,43 @@
+#nowShowing {
+    background-color: #232c39;
+    color: #fcf2b1;
+    padding: 20px;
+    height: max-content;
+}
+
+#nowShowing article figure {
+    width: 260px;
+    height: 385px;
+    background-color: #2e3a4a;
+}
+
+.img-article {
+    height: 100%;
+}
+
+#nowShowing article:hover {
+    outline: 3px solid #D4AC0D;
+    border-radius: 8px;
+}
+
+#nowShowing .action-buttons {
+    text-align: right;
+    padding-top: 30px;
+}
+
+@media screen and (max-width: 1200px) {
+    .movies-wrapper {
+        flex-wrap: wrap;
+        gap: 50px;
+        height: max-content;
+    }
+
+    .movies-wrapper>a {
+        flex: 0 0 calc(40% - 30px);
+        width: 260px;
+    }
+
+    article{
+        width: 260px;
+    }
+}

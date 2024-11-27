@@ -1,0 +1,26 @@
+<section id="ourCinema" class="d-flex f-direction-column gap-60">
+    @if(isLoading){
+        <app-loader />
+        
+    } @else {
+        <p>
+            {{text}} 
+            <a href="#" class="button btn-secondary"><i class="fa-solid fa-pencil"></i></a>
+        </p>
+        
+        <div class="gallery d-flex jc-space-around">
+            <figure>
+                <img src="https://cdn.pixabay.com/photo/2024/02/12/17/49/theater-8569119_1280.jpg" alt="Cinema">
+            </figure>
+            <figure>
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/001/227/422/small_2x/cinema-movie-theater-with-blank-screen-and-red-seat.jpg" alt="Cinema">
+            </figure>
+            <figure>
+                <img src="https://t3.ftcdn.net/jpg/06/52/50/84/360_F_652508416_PMVJMXZMgnpHmlUIoEnV6xlSTojSwiQ3.jpg" alt="Cinema">
+            </figure>
+            <figure>
+                <img src="https://media.istockphoto.com/id/1977237765/photo/empty-cinema-theatre-seats.webp?b=1&s=612x612&w=0&k=20&c=1wGm7Wdojk3TI9yqfvIAU4EO4uS9P_Dh9ZHJvL5fO0M=" alt="Cinema">
+            </figure>
+        </div>
+    }
+</section>

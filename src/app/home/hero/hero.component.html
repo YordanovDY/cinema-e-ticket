@@ -1,0 +1,24 @@
+<section id="heroSection" class="d-flex f-direction-column jc-center ai-center">
+    <div class="opening-text c-light">
+        @if(isLoading) {
+            <app-loader />
+
+        }@else {
+            <p>
+                {{text}}
+                <a href="#" class="button btn-secondary"><i class="fa-solid fa-pencil"></i></a>
+            </p>
+        }
+    </div>
+    <div class="action-buttons">
+        <ul class=" ls-none d-flex gap-40">
+            @if(isLoading){
+                <app-loader />
+
+            } @else {
+                <li><a class="button btn-secondary" routerLink="/login">Sign In</a></li>
+                <li><a class="button btn-primary" routerLink="/movies">Get Tickets</a></li>
+            }
+        </ul>
+    </div>
+</section>

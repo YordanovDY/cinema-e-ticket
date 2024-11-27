@@ -1,0 +1,25 @@
+<section id="nowShowing" class="d-flex f-direction-column jc-space-around">
+    <div>
+        <h2>Now showing</h2>
+    </div>
+    <div class="movies-wrapper d-flex jc-space-around">
+        @if(isLoading) {
+            <app-loader />
+
+        } @else {
+            @for (movie of nowShowingMovies; track $index) {
+                <a [routerLink]="'/movies/' + movie.objectId">
+                    <article>
+                        <figure>
+                            <img class="img-article" [attr.src]="movie.imgUrl">
+                            <figcaption>{{movie.title}}</figcaption>
+                        </figure>
+                    </article>
+                </a>
+            }
+        }
+    </div>
+    <div class="action-buttons">
+        <a routerLink="/movies" class="button btn-secondary">See more</a>
+    </div>
+</section>

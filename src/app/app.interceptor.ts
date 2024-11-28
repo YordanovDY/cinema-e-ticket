@@ -5,7 +5,7 @@ export const appInterceptor: HttpInterceptorFn = (req, next) => {
   if(req.url.startsWith('/api')) {
     req = req.clone({
       url: req.url.replace('/api', environment.API_URL),
-      // withCredentials: true
+      withCredentials: true
     })
   }
 

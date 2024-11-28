@@ -1,16 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgForm, NgModel, NgModelGroup } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { EmailDirective } from '../../directives/email.directive';
 import { DOMAINS } from '../../constants';
 import { PasswordsMatchingDirective } from '../../directives/passwords-matching.directive';
 import { CommonFormValidatorsService } from '../../utils/validators/common-form-validators.service';
 import { GroupValidator, SimpleValidator } from '../../types/functions';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, FormsModule, EmailDirective, PasswordsMatchingDirective],
+  imports: [
+    RouterLink, 
+    FormsModule, 
+    EmailDirective, 
+    PasswordsMatchingDirective
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
   providers:[CommonFormValidatorsService]
@@ -22,7 +28,12 @@ export class RegisterComponent implements OnInit {
   invalidEmail: SimpleValidator | null = null;
   mismatchedPasswords: GroupValidator | null = null;
 
-  constructor(private validator: CommonFormValidatorsService) { }
+  constructor(
+    private validator: CommonFormValidatorsService,
+    private userService: UserService,
+    private router: Router
+  ) { }
+  
   ngOnInit(): void {
     this.isMissing = this.validator.isMissing;
     this.tooShort = this.validator.tooShort;
@@ -31,7 +42,15 @@ export class RegisterComponent implements OnInit {
   }
 
   registerSubmitHandler(form: NgForm) {
-    console.log(form);
-    
+    const {username, email, passwordGroup} = form.value;
+    const {password, repassword} = passwordGroup;
+
+    if(password !== repassword){
+      return;
+    }
+
+    this.userService.register(username, email, password).subscribe(()=>{
+      this.router.navigate(['/home']);
+    })
   }
 }

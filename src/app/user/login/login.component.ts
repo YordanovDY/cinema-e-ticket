@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonFormValidatorsService } from '../../utils/validators/common-form-validators.service';
 import { SimpleValidator } from '../../types/functions';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,11 @@ export class LoginComponent implements OnInit {
   isMissing: SimpleValidator | null = null;
   tooShort: SimpleValidator | null = null;
 
-  constructor(private validator: CommonFormValidatorsService) { }
+  constructor(
+    private validator: CommonFormValidatorsService,
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.isMissing = this.validator.isMissing;
@@ -24,7 +29,14 @@ export class LoginComponent implements OnInit {
   }
 
   loginSubmitHandler(form: NgForm){
-    console.log(form);
+    if(form.invalid) {
+      return
+    }
     
+    const {username, password} = form.value;
+    
+    this.userService.login(username, password).subscribe(() => {
+      this.router.navigate(['/home']);
+    })
   }
 }

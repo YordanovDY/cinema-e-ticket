@@ -12,8 +12,7 @@ import { InfoObject } from './types/infoObject';
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL = environment.API_URL;
-  headers = {
+  private headers = {
     'X-Parse-Application-Id': environment.APP_ID,
     'X-Parse-REST-API-Key': environment.REST_API_KEY,
     'Content-Type': 'application/json'
@@ -28,13 +27,13 @@ export class ApiService {
       options['params'] = { order: '-createdAt', limit: records };
     }
 
-    return this.http.get<B4AResponse>(`${this.API_URL}/Movie`, options);
+    return this.http.get<B4AResponse>('/api/classes/Movie', options);
   }
 
   getSingleMovie(movieId: string) {
     const options: Options = { headers: this.headers };
 
-    return this.http.get<Movie>(`${this.API_URL}/Movie/${movieId}`, options);
+    return this.http.get<Movie>(`/api/classes/Movie/${movieId}`, options);
   }
 
   getProjections(movieId: string) {
@@ -53,24 +52,24 @@ export class ApiService {
     
     options['params'] = { where: JSON.stringify(query) };
 
-    return this.http.get<B4AResponse>(`${this.API_URL}/Projection`, options);
+    return this.http.get<B4AResponse>('/api/classes/Projection', options);
   }
 
   getSingleProjection(projectionId: string) {
     const options: Options = { headers: this.headers };
 
-    return this.http.get<Projection>(`${this.API_URL}/Projection/${projectionId}`, options);
+    return this.http.get<Projection>(`/api/classes/Projection/${projectionId}`, options);
   }
 
 
   getPrices(){
     const options: Options = { headers: this.headers };
 
-    return this.http.get<B4AResponse>(`${this.API_URL}/Price`, options);
+    return this.http.get<B4AResponse>('/api/classes/Price', options);
   }
 
   getInfoObject() {
-    const URL = `${this.API_URL}/Information/${INFO_KEY}`;
+    const URL = `/api/classes/Information/${INFO_KEY}`;
     const options: Options = { headers: this.headers };
 
     return this.http.get<InfoObject>(URL, options);

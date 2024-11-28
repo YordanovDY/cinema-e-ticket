@@ -12,10 +12,7 @@
     </div>
     <div class="action-buttons">
         <ul class=" ls-none d-flex gap-40">
-            @if(isLoading){
-                <app-loader />
-
-            } @else {
+            @if(!isLoading){
                 <li><a class="button btn-secondary" routerLink="/login">Sign In</a></li>
                 <li><a class="button btn-primary" routerLink="/movies">Get Tickets</a></li>
             }

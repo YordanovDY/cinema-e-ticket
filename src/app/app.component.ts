@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./core/header/header.component";
 import { FooterComponent } from "./core/footer/footer.component";
-import { HomeComponent } from "./home/home.component";
-import { MoviesComponent } from "./movies/movies.component";
 import { AuthenticateComponent } from './authenticate/authenticate.component';
 
 @Component({

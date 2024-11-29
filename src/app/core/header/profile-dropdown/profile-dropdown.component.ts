@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { VoidFn } from '../../../types/functions';
+import { UserService } from '../../../user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-dropdown',
@@ -8,5 +11,13 @@ import { Component } from '@angular/core';
   styleUrl: './profile-dropdown.component.css'
 })
 export class ProfileDropdownComponent {
+
+  constructor(private userService: UserService, private router: Router) { }
+
+  logout() {
+    this.userService.logout()?.subscribe(() => {
+      this.router.navigate(['/login']);
+    })
+  }
 
 }

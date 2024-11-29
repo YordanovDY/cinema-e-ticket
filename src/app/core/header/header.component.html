@@ -13,7 +13,7 @@
         @if(isLoggedIn) {
             <div class="user-nav d-flex ai-center">
                 <div (click)="showMenu()" class="button round-button btn-primary">
-                    D
+                    {{username | firstLetter}}
                 </div>
                 @if(dropDownMenu){
                     <app-profile-dropdown />

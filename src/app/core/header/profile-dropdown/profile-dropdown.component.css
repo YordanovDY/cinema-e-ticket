@@ -11,4 +11,5 @@
 
 .dropdown-menu a:hover {
     border-bottom: 1px solid #232c39;
+    cursor: pointer;
 }

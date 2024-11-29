@@ -1,13 +1,13 @@
-export enum UserRole{
+export enum UserRole {
     User = 'xNCf59Hyl8',
     Manager = '3fnChAmfk6',
     Admin = 'QQxCPMWz9a'
 }
 
 export interface Role {
- __type: "Pointer", 
- className: "_Role",
- objectId: string
+    __type: "Pointer",
+    className: "_Role",
+    objectId: string
 }
 
 export interface User {
@@ -20,5 +20,14 @@ export interface User {
     updatedAt: string,
     __type: "Object",
     className: "_User",
+    sessionToken: string
+}
+
+export interface CurrentUser {
+    username: string,
+    myCustomKeyName: string,
+    createdAt: string,
+    updatedAt: string,
+    objectId: string,
     sessionToken: string
 }

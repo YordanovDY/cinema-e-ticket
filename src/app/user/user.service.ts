@@ -1,22 +1,34 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { User, UserRole } from '../types/user';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, Subscription, tap } from 'rxjs';
 import { Options } from '../types/apiOptions';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  private user$$ = new BehaviorSubject<User | null>(null);
+export class UserService implements OnDestroy {
+  private user$$ = new BehaviorSubject<User| null>(null);
   private user$ = this.user$$.asObservable();
   private headers = {
     'X-Parse-Application-Id': environment.APP_ID,
     'X-Parse-REST-API-Key': environment.REST_API_KEY
   }
 
-  constructor(private http: HttpClient) { }
+  user: User | null = null;
+  sessionToken: string = localStorage.getItem('[SessionToken]') || '';
+  userSub: Subscription | null = null;
+
+  constructor(private http: HttpClient) {
+    this.userSub = this.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
+
+  get isLogged(): boolean {    
+    return !!this.user;
+  }
 
   login(username: string, password: string) {
     const options: Options = {
@@ -33,9 +45,8 @@ export class UserService {
 
     return this.http.post<User>('/api/login', body, options).pipe(tap(
       user => {
-        console.log(user);
-        
         this.user$$.next(user)
+        localStorage.setItem('[SessionToken]', user.sessionToken);
       }
     ))
   }
@@ -56,20 +67,56 @@ export class UserService {
       password,
       email,
       role: {
-        __type: "Pointer", 
+        __type: "Pointer",
         className: "_Role",
         objectId: userRoleId
       }
     }
 
     return this.http.post<User>('/api/users', body, options).pipe(tap(
-      user => this.user$$.next(user)
+      user => {
+        this.user$$.next(user);
+        localStorage.setItem('[SessionToken]', user.sessionToken);
+      }
     ))
   }
 
+  logout() {
+    if (!this.user) {
+      return;
+    }
+
+    const options: Options = {
+      headers: {
+        ...this.headers,
+        'X-Parse-Session-Token': this.user.sessionToken
+      }
+    }
+
+    return this.http.post('/api/logout', null, options).pipe((tap(
+      () => {
+        this.user$$.next(null);
+        localStorage.removeItem('[SessionToken]');
+      }
+    )))
+  }
+
   getProfile() {
-    return this.http.get<User>('/api/users/me').pipe(tap(
-      user => this.user$$.next(user)
+    const options: Options = {
+      headers: {
+        ...this.headers,
+        'X-Parse-Session-Token': this.sessionToken
+      }
+    }
+
+    return this.http.get<User>('/api/users/me', options).pipe(tap(
+      (user) => {
+        this.user$$.next(user);
+      }
     ))
+  }
+
+  ngOnDestroy(): void {
+    this.userSub?.unsubscribe();
   }
 }

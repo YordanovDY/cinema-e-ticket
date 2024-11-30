@@ -1,14 +1,19 @@
 <section id="movieProjections" class="d-flex f-direction-column gap-30">
     <h3>Tickets</h3>
     <ul class="ls-none d-flex f-direction-column gap-20">
-        @for (projection of projections; track $index) {
-            <li class="projection-item d-flex jc-space-between ai-center">
-                <div>
-                    <p><span class="movie-title">{{projection.movie.title}}</span> in {{projection.screen.name}} at <time
-                            >{{parseDate(projection.dateAndTime.iso)}}</time></p>
-                </div>
-                <a [routerLink]="'/buy-ticket/'+projection.objectId" class="button btn-secondary">Buy ticket</a>
-            </li>
+        @if(isLoading$ | async){
+            <app-loader />
+            
+        }@else {
+            @for (projection of projections$ | async; track $index) {
+                <li class="projection-item d-flex jc-space-between ai-center">
+                    <div>
+                        <p><span class="movie-title">{{projection.movie.title}}</span> in {{projection.screen.name}} at <time
+                                >{{projection.dateAndTime.iso | date:'dd.MMMM.yyyy hh:mm:ss'}}</time></p>
+                    </div>
+                    <a [routerLink]="'/buy-ticket/'+projection.objectId" class="button btn-secondary">Buy ticket</a>
+                </li>
+            }
         }
     </ul>
     <app-paginator />

@@ -30,11 +30,11 @@ export class ApiService {
   //   return this.http.get<B4AResponse>('/api/classes/Movie', options);
   // }
 
-  getSingleMovie(movieId: string) {
-    const options: Options = { headers: this.headers };
+  // getSingleMovie(movieId: string) {
+  //   const options: Options = { headers: this.headers };
 
-    return this.http.get<Movie>(`/api/classes/Movie/${movieId}`, options);
-  }
+  //   return this.http.get<Movie>(`/api/classes/Movie/${movieId}`, options);
+  // }
 
   getProjections(movieId: string) {
     const options: Options = { headers: this.headers };

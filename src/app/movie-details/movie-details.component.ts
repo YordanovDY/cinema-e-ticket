@@ -1,31 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../types/movie';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../api.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { ProjectionsComponent } from "./projections/projections.component";
+import { MovieDetailsService } from './movie-details.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [LoaderComponent, ProjectionsComponent],
+  imports: [LoaderComponent, ProjectionsComponent, AsyncPipe],
   templateUrl: './movie-details.component.html',
-  styleUrl: './movie-details.component.css'
+  styleUrl: './movie-details.component.css',
+  providers: [MovieDetailsService]
 })
 export class MovieDetailsComponent implements OnInit {
-  movie: Movie | null = null;
-  isLoading = true;
+  get movie$() {
+    return this.movieDetailsService.movie$;
+  }
+
+  get isLoading$() {
+    return this.movieDetailsService.isLoading$;
+  }
 
   constructor (
     private route: ActivatedRoute,
-    private api: ApiService
+    private movieDetailsService: MovieDetailsService
   ) { }
 
   ngOnInit(): void {
     const movieId = this.route.snapshot.params['movieId'];
-    this.api.getSingleMovie(movieId).subscribe((currentMovie: Movie) => {
-      this.movie = currentMovie;
-      this.isLoading = false;
-    })
+    this.movieDetailsService.getSingleMovie(movieId);
   }
 }

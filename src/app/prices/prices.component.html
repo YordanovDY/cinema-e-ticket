@@ -1,10 +1,10 @@
 <section id="pricesSection" class="d-flex jc-center padding-20">
     <div class="table d-flex jc-center padding-30">
-        @if(isLoading){
+        @if(isLoading$ | async){
             <app-loader />
         } @else {
             <ul class="d-flex f-direction-column gap-10">
-                @for (priceInfo of prices; track $index) {
+                @for (priceInfo of prices$ | async; track $index) {
                     <li class="item d-flex jc-space-around relative">
                         <p>{{priceInfo.ticketType}}</p>
                         <p>{{priceInfo.ticketPrice.toFixed(2)}}&euro;</p>

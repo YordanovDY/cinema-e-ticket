@@ -27,8 +27,6 @@
         }
     }
 </section>
-@if(isLoading$ | async){
-    <app-loader />
-}@else {
+@if(!(isLoading$ | async)){
     <app-projections [movieId]="(movie$ | async)?.objectId" />
 }

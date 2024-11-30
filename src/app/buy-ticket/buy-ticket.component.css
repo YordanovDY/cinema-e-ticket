@@ -53,7 +53,7 @@ select,
 input[type=text] {
     color: #fcf2b1;
     background: rgba(35, 44, 57, 0.5);
-    padding: 10px 10px 10px 50px;
+    padding: 10px;
     border-radius: 20px;
     width: max-content;
     font-size: 16px;

@@ -1,4 +1,4 @@
-    @if(isProjLoading || isPriceLoading){
+    @if((isProjLoading$ | async) || (isPriceLoading$ | async)){
         <section id="projectionInfo" class="d-flex jc-center ai-center padding-50">
             <app-loader />
         </section>
@@ -8,15 +8,15 @@
             <div class="d-flex jc-space-between ai-center f-wrap gap-10">
                 <div class="field">
                     <label for="movieName">Movie:</label>
-                    <input type="text" id="movieName" name="movieName" disabled [value]="projection?.movie?.title">
+                    <input type="text" id="movieName" name="movieName" disabled [value]="(projection$ | async)?.movie?.title">
                 </div>
                 <div class="field">
                     <label for="screenName">Screen:</label>
-                    <input type="text" id="screenName" name="screenName" disabled [value]="projection?.screen?.name">
+                    <input type="text" id="screenName" name="screenName" disabled [value]="(projection$ | async)?.screen?.name">
                 </div>
                 <div class="field">
                     <label for="dateAndTime">Date:</label>
-                    <input type="text" id="dateAndTime" name="dateAndTime" disabled [value]="projection?.dateAndTime?.iso">
+                    <input type="text" id="dateAndTime" name="dateAndTime" disabled [value]="(projection$ | async)?.dateAndTime?.iso">
                 </div>
             </div>
             <div class="d-flex jc-space-between ai-center gap-10">
@@ -34,7 +34,7 @@
                 <div class="field">
                     <label for="ticketType">Ticket type:</label>
                     <select #ticketTypeRef name="ticketType" id="ticketType">
-                        @for (priceInfo of prices; track $index) {
+                        @for (priceInfo of prices$ | async; track $index) {
                             <option [value]="priceInfo.ticketPrice">{{priceInfo.ticketType}}</option>
                         }
                     </select>
@@ -51,15 +51,15 @@
     }
 
 <section id="ticketInfo" class="d-flex f-direction-column ai-flex-end gap-30 padding-50">
-    @if(isProjLoading){
+    @if((isProjLoading$ | async)){
         <app-loader />
 
     } @else {
         <div class="map bg-dark d-flex f-direction-column ai-center gap-20 padding-30">
             <div class="screen">Screen</div>
-            @for (row of rows; track $index; let rowNo = $index) {
+            @for (row of [].constructor((projection$ | async)?.screen?.rows); track $index; let rowNo = $index) {
                 <div class="row">
-                    @for (seat of seatsPerRow; track $index; let seatNo = $index) {
+                    @for (seat of [].constructor((projection$ | async)?.screen?.seatsPerRow); track $index; let seatNo = $index) {
                         <div (click)="chooseASeat($event)" class="seat free" [id]="(rowNo + 1) + 'x' + (seatNo + 1)"></div>
                     }
     

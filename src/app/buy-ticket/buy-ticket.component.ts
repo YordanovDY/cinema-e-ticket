@@ -1,50 +1,60 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
 import { ActivatedRoute } from '@angular/router';
-import { Projection } from '../types/projection';
-import { Price } from '../types/price';
+
 import { LoaderComponent } from '../shared/loader/loader.component';
+import { BuyTicketService } from './buy-ticket.service';
+import { PricesService } from '../prices/prices.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-buy-ticket',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [LoaderComponent, AsyncPipe],
   templateUrl: './buy-ticket.component.html',
-  styleUrl: './buy-ticket.component.css'
+  styleUrl: './buy-ticket.component.css',
+  providers: [BuyTicketService, PricesService]
 })
-export class BuyTicketComponent implements OnInit {
-  projection: Projection | null = null;
-  isProjLoading = true;
-  isPriceLoading = true;
-  rows = [];
-  seatsPerRow = [];
-  prices: Price[] = [];
+export class BuyTicketComponent implements OnInit{
   ticketType: string = '';
   ticketPrice: string = '';
   chosenRow: string = '';
   chosenSeat: string = '';
   lastChosen: HTMLElement | null = null;
 
-  constructor(private api:ApiService, private route: ActivatedRoute) { }
+  // Prices Service
+
+  get prices$(){
+    return this.pricesService.prices$
+  }
+
+  get isPriceLoading$() {
+    return this.pricesService.isLoading$;
+  }
+
+  // Projection Service
+
+  get projection$(){
+    return this.btService.projection$;
+  }
+
+  get isProjLoading$(){
+    return this.btService.isLoading$;
+  }
+
+  constructor(
+    private route: ActivatedRoute,
+    private btService: BuyTicketService,
+    private pricesService: PricesService
+  ) { }
 
   ngOnInit(): void {
     const projectionId = this.route.snapshot.params['projectionId'];
     
-    this.api.getSingleProjection(projectionId).subscribe(projection => {
-      this.projection = projection;
-      this.rows.length = projection.screen.rows;
-      this.seatsPerRow.length = projection.screen.seatsPerRow;
-      this.isProjLoading = false;
-    })
-
-    this.api.getPrices().subscribe(resp => {
-      this.prices = resp.results as Price[];
-      this.ticketType = this.prices[0].ticketType;
-      this.ticketPrice = this.prices[0].ticketPrice.toFixed(2);
-      this.isPriceLoading = false;
-    })
+    this.pricesService.getPrices();
+    this.btService.getSingleProjection(projectionId);
   }
 
+  // TODO: Ticket price field doesn't load initially its data.
 
   typeTicketChange(ticketTypeRef: HTMLSelectElement) {
     this.ticketPrice = Number(ticketTypeRef.value).toFixed(2);

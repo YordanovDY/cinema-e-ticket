@@ -55,18 +55,18 @@ export class ApiService {
     return this.http.get<B4AResponse>('/api/classes/Projection', options);
   }
 
-  getSingleProjection(projectionId: string) {
-    const options: Options = { headers: this.headers };
+  // getSingleProjection(projectionId: string) {
+  //   const options: Options = { headers: this.headers };
 
-    return this.http.get<Projection>(`/api/classes/Projection/${projectionId}`, options);
-  }
+  //   return this.http.get<Projection>(`/api/classes/Projection/${projectionId}`, options);
+  // }
 
 
-  getPrices(){
-    const options: Options = { headers: this.headers };
+  // getPrices(){
+  //   const options: Options = { headers: this.headers };
 
-    return this.http.get<B4AResponse>('/api/classes/Price', options);
-  }
+  //   return this.http.get<B4AResponse>('/api/classes/Price', options);
+  // }
 
   getInfoObject() {
     const URL = `/api/classes/Information/${INFO_KEY}`;

@@ -9,7 +9,7 @@
                 <li class="projection-item d-flex jc-space-between ai-center">
                     <div>
                         <p><span class="movie-title">{{projection.movie.title}}</span> in {{projection.screen.name}} at <time
-                                >{{projection.dateAndTime.iso | date:'dd.MMMM.yyyy hh:mm:ss'}}</time></p>
+                                >{{projection.dateAndTime.iso | date:'dd MMM yyyy hh:mm:ss'}}</time></p>
                     </div>
                     <a [routerLink]="'/buy-ticket/'+projection.objectId" class="button btn-secondary">Buy ticket</a>
                 </li>

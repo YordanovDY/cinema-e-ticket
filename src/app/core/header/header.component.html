@@ -12,7 +12,7 @@
 
         @if(isLoggedIn) {
             <div class="user-nav d-flex ai-center">
-                <div (click)="showMenu()" class="button round-button btn-primary">
+                <div (click)="showMenu()" class="button round-button btn-primary btn-profile">
                     {{username | firstLetter}}
                 </div>
                 @if(dropDownMenu){

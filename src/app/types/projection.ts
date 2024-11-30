@@ -11,3 +11,9 @@ export interface Projection {
     "createdAt": string,
     "updatedAt": string
 }
+
+export interface ProjectionPointer{
+    __type: "Pointer",
+    className: "Projection",
+    objectId: string
+}

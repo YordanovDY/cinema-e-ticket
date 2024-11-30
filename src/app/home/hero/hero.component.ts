@@ -27,4 +27,8 @@ export class HeroComponent implements OnInit{
   get isLoggedIn(): boolean {
     return this.userService.isLogged;
   }
+
+  get isAdmin(): boolean {
+    return this.userService.isAdmin;
+  }
 }

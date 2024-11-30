@@ -23,11 +23,8 @@ export interface User {
     sessionToken: string
 }
 
-export interface CurrentUser {
-    username: string,
-    myCustomKeyName: string,
-    createdAt: string,
-    updatedAt: string,
-    objectId: string,
-    sessionToken: string
+export interface UserPointer {
+    __type: "Pointer",
+    className: "_User",
+    objectId: string
 }

@@ -6,7 +6,9 @@
         }@else {
             <p>
                 {{text}}
-                <a href="#" class="button btn-secondary"><i class="fa-solid fa-pencil"></i></a>
+                @if(isAdmin){
+                    <a href="#" class="button btn-secondary"><i class="fa-solid fa-pencil"></i></a>
+                }
             </p>
         }
     </div>

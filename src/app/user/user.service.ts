@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment.development';
   providedIn: 'root'
 })
 export class UserService implements OnDestroy {
-  private user$$ = new BehaviorSubject<User| null>(null);
+  private user$$ = new BehaviorSubject<User | null>(null);
   private user$ = this.user$$.asObservable();
   private headers = {
     'X-Parse-Application-Id': environment.APP_ID,
@@ -26,8 +26,24 @@ export class UserService implements OnDestroy {
     });
   }
 
-  get isLogged(): boolean {    
+  get isLogged(): boolean {
     return !!this.user;
+  }
+
+  get isManager(): boolean {
+    if(this.user){
+      return this.user.role.objectId === UserRole.Manager;
+    }
+
+    return false;
+  }
+
+  get isAdmin(): boolean {
+    if(this.user) {
+      return this.user.role.objectId === UserRole.Admin;
+    }
+
+    return false;
   }
 
   login(username: string, password: string) {

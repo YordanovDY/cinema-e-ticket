@@ -7,6 +7,7 @@
     text-align: center;
     right: 0;
     top: 64px;
+    z-index: 100;
 }
 
 .dropdown-menu a:hover {

@@ -1,3 +1,7 @@
+.btn-profile{
+    user-select: none;
+}
+
 @media screen and (max-width: 1200px) {
     header{
         width: inherit;

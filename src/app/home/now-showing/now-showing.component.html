@@ -3,11 +3,11 @@
         <h2>Now showing</h2>
     </div>
     <div class="movies-wrapper d-flex jc-space-around">
-        @if(isLoading) {
+        @if(isLoading$ | async) {
             <app-loader />
 
         } @else {
-            @for (movie of nowShowingMovies; track $index) {
+            @for (movie of movies$ | async; track $index) {
                 <a [routerLink]="'/movies/' + movie.objectId">
                     <article>
                         <figure>

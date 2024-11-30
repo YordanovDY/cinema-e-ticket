@@ -2,10 +2,10 @@
     <h2>All movies</h2>
     <div class="wrapper">
         <ul class=" ls-none d-flex f-direction-column gap-30">
-            @if(isLoading) {
+            @if(isLoading$ | async) {
                 <app-loader />
             } @else {
-                @for (movie of movieList; track $index) {
+                @for (movie of movies$ | async; track $index) {
                     <li>
                         <a [routerLink]="movie.objectId">
                             <article class="d-flex gap-20 ai-center padding-20">
@@ -23,7 +23,7 @@
             }
         </ul>
     </div>
-    @if(!isLoading){
+    @if(!(isLoading$ | async)){
         <app-paginator />
     }
 </section>

@@ -20,15 +20,15 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getMovies(records?: number) {
-    const options: Options = { headers: this.headers };
+  // getMovies(records?: number) {
+  //   const options: Options = { headers: this.headers };
 
-    if (records) {
-      options['params'] = { order: '-createdAt', limit: records };
-    }
+  //   if (records) {
+  //     options['params'] = { order: '-createdAt', limit: records };
+  //   }
 
-    return this.http.get<B4AResponse>('/api/classes/Movie', options);
-  }
+  //   return this.http.get<B4AResponse>('/api/classes/Movie', options);
+  // }
 
   getSingleMovie(movieId: string) {
     const options: Options = { headers: this.headers };

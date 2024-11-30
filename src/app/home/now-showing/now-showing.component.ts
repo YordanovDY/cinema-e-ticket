@@ -1,27 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ApiService } from '../../api.service';
+//!DELETE import { ApiService } from '../../api.service';
 import { LoaderComponent } from '../../shared/loader/loader.component';
-import { Movie } from '../../types/movie';
+import { MoviesService } from '../../movies/movies.service';
+import { AsyncPipe } from '@angular/common';
+//!DELETE import { Movie } from '../../types/movie';
 
 @Component({
   selector: 'app-now-showing',
   standalone: true,
-  imports: [RouterLink, LoaderComponent],
+  imports: [
+    RouterLink,
+    LoaderComponent,
+    AsyncPipe
+  ],
   templateUrl: './now-showing.component.html',
-  styleUrl: './now-showing.component.css'
+  styleUrl: './now-showing.component.css',
+  providers: [MoviesService]
 })
 export class NowShowingComponent implements OnInit {
-  nowShowingMovies: Movie[] = [];
-  isLoading = true;
+  get movies$() {
+    return this.moviesService.movies$;
+  }
 
-  constructor(private api: ApiService) { }
+  get isLoading$() {
+    return this.moviesService.isLoading$;
+  }
+
+  constructor(private moviesService: MoviesService) { }
 
   ngOnInit(): void {
-    this.api.getMovies(4).subscribe(resp => {
-      const movies: Movie[] = resp.results as Movie[];
-      this.nowShowingMovies = JSON.parse(JSON.stringify(movies));
-      this.isLoading = false;
-    })
+    //!DELETE this.api.getMovies(4).subscribe(resp => {
+    //   const movies: Movie[] = resp.results as Movie[];
+    //   this.nowShowingMovies = JSON.parse(JSON.stringify(movies));
+    //   this.isLoading = false;
+    // })
+
+    this.moviesService.getMovies(4);
   }
 }

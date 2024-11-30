@@ -1,28 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
-import { Movie } from '../types/movie';
 import { LoaderComponent } from "../shared/loader/loader.component";
 import { RouterLink } from '@angular/router';
 import { PaginatorComponent } from "../shared/paginator/paginator.component";
+import { MoviesService } from './movies.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [LoaderComponent, RouterLink, PaginatorComponent],
+  imports: [
+    LoaderComponent,
+    RouterLink,
+    PaginatorComponent,
+    AsyncPipe
+  ],
   templateUrl: './movies.component.html',
-  styleUrl: './movies.component.css'
+  styleUrl: './movies.component.css',
+  providers: [MoviesService]
 })
 export class MoviesComponent implements OnInit {
-  movieList: Movie[] = [];
-  isLoading = true;
+  get isLoading$() {
+    return this.moviesService.isLoading$;
+  }
 
-  constructor(private api: ApiService) { };
+  get movies$() {
+    return this.moviesService.movies$;
+  }
+
+  constructor(private moviesService: MoviesService) { };
 
   ngOnInit(): void {
-    this.api.getMovies().subscribe(resp => {
-      const movies: Movie[] = resp.results as Movie[];
-      this.movieList = JSON.parse(JSON.stringify(movies));
-      this.isLoading = false;
-    });
+    this.moviesService.getMovies();
   }
 }

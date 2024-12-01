@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { BuyTicketService } from './buy-ticket.service';
@@ -57,13 +57,14 @@ export class BuyTicketComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private btService: BuyTicketService,
     private pricesService: PricesService,
     private userService: UserService
   ) { }
 
   ngOnInit(): void {
-    const projectionId = this.route.snapshot.params['projectionId'];
+    const projectionId: string = this.route.snapshot.params['projectionId'];
 
     this.pricesService.getPrices();
     this.btService.getSingleProjection(projectionId);
@@ -85,8 +86,6 @@ export class BuyTicketComponent implements OnInit {
 
     })
   }
-
-  // TODO: Ticket price field doesn't load initially its data.
 
   typeTicketChange(ticketTypeRef: HTMLSelectElement) {
     const ticketPrice = Number(ticketTypeRef.value).toFixed(2);
@@ -128,7 +127,22 @@ export class BuyTicketComponent implements OnInit {
       }
     })
 
-    console.log(this.form);
+    const {dateAndTime, movie, projectionId, row, seat, screen, ticketPrice, ticketType, userId} = this.form.value;
+    
+    this.btService.buyTicket(
+      projectionId as string, 
+      userId as string,
+      movie as string,
+      screen as string,
+      row as string,
+      seat as string,
+      dateAndTime as string,
+      ticketType as string, 
+      ticketPrice as string
+      
+    ).subscribe(() =>{
+      this.router.navigate(['/movies']);
+    });
 
   }
 }

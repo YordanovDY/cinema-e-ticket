@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Projection } from '../types/projection';
+import { Projection, ProjectionPointer } from '../types/projection';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Options } from '../types/apiOptions';
+import { DateAndTime } from '../types/dateAndTime';
+import { UserPointer } from '../types/user';
 
 @Injectable()
 export class BuyTicketService {
@@ -29,5 +31,63 @@ export class BuyTicketService {
       this.projection$$.next(projection);
       this.isLoading$$.next(false);
     })
+  }
+
+  buyTicket(
+    projectionId: string, 
+    userId: string, 
+    movie: string, 
+    screen: string, 
+    rowStr: string, 
+    seatStr: string, 
+    dateAndTimeStr:string, 
+    ticketType:string, 
+    ticketPriceStr: string) {
+
+      const dateAndTime: DateAndTime = {
+        __type: 'Date',
+        iso: dateAndTimeStr
+      }
+
+      const row: number = Number(rowStr);
+      const seat: number = Number(seatStr);
+
+      const projectionPointer: ProjectionPointer = {
+        __type: 'Pointer',
+        className: 'Projection',
+        objectId: projectionId
+      }
+
+      const userPointer: UserPointer = {
+        __type: 'Pointer',
+        className: '_User',
+        objectId: userId
+      }
+
+      const ticketPrice: number = Number(ticketPriceStr);
+      const sessionToken = localStorage.getItem('[SessionToken]');
+      console.log(sessionToken);
+      
+      const options: Options = { 
+        headers: { 
+          ...this.headers, 
+          "X-Parse-Session-Token": sessionToken,
+          'Content-Type': 'application/json',
+        } 
+      };
+
+      const body = {
+        movie,
+        screen,
+        dateAndTime,
+        row,
+        seat,
+        ticketType,
+        ticketPrice,
+        user: userPointer,
+        projection: projectionPointer
+      }
+
+      return this.http.post('/api/classes/Ticket', body, options);
   }
 }

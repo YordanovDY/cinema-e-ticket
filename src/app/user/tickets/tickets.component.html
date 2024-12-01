@@ -1,0 +1,21 @@
+<section id="myTickets">
+    @if(isLoading$ | async){
+        <app-loader />
+    } @else {
+        <ul class="ls-none d-flex f-direction-column gap-20">
+            @if((tickets$ | async)?.length){
+                @for (ticket of tickets$ | async; track $index) {
+                    <li class="d-flex jc-space-between f-wrap ai-center">
+                        <h4>{{ticket.movie}}</h4>
+                        <p>{{ticket.dateAndTime.iso}}</p>
+                        <p>{{ticket.screen}}</p>
+                        <p>row: {{ticket.row}}</p>
+                        <p>seat: {{ticket.seat}}</p>
+                    </li>
+                }
+            } @else {
+                <p>You don't have any tickets.</p>
+            }
+        </ul>
+    }
+</section>

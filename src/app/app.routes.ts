@@ -10,6 +10,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AboutComponent } from './about/about.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './invalid-pages/page-not-found/page-not-found.component';
+import { TicketsComponent } from './user/tickets/tickets.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,6 +34,7 @@ export const routes: Routes = [
 
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    {path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard]},
 
     { path: 'prices', component: PricesComponent },
 

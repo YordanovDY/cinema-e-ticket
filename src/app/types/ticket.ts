@@ -9,5 +9,7 @@ export interface Ticket {
     "row": number,
     "seat": number,
     "user": UserPointer,
-    "projection": ProjectionPointer
+    "projection": ProjectionPointer,
+    "ticketType": string,
+    "ticketPrice": number
   }

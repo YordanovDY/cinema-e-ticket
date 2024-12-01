@@ -9,7 +9,8 @@ import { UserService } from '../../user/user.service';
   standalone: true,
   imports: [RouterLink, LoaderComponent],
   templateUrl: './hero.component.html',
-  styleUrl: './hero.component.css'
+  styleUrl: './hero.component.css',
+  providers: [ApiService]
 })
 export class HeroComponent implements OnInit{
   text: string = ''

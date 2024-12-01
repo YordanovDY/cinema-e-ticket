@@ -8,9 +8,7 @@ import { Projection } from './types/projection';
 import { INFO_KEY } from './constants';
 import { InfoObject } from './types/infoObject';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ApiService {
   private headers = {
     'X-Parse-Application-Id': environment.APP_ID,
@@ -36,24 +34,24 @@ export class ApiService {
   //   return this.http.get<Movie>(`/api/classes/Movie/${movieId}`, options);
   // }
 
-  getProjections(movieId: string) {
-    const options: Options = { headers: this.headers };
-    const now = new Date().toISOString();
+  // getProjections(movieId: string) {
+  //   const options: Options = { headers: this.headers };
+  //   const now = new Date().toISOString();
 
-    const query = {
-      "movie.id": movieId,
-      "dateAndTime": {
-        "$gte": {
-          "__type": "Date",
-          "iso": now
-        }
-      }
-    }
+  //   const query = {
+  //     "movie.id": movieId,
+  //     "dateAndTime": {
+  //       "$gte": {
+  //         "__type": "Date",
+  //         "iso": now
+  //       }
+  //     }
+  //   }
     
-    options['params'] = { where: JSON.stringify(query) };
+  //   options['params'] = { where: JSON.stringify(query) };
 
-    return this.http.get<B4AResponse>('/api/classes/Projection', options);
-  }
+  //   return this.http.get<B4AResponse>('/api/classes/Projection', options);
+  // }
 
   // getSingleProjection(projectionId: string) {
   //   const options: Options = { headers: this.headers };

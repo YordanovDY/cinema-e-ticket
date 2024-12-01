@@ -7,7 +7,8 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
   standalone: true,
   imports: [LoaderComponent],
   templateUrl: './our-cinema.component.html',
-  styleUrl: './our-cinema.component.css'
+  styleUrl: './our-cinema.component.css',
+  providers: [ApiService]
 })
 export class OurCinemaComponent implements OnInit {
   text: string = '';

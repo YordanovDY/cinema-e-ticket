@@ -59,6 +59,14 @@ input[type=text] {
     font-size: 16px;
 }
 
+input[readonly]{
+    cursor: not-allowed;
+}
+
+input[readonly]:focus{
+    outline: none;
+}
+
 .field{
     display: flex;
     align-items: center;

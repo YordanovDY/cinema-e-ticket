@@ -4,48 +4,106 @@
         </section>
     } @else {
     <section (change)="typeTicketChange(ticketTypeRef)" id="projectionInfo" class="d-flex jc-center ai-center padding-50">
-        <form class="ticket bg-dark d-flex f-direction-column jc-space-between padding-30">
+        <form class="ticket bg-dark d-flex f-direction-column jc-space-between padding-30" [formGroup]="form" (ngSubmit)="submitHandler()">
             <div class="d-flex jc-space-between ai-center f-wrap gap-10">
                 <div class="field">
                     <label for="movieName">Movie:</label>
-                    <input type="text" id="movieName" name="movieName" disabled [value]="(projection$ | async)?.movie?.title">
+
+                    <input type="text" 
+                    id="movieName" 
+                    name="movieName" 
+                    readonly
+                    formControlName="movie"
+                    >
+
                 </div>
                 <div class="field">
                     <label for="screenName">Screen:</label>
-                    <input type="text" id="screenName" name="screenName" disabled [value]="(projection$ | async)?.screen?.name">
+
+                    <input type="text" 
+                    id="screenName" 
+                    name="screenName" 
+                    readonly
+                    formControlName="screen"
+                    >
+
                 </div>
                 <div class="field">
                     <label for="dateAndTime">Date:</label>
-                    <input type="text" id="dateAndTime" name="dateAndTime" disabled [value]="(projection$ | async)?.dateAndTime?.iso">
+
+                    <input type="text" 
+                    id="dateAndTime" 
+                    name="dateAndTime" 
+                    readonly
+                    formControlName="dateAndTime"
+                    >
+
                 </div>
             </div>
             <div class="d-flex jc-space-between ai-center gap-10">
                 <div class="field">
                     <label for="row">Row:</label>
-                    <input type="text" id="row" name="row" disabled [value]="chosenRow">
+
+                    <input type="text" 
+                    id="row" 
+                    name="row" 
+                    readonly
+                    formControlName="row"
+                    >
+
                 </div>
+                @if(form.get('row')?.errors?.['required'] || form.get('seat')?.errors?.['required']){
+                    <p class="warning-msg">Don't forget to choose your seat!</p>
+                }
                 <div class="field">
                     <label for="seat">Seat:</label>
-                    <input type="text" id="seat" name="seat" disabled [value]="chosenSeat">
+
+                    <input type="text" 
+                    id="seat" 
+                    name="seat" 
+                    readonly
+                    formControlName="seat"
+                    >
+
                 </div>
             </div>
     
             <div class="d-flex jc-space-between ai-center gap-10">
                 <div class="field">
                     <label for="ticketType">Ticket type:</label>
-                    <select #ticketTypeRef name="ticketType" id="ticketType">
+                    <select #ticketTypeRef 
+                    [class]="isTypeMissing() ? 'error-input': ''"
+                    name="ticketType" 
+                    id="ticketType"
+                    formControlName="ticketType"
+                    >
+                    <option value="">-- Choose a type --</option>
                         @for (priceInfo of prices$ | async; track $index) {
                             <option [value]="priceInfo.ticketPrice">{{priceInfo.ticketType}}</option>
                         }
                     </select>
+
+                    @if(form.get('ticketType')?.touched  && form.get('ticketType')?.errors?.['required']) {
+                        <p class="error-msg">Please, select a ticket type!</p>
+                    }
                 </div>
     
                 <div class="field">
                     <label for="ticketPrice">Price:</label>
-                    <input type="text" id="ticketPrice" name="ticketPrice" disabled [value]="ticketPrice">
+
+                    <input type="text" 
+                    id="ticketPrice" 
+                    name="ticketPrice" 
+                    readonly
+                    formControlName="ticketPrice"
+                    >
+
                 </div>
             </div>
-            <button href="#" class="button btn-primary">BUY</button>
+            <button class="button btn-primary"
+            [class]="this.form.invalid ? 'disabled':''"
+            [disabled]="this.form.invalid"
+            >BUY</button>
         </form>
     </section>
     }

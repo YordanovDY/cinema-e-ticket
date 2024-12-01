@@ -46,6 +46,10 @@ nav {
     font-family: 'Poppins', Arial, Helvetica, sans-serif;
 }
 
+.d-none {
+    display: none;
+}
+
 .d-flex {
     display: flex;
 }
@@ -264,6 +268,15 @@ footer {
     border-radius: 20px;
     padding: 0 10px;
     box-shadow: rgba(255, 0, 0, 0.9) 0px 54px 55px, rgba(255, 0, 0, 0.9) 0px -12px 30px, rgba(255, 0, 0, 0.9) 0px 4px 6px, rgba(255, 0, 0, 0.9) 0px 12px 13px, rgba(255, 0, 0, 0.9) 0px -3px 5px;
+}
+
+.warning-msg {
+    color: #92a000;
+    background-color: white;
+    font-weight: 800;
+    border-radius: 20px;
+    padding: 0 10px;
+    box-shadow: rgba(238, 255, 0, 0.9) 0px 54px 55px, rgba(238, 255, 0, 0.9) 0px -12px 30px, rgba(238, 255, 0, 0.9) 0px 4px 6px, rgba(238, 255, 0, 0.9) 0px 12px 13px, rgba(238, 255, 0, 0.9) 0px -3px 5px;
 }
 
 .error-input {

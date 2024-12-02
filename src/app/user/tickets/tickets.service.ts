@@ -37,10 +37,13 @@ export class TicketsService {
         __type: 'Pointer',
         className: '_User',
         objectId: userId
-      }
+      },
     };
 
-    options['params'] = { where: JSON.stringify(query) };
+    options['params'] = {
+       where: JSON.stringify(query),
+       order: '-createdAt'
+      };
 
     this.isLoading$$.next(true);
 

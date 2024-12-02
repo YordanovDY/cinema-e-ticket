@@ -46,7 +46,7 @@ export const routes: Routes = [
 
     { path: 'prices', component: PricesComponent },
 
-    { path: 'contacts', component: ContactsComponent },
+    { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard]},
 
     { path: 'about', component: AboutComponent },
 

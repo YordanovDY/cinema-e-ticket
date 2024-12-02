@@ -3,6 +3,7 @@ import { TicketsService } from './tickets.service';
 import { UserService } from '../user.service';
 import { AsyncPipe } from '@angular/common';
 import { LoaderComponent } from '../../shared/loader/loader.component';
+import { Ticket } from '../../types/ticket';
 
 @Component({
   selector: 'app-tickets',
@@ -14,7 +15,7 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 })
 export class TicketsComponent implements OnInit {
   userId: string = '';
-
+  tickets = [] as Ticket[];
   get tickets$() {
     return this.ticketsService.tickets$;
   }
@@ -32,6 +33,9 @@ export class TicketsComponent implements OnInit {
     this.userService.getProfile().subscribe(user => {
       this.userId = user.objectId;
       this.ticketsService.getTicketsFromUser(this.userId);
+      this.tickets$.subscribe(tickets => {
+        this.tickets = tickets as Ticket[];
+      })
     })
 
   }

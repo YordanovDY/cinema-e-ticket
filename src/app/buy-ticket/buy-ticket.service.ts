@@ -66,7 +66,6 @@ export class BuyTicketService {
 
       const ticketPrice: number = Number(ticketPriceStr);
       const sessionToken = localStorage.getItem('[SessionToken]');
-      console.log(sessionToken);
       
       const options: Options = { 
         headers: { 

@@ -109,7 +109,7 @@
     }
 
 <section id="ticketInfo" class="d-flex f-direction-column ai-flex-end gap-30 padding-50">
-    @if((isProjLoading$ | async)){
+    @if((isProjLoading$ | async) || (isTicketsLoading$ | async)){
         <app-loader />
 
     } @else {
@@ -118,7 +118,11 @@
             @for (row of [].constructor((projection$ | async)?.screen?.rows); track $index; let rowNo = $index) {
                 <div class="row">
                     @for (seat of [].constructor((projection$ | async)?.screen?.seatsPerRow); track $index; let seatNo = $index) {
-                        <div (click)="chooseASeat($event)" class="seat free" [id]="(rowNo + 1) + 'x' + (seatNo + 1)"></div>
+                        @if(soldTickets.includes((rowNo+1).toString() +'x'+ (seatNo+1).toString())){
+                            <div class="seat occupied" [id]="(rowNo + 1) + 'x' + (seatNo + 1)"></div>
+                        }@else {
+                            <div (click)="chooseASeat($event)" class="seat free" [id]="(rowNo + 1) + 'x' + (seatNo + 1)"></div>
+                        }
                     }
     
                 </div>

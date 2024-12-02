@@ -3,7 +3,7 @@
         <app-loader />
     } @else {
         <ul class="ls-none d-flex f-direction-column gap-20">
-            @if((tickets$ | async)?.length){
+            @if(tickets.length > 0){
                 @for (ticket of tickets$ | async; track $index) {
                     <li class="d-flex jc-space-between f-wrap ai-center">
                         <h4>{{ticket.movie}}</h4>

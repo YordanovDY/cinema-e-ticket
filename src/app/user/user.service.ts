@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment.development';
 })
 export class UserService implements OnDestroy {
   private user$$ = new BehaviorSubject<User | null>(null);
-  private user$ = this.user$$.asObservable();
+  public user$ = this.user$$.asObservable();
   private headers = {
     'X-Parse-Application-Id': environment.APP_ID,
     'X-Parse-REST-API-Key': environment.REST_API_KEY

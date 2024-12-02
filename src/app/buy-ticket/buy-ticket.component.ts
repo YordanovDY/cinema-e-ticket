@@ -7,17 +7,30 @@ import { PricesService } from '../prices/prices.service';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../user/user.service';
+import { TicketsService } from '../user/tickets/tickets.service';
+import { Ticket } from '../types/ticket';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-buy-ticket',
   standalone: true,
-  imports: [LoaderComponent, AsyncPipe, ReactiveFormsModule],
+  imports: [
+    LoaderComponent, 
+    AsyncPipe, 
+    ReactiveFormsModule
+  ],
   templateUrl: './buy-ticket.component.html',
   styleUrl: './buy-ticket.component.css',
-  providers: [BuyTicketService, PricesService, UserService]
+  providers: [
+    BuyTicketService, 
+    PricesService, 
+    UserService,
+    TicketsService
+  ]
 })
 export class BuyTicketComponent implements OnInit {
   lastChosen: HTMLElement | null = null;
+  soldTickets: string[] = [];
 
   form = new FormGroup({
     projectionId: new FormControl(''),
@@ -51,6 +64,16 @@ export class BuyTicketComponent implements OnInit {
     return this.btService.isLoading$;
   }
 
+  // Ticket Service
+
+  get tickets$(){
+    return this.ticketsService.tickets$;
+  }
+
+  get isTicketsLoading$(){
+    return this.ticketsService.isLoading$;
+  }
+
   isTypeMissing(): boolean{
     return this.form.get('ticketType')?.touched  && this.form.get('ticketType')?.errors?.['required'];
   }
@@ -60,7 +83,8 @@ export class BuyTicketComponent implements OnInit {
     private router: Router,
     private btService: BuyTicketService,
     private pricesService: PricesService,
-    private userService: UserService
+    private userService: UserService,
+    private ticketsService: TicketsService
   ) { }
 
   ngOnInit(): void {
@@ -82,9 +106,17 @@ export class BuyTicketComponent implements OnInit {
           userId: user.objectId
         })
       })
-
-
     })
+
+    this.ticketsService.getTicketsFromProjection(projectionId);
+    this.tickets$.pipe(tap(
+      tickets => tickets?.forEach(t =>{
+        const soldSeat = `${t.row}x${t.seat}`;
+        this.soldTickets.push(soldSeat)
+      })
+    )).subscribe(()=>{ })
+
+    
   }
 
   typeTicketChange(ticketTypeRef: HTMLSelectElement) {

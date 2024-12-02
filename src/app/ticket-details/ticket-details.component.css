@@ -1,0 +1,29 @@
+#ticketDetails {
+    background-color: #2e3a4a;
+    color: #fcf2b1;
+    min-height: 800px;
+    padding: 30px;
+}
+
+ul{
+    max-width: 900px;
+    color: #232c39;
+    flex-grow: 1;
+    font-size: 18px;
+    font-weight: 600;
+    align-content: center;
+    gap: 80px;
+}
+
+li{
+    color: #232c39
+}
+
+.ticket{
+    min-height: 320px;
+    background-color: white;
+}
+
+.QR {
+    flex: 0 0 30%
+}

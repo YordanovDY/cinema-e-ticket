@@ -11,6 +11,8 @@ import { AboutComponent } from './about/about.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './invalid-pages/page-not-found/page-not-found.component';
 import { TicketsComponent } from './user/tickets/tickets.component';
+import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
+import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -34,7 +36,13 @@ export const routes: Routes = [
 
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    {path: 'tickets', component: TicketsComponent, canActivate: [AuthGuard]},
+    {
+        path: 'tickets',
+        children: [
+            {path: '', component: TicketsComponent},
+            {path: 'aa', component: TicketDetailsComponent}
+        ]
+    },
 
     { path: 'prices', component: PricesComponent },
 

@@ -5,13 +5,15 @@
         <ul class="ls-none d-flex f-direction-column gap-20">
             @if(tickets.length > 0){
                 @for (ticket of tickets$ | async; track $index) {
-                    <li class="d-flex jc-space-between f-wrap ai-center">
-                        <h4>{{ticket.movie}}</h4>
-                        <p>{{ticket.dateAndTime.iso}}</p>
-                        <p>{{ticket.screen}}</p>
-                        <p>row: {{ticket.row}}</p>
-                        <p>seat: {{ticket.seat}}</p>
-                    </li>
+                    <a [routerLink]="ticket.objectId" class="item">
+                        <li class="d-flex jc-space-between f-wrap ai-center">
+                            <h4>{{ticket.movie}}</h4>
+                            <p>{{ticket.dateAndTime.iso}}</p>
+                            <p>{{ticket.screen}}</p>
+                            <p>row: {{ticket.row}}</p>
+                            <p>seat: {{ticket.seat}}</p>
+                        </li>
+                    </a>
                 }
             } @else {
                 <p>You don't have any tickets.</p>

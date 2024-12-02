@@ -11,5 +11,6 @@ export interface Ticket {
     "user": UserPointer,
     "projection": ProjectionPointer,
     "ticketType": string,
-    "ticketPrice": number
+    "ticketPrice": number,
+    "objectId": string
   }

@@ -21,6 +21,7 @@ li{
 
 .ticket{
     min-height: 320px;
+    min-width: 1140px;
     background-color: white;
 }
 

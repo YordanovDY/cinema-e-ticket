@@ -12,7 +12,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './invalid-pages/page-not-found/page-not-found.component';
 import { TicketsComponent } from './user/tickets/tickets.component';
 import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
-import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
+import { TicketDetailsComponent } from './user/ticket-details/ticket-details.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -40,7 +40,7 @@ export const routes: Routes = [
         path: 'tickets',
         children: [
             {path: '', component: TicketsComponent},
-            {path: 'aa', component: TicketDetailsComponent}
+            {path: ':ticketId', component: TicketDetailsComponent}
         ]
     },
 

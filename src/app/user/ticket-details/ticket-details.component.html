@@ -1,0 +1,19 @@
+<section id="ticketDetails" class="padding-20 d-flex jc-center ai-flex-start">
+    <div class="ticket d-flex">
+    @if(isLoading$ | async){
+        <app-loader />
+    }@else {
+        <div class="QR">
+            <qr-code [value]="(ticket$ | async)?.objectId" size="300" errorCorrectionLevel="M" />
+        </div>
+        <ul class="ls-none d-flex padding-20 f-wrap">
+            <li>Movie: {{(ticket$ | async)?.movie}}</li>
+            <li>Screen: {{(ticket$ | async)?.screen}}</li>
+            <li>Date: {{(ticket$ | async)?.dateAndTime?.iso | date: 'dd MMM yyyy hh:mm:ss'}}</li>
+            <li class="d-flex gap-10"><div>Row: {{(ticket$ | async)?.row}}</div><div>Seat {{(ticket$ | async)?.seat}}</div></li>
+            <li>Ticket Type: {{(ticket$ | async)?.ticketType}}</li>
+            <li>Ticket Price: {{(ticket$ | async)?.ticketPrice}}&euro;</li>
+        </ul>
+    }
+    </div>
+</section>

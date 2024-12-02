@@ -22,7 +22,15 @@ export class TicketsService {
   constructor(private http: HttpClient) { }
 
   getTicketsFromUser(userId: string){
-    const options: Options = { headers: { ...this.headers } };
+    const sessionToken = localStorage.getItem('[SessionToken]');
+      
+    const options: Options = { 
+      headers: { 
+        ...this.headers, 
+        "X-Parse-Session-Token": sessionToken,
+        'Content-Type': 'application/json',
+      } 
+    };
 
     const query = {
       user: {

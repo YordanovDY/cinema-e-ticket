@@ -4,11 +4,12 @@ import { UserService } from '../user.service';
 import { AsyncPipe } from '@angular/common';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { Ticket } from '../../types/ticket';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tickets',
   standalone: true,
-  imports: [LoaderComponent, AsyncPipe],
+  imports: [LoaderComponent, AsyncPipe, RouterLink],
   templateUrl: './tickets.component.html',
   styleUrl: './tickets.component.css',
   providers: [TicketsService, UserService]

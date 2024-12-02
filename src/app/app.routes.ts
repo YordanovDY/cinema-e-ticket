@@ -13,6 +13,7 @@ import { PageNotFoundComponent } from './invalid-pages/page-not-found/page-not-f
 import { TicketsComponent } from './user/tickets/tickets.component';
 import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
 import { TicketDetailsComponent } from './user/ticket-details/ticket-details.component';
+import { HttpResponseErrorComponent } from './invalid-pages/http-response-error/http-response-error.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -49,6 +50,8 @@ export const routes: Routes = [
     { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard]},
 
     { path: 'about', component: AboutComponent },
+
+    {path:'http-error', component: HttpResponseErrorComponent},
 
     { path: '**', component: PageNotFoundComponent }
 ];

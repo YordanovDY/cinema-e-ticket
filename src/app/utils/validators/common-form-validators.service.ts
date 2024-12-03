@@ -21,4 +21,12 @@ export class CommonFormValidatorsService {
   mismatchedPasswords(control: NgModel,controlGroup: NgModelGroup): boolean {
     return control.touched && controlGroup.control.errors?.['passMatchingValidator'];
   }
+
+  invalidNumber(control: NgModel){
+    return control.touched && control.errors?.['numberValidator'];
+  }
+
+  invalidRating(control: NgModel){
+    return control.touched && control.errors?.['ratingValidator'];
+  }
 }

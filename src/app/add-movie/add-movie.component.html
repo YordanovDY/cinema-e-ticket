@@ -1,0 +1,170 @@
+<section id="addMovieSection" class="d-flex jc-center ai-center">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20" #form="ngForm" (ngSubmit)="submitHandler(form)">
+        <h2>Add Movie</h2>
+
+        <div class="field relative">
+            <label for="title"
+            [class]="isMissing!(inputTitle) ? 'error-color' : ''"
+            >Title</label>
+
+            <input type="text"
+            [class]="isMissing!(inputTitle) ? 'error-input' : ''"
+            id="title" 
+            name="title" 
+            placeholder="Interstellar"
+            ngModel
+            #inputTitle="ngModel"
+            required
+            >
+        </div>
+        @if(inputTitle.touched){
+            <div>
+                @if(inputTitle.errors?.['required']){
+                    <p class="error-msg">Title is required!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="imageUrl"
+            >Image URL</label>
+
+            <input type="text"
+            id="imageUrl" 
+            name="imageUrl" 
+            placeholder="https://..."
+            ngModel
+            #inputImageUrl="ngModel"
+            >
+        </div>
+
+        <div class="field relative">
+            <label for="description"
+            [class]="isMissing!(inputDescription) || tooShort!(inputDescription) ? 'error-color' : ''"
+            >Description</label>
+
+            <textarea
+            [class]="isMissing!(inputDescription) || tooShort!(inputDescription) ? 'error-input' : ''"
+            id="description" 
+            name="description" 
+            placeholder="Earth's last chance to find a habitable planet before a lack of resources causes the human race to go extinct."
+            ngModel
+            #inputDescription="ngModel"
+            required
+            minlength="10"
+            ></textarea>
+        </div>
+        @if(inputDescription.touched){
+            <div>
+                @if(inputDescription.errors?.['required']){
+                    <p class="error-msg">Description is required!</p>
+                }
+
+                @if(inputDescription.errors?.['minlength']){
+                    <p class="error-msg">Description must be at least 10 characters!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="genre"
+            [class]="isMissing!(inputGenre) ? 'error-color' : ''"
+            >Genre</label>
+
+            <input type="text"
+            [class]="isMissing!(inputGenre) ? 'error-input' : ''"
+            id="genre" 
+            name="genre" 
+            placeholder="Sci-Fi"
+            ngModel
+            #inputGenre="ngModel"
+            required
+            >
+        </div>
+        @if(inputGenre.touched){
+            <div>
+                @if(inputGenre.errors?.['required']){
+                    <p class="error-msg">Genre is required!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="duration"
+            [class]="isMissing!(inputDuration) || invalidNumber!(inputDuration) ? 'error-color' : ''"
+            >Duration (in minutes)</label>
+
+            <input type="text"
+            [class]="isMissing!(inputDuration) || invalidNumber!(inputDuration) ? 'error-input' : ''"
+            id="duration" 
+            name="duration" 
+            placeholder="120"
+            ngModel
+            #inputDuration="ngModel"
+            required
+            appNumber
+            >
+        </div>
+        @if(inputDuration.touched){
+            <div>
+                @if(inputDuration.errors?.['required']){
+                    <p class="error-msg">Duration is required!</p>
+                }
+
+                @if(inputDuration.errors?.['numberValidator']){
+                    <p class="error-msg">Duration must be a number!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="rating"
+            [class]="isMissing!(inputRating) || invalidRating!(inputRating) ? 'error-color' : ''"
+            >Rating</label>
+
+            <input type="text"
+            [class]="isMissing!(inputRating) || invalidRating!(inputRating) ? 'error-input' : ''"
+            id="rating" 
+            name="rating" 
+            placeholder="9.4"
+            ngModel
+            #inputRating="ngModel"
+            required
+            appRating
+            >
+        </div>
+        @if(inputRating.touched){
+            <div>
+                @if(inputRating.errors?.['required']){
+                    <p class="error-msg">Rating is required!</p>
+                }
+
+                @if(inputRating.errors?.['ratingValidator']){
+                    <p class="error-msg">Rating must be between 0 and 10. Only one digit after the decimal point is allowed.</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="restriction"
+            >Restriction</label>
+
+            <select
+            id="restriction" 
+            name="restriction" 
+            ngModel
+            #inputRestriction="ngModel"
+            >
+                <option value="">None</option>
+                <option value="12+">12+</option>
+                <option value="14+">14+</option>
+                <option value="16+">16+</option>
+            </select>
+        </div>
+        <button class="button btn-primary"
+        [class]="form?.invalid ? 'disabled' : ''" 
+        [disabled]="form?.invalid">
+        Add
+    </button>
+    </form>
+</section>

@@ -14,6 +14,7 @@ import { TicketsComponent } from './user/tickets/tickets.component';
 import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
 import { TicketDetailsComponent } from './user/ticket-details/ticket-details.component';
 import { HttpResponseErrorComponent } from './invalid-pages/http-response-error/http-response-error.component';
+import { AddMovieComponent } from './add-movie/add-movie.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +26,8 @@ export const routes: Routes = [
             { path: ':movieId', component: MovieDetailsComponent }
         ]
     },
+
+    {path: 'add-movie', component: AddMovieComponent},
 
     {
         path: 'buy-ticket',

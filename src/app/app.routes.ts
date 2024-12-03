@@ -15,11 +15,11 @@ import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
 import { TicketDetailsComponent } from './user/ticket-details/ticket-details.component';
 import { HttpResponseErrorComponent } from './invalid-pages/http-response-error/http-response-error.component';
 import { AddMovieComponent } from './add-movie/add-movie.component';
-import { IsManagerResolver, UserIdResolver } from './user/user.resolver';
+import { IsAdminResolver, IsManagerResolver, UserIdResolver, UserResolver } from './user/user.resolver';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
+    { path: 'home', component: HomeComponent, resolve: {isAdmin: IsAdminResolver} },
 
     {
         path: 'movies', children: [
@@ -32,7 +32,7 @@ export const routes: Routes = [
         ]
     },
 
-    { path: 'add-movie', component: AddMovieComponent },
+    { path: 'add-movie', component: AddMovieComponent, resolve: { userId: UserIdResolver } },
 
     {
         path: 'buy-ticket',
@@ -55,7 +55,7 @@ export const routes: Routes = [
 
     { path: 'prices', component: PricesComponent },
 
-    { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard] },
+    { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard], resolve: {user: UserResolver} },
 
     { path: 'about', component: AboutComponent },
 

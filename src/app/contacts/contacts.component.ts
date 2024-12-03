@@ -4,7 +4,8 @@ import { CommonFormValidatorsService } from '../utils/validators/common-form-val
 import { SimpleValidator } from '../types/functions';
 import { UserService } from '../user/user.service';
 import { ContactsService } from './contacts.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../types/user';
 
 @Component({
   selector: 'app-contacts',
@@ -27,15 +28,21 @@ export class ContactsComponent implements OnInit{
     private validator: CommonFormValidatorsService,
     private userService: UserService,
     private contactsService: ContactsService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.isMissing = this.validator.isMissing;
     this.tooShort = this.validator.tooShort;
-    this.userService.getProfile().subscribe(usr =>{
-      this.email = usr?.email;
-    })
+    // this.userService.getProfile().subscribe(usr =>{
+    //   this.email = usr?.email;
+    // })
+
+    const user:User = this.route.snapshot.data['user'];
+    this.email = user.email;
+    console.log(this.email);
+    
   }
 
   contactsSubmitHandler(form: NgForm) {

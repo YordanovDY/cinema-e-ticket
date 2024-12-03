@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService } from '../../api.service';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { UserService } from '../../user/user.service';
@@ -12,24 +12,28 @@ import { UserService } from '../../user/user.service';
   styleUrl: './hero.component.css',
   providers: [ApiService]
 })
-export class HeroComponent implements OnInit{
+export class HeroComponent implements OnInit {
   text: string = ''
   isLoading = true;
+  isAdmin: boolean = false;
 
-  constructor(private api:ApiService, private userService: UserService) { }
+  get isLoggedIn(): boolean {
+    return this.userService.isLogged;
+  }
+
+  constructor(
+    private api: ApiService,
+    private userService: UserService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.api.getInfoObject().subscribe(obj => {
       this.text = obj.heroText;
       this.isLoading = false;
     })
+
+    this.isAdmin = this.route.snapshot.data['isAdmin'];
   }
 
-  get isLoggedIn(): boolean {
-    return this.userService.isLogged;
-  }
-
-  get isAdmin(): boolean {
-    return this.userService.isAdmin;
-  }
 }

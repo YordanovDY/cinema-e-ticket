@@ -4,7 +4,7 @@ import { UserService } from '../user.service';
 import { AsyncPipe } from '@angular/common';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { Ticket } from '../../types/ticket';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tickets',
@@ -27,7 +27,8 @@ export class TicketsComponent implements OnInit {
 
   constructor(
     private ticketsService: TicketsService,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +39,6 @@ export class TicketsComponent implements OnInit {
         this.tickets = tickets as Ticket[];
       })
     })
-
   }
 
 }

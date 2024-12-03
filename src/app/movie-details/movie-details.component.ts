@@ -45,5 +45,7 @@ export class MovieDetailsComponent implements OnInit {
     this.movieDetailsService.getSingleMovie(movieId);
     this.isManager = this.route.snapshot.data['isManager'];
     this.userId = this.route.snapshot.data['userId'];
+    console.log('userId: ', this.userId);
+    
   }
 }

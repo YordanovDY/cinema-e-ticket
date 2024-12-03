@@ -6,7 +6,7 @@ import { NumberDirective } from '../directives/number.directive';
 import { RatingDirective } from '../directives/rating.directive';
 import { UserService } from '../user/user.service';
 import { AddMovieService } from './add-movie.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-movie',
@@ -28,7 +28,8 @@ export class AddMovieComponent implements OnInit {
     private validator: CommonFormValidatorsService,
     private userService: UserService,
     private addMovieService: AddMovieService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -37,9 +38,9 @@ export class AddMovieComponent implements OnInit {
     this.invalidNumber = this.validator.invalidNumber;
     this.invalidRating = this.validator.invalidRating;
 
-    this.userService.getProfile().subscribe(user => {
-      this.userId = user.objectId;
-    })
+    this.userId = this.route.snapshot.data['userId'];
+    console.log('userId: ',this.userId);
+    
   }
 
   submitHandler(form: NgForm) {

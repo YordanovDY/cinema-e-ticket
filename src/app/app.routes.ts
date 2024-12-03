@@ -15,6 +15,7 @@ import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
 import { TicketDetailsComponent } from './user/ticket-details/ticket-details.component';
 import { HttpResponseErrorComponent } from './invalid-pages/http-response-error/http-response-error.component';
 import { AddMovieComponent } from './add-movie/add-movie.component';
+import { IsManagerResolver, UserIdResolver } from './user/user.resolver';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -23,11 +24,15 @@ export const routes: Routes = [
     {
         path: 'movies', children: [
             { path: '', component: MoviesComponent },
-            { path: ':movieId', component: MovieDetailsComponent }
+            {
+                path: ':movieId',
+                component: MovieDetailsComponent,
+                resolve: { isManager: IsManagerResolver, userId: UserIdResolver }
+            }
         ]
     },
 
-    {path: 'add-movie', component: AddMovieComponent},
+    { path: 'add-movie', component: AddMovieComponent },
 
     {
         path: 'buy-ticket',
@@ -43,18 +48,18 @@ export const routes: Routes = [
     {
         path: 'tickets',
         children: [
-            {path: '', component: TicketsComponent},
-            {path: ':ticketId', component: TicketDetailsComponent}
+            { path: '', component: TicketsComponent },
+            { path: ':ticketId', component: TicketDetailsComponent }
         ]
     },
 
     { path: 'prices', component: PricesComponent },
 
-    { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard]},
+    { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard] },
 
     { path: 'about', component: AboutComponent },
 
-    {path:'http-error', component: HttpResponseErrorComponent},
+    { path: 'http-error', component: HttpResponseErrorComponent },
 
     { path: '**', component: PageNotFoundComponent }
 ];

@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { PaginatorComponent } from "../shared/paginator/paginator.component";
 import { MoviesService } from './movies.service';
 import { AsyncPipe } from '@angular/common';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-movies',
@@ -27,7 +28,9 @@ export class MoviesComponent implements OnInit {
     return this.moviesService.movies$;
   }
 
-  constructor(private moviesService: MoviesService) { };
+  constructor(
+    private moviesService: MoviesService, 
+  ) { };
 
   ngOnInit(): void {
     this.moviesService.getMovies();

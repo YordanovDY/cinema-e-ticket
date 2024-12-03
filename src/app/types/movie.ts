@@ -1,3 +1,5 @@
+import { UserPointer } from "./user"
+
 export interface Movie {
     objectId: string,
     title: string,
@@ -8,7 +10,8 @@ export interface Movie {
     imgUrl: string,
     createdAt: string,
     updatedAt: string,
-    ageRestriction: string
+    ageRestriction: string,
+    author: UserPointer
 }
 
 export interface ShortMovie {

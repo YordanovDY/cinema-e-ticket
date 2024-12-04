@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { ProjectionsComponent } from "./projections/projections.component";
 import { MovieDetailsService } from './movie-details.service';
 import { AsyncPipe } from '@angular/common';
 import { UserService } from '../user/user.service';
-import { UserRole } from '../types/user';
 
 @Component({
   selector: 'app-movie-details',
@@ -33,17 +32,32 @@ export class MovieDetailsComponent implements OnInit {
 
   isManager:boolean = false;
   userId: string = '';
-  
+  movieId: string = '';
+
   constructor (
     private route: ActivatedRoute,
     private movieDetailsService: MovieDetailsService,
-    // private userService: UserService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     const movieId = this.route.snapshot.params['movieId'];
     this.movieDetailsService.getSingleMovie(movieId);
+    this.movieId = movieId;
     this.isManager = this.route.snapshot.data['isManager'];
     this.userId = this.route.snapshot.data['userId'];
+  }
+
+  onDelete(){
+    const confirmation = window.confirm('Are you sure?');
+
+    if(!confirmation){
+      return;
+    }
+
+    this.movieDetailsService.deleteMovie(this.movieId).subscribe(() =>{
+      this.router.navigate(['/movies']);
+    })
+    
   }
 }

@@ -3,7 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { numberValidator } from '../../utils/validators/number.validator';
 import { ratingValidator } from '../../utils/validators/rating.validator';
 import { MovieDetailsService } from '../../movie-details/movie-details.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EditMovieService } from './edit-movie.service';
 
 @Component({
   selector: 'app-edit-movie',
@@ -11,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   imports: [ReactiveFormsModule],
   templateUrl: './edit-movie.component.html',
   styleUrl: './edit-movie.component.css',
-  providers: [MovieDetailsService]
+  providers: [MovieDetailsService, EditMovieService]
 })
 export class EditMovieComponent implements OnInit {
   form = new FormGroup({
@@ -24,17 +25,22 @@ export class EditMovieComponent implements OnInit {
     restriction: new FormControl(''),
   })
 
+  movieId: string = ''
+
   get isLoading$(){
     return this.mdService.isLoading$;
   }
 
   constructor(
     private mdService: MovieDetailsService,
-    private route: ActivatedRoute
+    private editMovieService: EditMovieService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     const movieId = this.route.snapshot.params['movieId'];
+    this.movieId = movieId;
 
     this.mdService.getSingleMovie(movieId);
 
@@ -69,7 +75,27 @@ export class EditMovieComponent implements OnInit {
   }
 
   submitHandler(){
-    console.log(this.form);
-    
+    const {
+      title,
+      imageUrl,
+      description,
+      genre,
+      duration,
+      rating,
+      restriction } = this.form.value
+
+      this.editMovieService.editMovie(
+        this.movieId,
+        title as string, 
+        imageUrl as string,
+        description as string,
+        genre as string,
+        duration as string,
+        rating as string,
+        restriction as string
+      )
+      .subscribe(() => {
+        this.router.navigate([`/movies/${this.movieId}`]);
+      })
   }
 }

@@ -8,6 +8,7 @@
     color: #fcf2b1;
     padding: 20px;
     min-height: 550px;
+    position: relative;
 }
 
 .img-article {
@@ -39,6 +40,13 @@
     border: 2px solid red;
     border-radius: 50%;
     font-size: 11px;
+}
+
+app-confirmation{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width: 611px) {

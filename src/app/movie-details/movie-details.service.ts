@@ -25,9 +25,23 @@ export class MovieDetailsService {
 
     this.isLoading$$.next(true);
 
-    this.http.get<Movie>(`/api/classes/Movie/${movieId}`, options).subscribe( (movie) => {
+    this.http.get<Movie>(`/api/classes/Movie/${movieId}`, options).subscribe((movie) => {
       this.movie$$.next(movie);
       this.isLoading$$.next(false);
     })
+  }
+
+  deleteMovie(movieId: string) {
+    const sessionToken = localStorage.getItem('[SessionToken]');
+    const options: Options = {
+      headers:
+      {
+        ...this.headers,
+        'X-Parse-Session-Token': sessionToken,
+        'Content-Type': 'application/json',
+      }
+    };
+
+    return this.http.delete<Movie>(`/api/classes/Movie/${movieId}`, options)
   }
 }

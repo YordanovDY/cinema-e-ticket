@@ -41,8 +41,6 @@ export class ContactsComponent implements OnInit{
 
     const user:User = this.route.snapshot.data['user'];
     this.email = user.email;
-    console.log(this.email);
-    
   }
 
   contactsSubmitHandler(form: NgForm) {

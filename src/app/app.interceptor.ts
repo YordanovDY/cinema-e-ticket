@@ -1,4 +1,4 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
 import { inject } from '@angular/core';
 import { HttpResponseErrorService } from './invalid-pages/http-response-error/http-response-error.service';

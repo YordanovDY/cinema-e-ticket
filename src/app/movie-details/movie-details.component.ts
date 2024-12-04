@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { ProjectionsComponent } from "./projections/projections.component";
 import { MovieDetailsService } from './movie-details.service';
@@ -10,7 +10,7 @@ import { UserRole } from '../types/user';
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [LoaderComponent, ProjectionsComponent, AsyncPipe],
+  imports: [LoaderComponent, ProjectionsComponent, AsyncPipe, RouterLink],
   templateUrl: './movie-details.component.html',
   styleUrl: './movie-details.component.css',
   providers: [
@@ -45,7 +45,5 @@ export class MovieDetailsComponent implements OnInit {
     this.movieDetailsService.getSingleMovie(movieId);
     this.isManager = this.route.snapshot.data['isManager'];
     this.userId = this.route.snapshot.data['userId'];
-    console.log('userId: ', this.userId);
-    
   }
 }

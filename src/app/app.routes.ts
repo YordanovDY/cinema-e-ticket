@@ -14,21 +14,24 @@ import { TicketsComponent } from './user/tickets/tickets.component';
 import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
 import { TicketDetailsComponent } from './user/ticket-details/ticket-details.component';
 import { HttpResponseErrorComponent } from './invalid-pages/http-response-error/http-response-error.component';
-import { AddMovieComponent } from './add-movie/add-movie.component';
 import { IsAdminResolver, IsManagerResolver, UserIdResolver, UserResolver } from './user/user.resolver';
+import { AddMovieComponent } from './management/add-movie/add-movie.component';
+import { DashboardComponent } from './management/dashboard/dashboard.component';
+import { EditMovieComponent } from './management/edit-movie/edit-movie.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent, resolve: {isAdmin: IsAdminResolver} },
+    { path: 'home', component: HomeComponent, resolve: { isAdmin: IsAdminResolver } },
 
     {
         path: 'movies', children: [
-            { path: '', component: MoviesComponent },
+            { path: '', component: MoviesComponent, resolve: { isManager: IsManagerResolver } },
             {
                 path: ':movieId',
                 component: MovieDetailsComponent,
                 resolve: { isManager: IsManagerResolver, userId: UserIdResolver }
-            }
+            },
+            { path: 'edit/:movieId', component: EditMovieComponent }
         ]
     },
 
@@ -55,9 +58,11 @@ export const routes: Routes = [
 
     { path: 'prices', component: PricesComponent },
 
-    { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard], resolve: {user: UserResolver} },
+    { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard], resolve: { user: UserResolver } },
 
     { path: 'about', component: AboutComponent },
+
+    { path: 'dashboard', component: DashboardComponent },
 
     { path: 'http-error', component: HttpResponseErrorComponent },
 

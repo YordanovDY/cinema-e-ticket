@@ -11,14 +11,15 @@ import { HttpErrorResponse } from '@angular/common/http';
   providers: [HttpResponseErrorService]
 })
 export class HttpResponseErrorComponent implements OnInit{
-  errorMsg = '';
+  errorMsg = 'Something went wrong. Please try again!';
+
   constructor(private httpError: HttpResponseErrorService) { }
 
   ngOnInit(): void {
 
     this.httpError.apiError$.subscribe((error: HttpErrorResponse | null) =>{
       if(error){
-        this.errorMsg = error.message;
+        this.errorMsg = error.error.error;
       }
     })
   }

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { CommonFormValidatorsService } from '../utils/validators/common-form-validators.service';
-import { SimpleValidator } from '../types/functions';
-import { NumberDirective } from '../directives/number.directive';
-import { RatingDirective } from '../directives/rating.directive';
-import { UserService } from '../user/user.service';
 import { AddMovieService } from './add-movie.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NumberDirective } from '../../directives/number.directive';
+import { RatingDirective } from '../../directives/rating.directive';
+import { CommonFormValidatorsService } from '../../utils/validators/common-form-validators.service';
+import { UserService } from '../../user/user.service';
+import { SimpleValidator } from '../../types/functions';
 
 @Component({
   selector: 'app-add-movie',
@@ -39,11 +39,14 @@ export class AddMovieComponent implements OnInit {
     this.invalidRating = this.validator.invalidRating;
 
     this.userId = this.route.snapshot.data['userId'];
-    console.log('userId: ',this.userId);
-    
   }
 
   submitHandler(form: NgForm) {
+    if(!this.userId){
+      this.router.navigate(['/http-error']);
+      return;
+    }
+
     const {
       title,
       imageUrl,

@@ -25,7 +25,7 @@
                 </div>
                 @if(isManager && (movie$ | async)?.author?.objectId === userId){
                     <div class="action-buttons d-flex gap-10">
-                        <a class="button btn-secondary">Edit</a>
+                        <a class="button btn-secondary" [routerLink]="['/movies/edit', (movie$ | async)?.objectId]">Edit</a>
                         <a class="button btn-secondary">Delete</a>
                     </div>
                 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { UserPointer } from '../types/user';
-import { environment } from '../../environments/environment.development';
-import { Options } from '../types/apiOptions';
+import { environment } from '../../../environments/environment.development';
+import { UserPointer } from '../../types/user';
+import { Options } from '../../types/apiOptions';
+
 
 @Injectable()
 export class AddMovieService {

@@ -24,6 +24,8 @@ export class MoviesService {
   getMovies(records?: number) {
     const options: Options = { headers: { ...this.headers } };
 
+    options['params'] = { order: '-createdAt'}
+    
     if (records) {
       options['params'] = { order: '-createdAt', limit: records };
     }

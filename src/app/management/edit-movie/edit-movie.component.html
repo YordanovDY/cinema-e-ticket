@@ -1,0 +1,155 @@
+<section id="editMovieSection" class="d-flex jc-center ai-center">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20"  [formGroup]="form" (ngSubmit)="submitHandler()">
+        <h2>Add Movie</h2>
+
+        <div class="field relative">
+            <label for="title"
+            [class]="isMissing('title') ? 'error-color' : ''"
+            >Title</label>
+
+            <input type="text"
+            [class]="isMissing('title') ? 'error-input' : ''"
+            id="title" 
+            name="title" 
+            placeholder="Interstellar"
+            formControlName="title"
+            >
+        </div>
+        @if(form.get('title')?.touched){
+            <div>
+                @if(form.get('title')?.errors?.['required']){
+                    <p class="error-msg">Title is required!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="imageUrl"
+            >Image URL</label>
+
+            <input type="text"
+            id="imageUrl" 
+            name="imageUrl" 
+            placeholder="https://..."
+            formControlName="imageUrl"
+            >
+        </div>
+
+        <div class="field relative">
+            <label for="description"
+            [class]="isMissing('description') || tooShort('description') ? 'error-color' : ''"
+            >Description</label>
+
+            <textarea
+            [class]="isMissing('description') || tooShort('description') ? 'error-input' : ''"
+            id="description" 
+            name="description" 
+            placeholder="Earth's last chance to find a habitable planet before a lack of resources causes the human race to go extinct."
+            formControlName="description"
+            ></textarea>
+        </div>
+        @if(form.get('description')?.touched){
+            <div>
+                @if(form.get('description')?.errors?.['required']){
+                    <p class="error-msg">Description is required!</p>
+                }
+
+                @if(form.get('description')?.errors?.['minlength']){
+                    <p class="error-msg">Description must be at least 10 characters!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="genre"
+            [class]="isMissing('genre') ? 'error-color' : ''"
+            >Genre</label>
+
+            <input type="text"
+            [class]="isMissing('genre') ? 'error-input' : ''"
+            id="genre" 
+            name="genre" 
+            placeholder="Sci-Fi"
+            formControlName="genre"
+            >
+        </div>
+        @if(form.get('genre')?.touched){
+            <div>
+                @if(form.get('genre')?.errors?.['required']){
+                    <p class="error-msg">Genre is required!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="duration"
+            [class]="isMissing('duration') || invalidNumber('duration') ? 'error-color' : ''"
+            >Duration (in minutes)</label>
+
+            <input type="text"
+            [class]="isMissing('duration') || invalidNumber('duration') ? 'error-input' : ''"
+            id="duration" 
+            name="duration" 
+            placeholder="120"
+            formControlName="duration"
+            >
+        </div>
+        @if(form.get('duration')?.touched){
+            <div>
+                @if(form.get('duration')?.errors?.['required']){
+                    <p class="error-msg">Duration is required!</p>
+                }
+
+                @if(form.get('duration')?.errors?.['numberValidator']){
+                    <p class="error-msg">Duration must be a number!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="rating"
+            [class]="isMissing('rating') || invalidRating('rating') ? 'error-color' : ''"
+            >Rating</label>
+
+            <input type="text"
+            [class]="isMissing('rating') || invalidRating('rating') ? 'error-input' : ''"
+            id="rating" 
+            name="rating" 
+            placeholder="9.4"
+            formControlName="rating"
+            >
+        </div>
+        @if(form.get('rating')?.touched){
+            <div>
+                @if(form.get('rating')?.errors?.['required']){
+                    <p class="error-msg">Rating is required!</p>
+                }
+
+                @if(form.get('rating')?.errors?.['ratingValidator']){
+                    <p class="error-msg">Rating must be between 0 and 10. Only one digit after the decimal point is allowed.</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="restriction"
+            >Restriction</label>
+
+            <select
+            id="restriction" 
+            name="restriction" 
+            formControlName="restriction"
+            >
+                <option value="">None</option>
+                <option value="12+">12+</option>
+                <option value="14+">14+</option>
+                <option value="16+">16+</option>
+            </select>
+        </div>
+        <button class="button btn-primary"
+        [class]="form.invalid ? 'disabled' : ''" 
+        [disabled]="form.invalid">
+        Edit
+    </button>
+    </form>
+</section>

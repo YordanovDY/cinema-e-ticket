@@ -1,0 +1,112 @@
+<section id="scheduleSection" class="d-flex jc-center ai-center">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20"  [formGroup]="form" (ngSubmit)="submitHandler()">
+        <h2>Add Projection</h2>
+
+        <div class="field relative">
+            <label for="movie"
+            [class]="isMissing('movie') ? 'error-color' : ''"
+            >Movie</label>
+
+            <select
+            [class]="isMissing('movie') ? 'error-input' : ''"
+            id="movie" 
+            name="movie" 
+            formControlName="movie"
+            >
+                <option value="">-- Choose a movie --</option>
+                <option value="Sdkf52FdF@@Interstellar">Interstellar</option>
+        
+            </select>
+        </div>
+        @if(form.get('movie')?.touched){
+            <div>
+                @if(form.get('movie')?.errors?.['required']){
+                    <p class="error-msg">Movie is required!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="screen"
+            [class]="isMissing('screen') ? 'error-color' : ''"
+            >Screen</label>
+
+            <select
+            [class]="isMissing('screen') ? 'error-input' : ''"
+            id="screen" 
+            name="screen" 
+            formControlName="screen"
+            >
+                <option value="">-- Choose a screen --</option>
+                <option value="Screen 1 2D@@20@@16">Screen 1 2D</option>
+        
+            </select>
+        </div>
+
+        @if(form.get('screen')?.touched){
+            <div>
+                @if(form.get('screen')?.errors?.['required']){
+                    <p class="error-msg">Screen is required!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="date"
+            [class]="isMissing('date') ? 'error-color' : ''"
+            >Pick a date</label>
+
+            <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker"
+                id="date"
+                name="date"
+                formControlName="date"
+                >
+                <mat-hint
+                [class]="isMissing('date') ? 'error-color' : ''"
+                >MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+        @if(form.get('date')?.touched){
+            <div>
+                @if(form.get('date')?.errors?.['required']){
+                    <p class="error-msg">Date is required!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="time"
+            [class]="isMissing('time') ? 'error-color' : ''"
+            >Time</label>
+
+            <select
+            [class]="isMissing('time') ? 'error-input' : ''"
+            id="time" 
+            name="time" 
+            formControlName="time"
+            >
+                <option value="">-- Pick a time --</option>
+                <option value="17:00:00">17:00</option>
+
+            </select>
+        </div>
+        @if(form.get('time')?.touched){
+            <div>
+                @if(form.get('time')?.errors?.['required']){
+                    <p class="error-msg">Time is required!</p>
+                }
+            </div>
+        }
+
+        <button class="button btn-primary"
+        [class]="form.invalid ? 'disabled' : ''" 
+        [disabled]="form.invalid">
+        Schedule a projection
+    </button>
+    </form>
+</section>

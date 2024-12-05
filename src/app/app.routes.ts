@@ -18,6 +18,7 @@ import { IsAdminResolver, IsManagerResolver, UserIdResolver, UserResolver } from
 import { AddMovieComponent } from './management/add-movie/add-movie.component';
 import { DashboardComponent } from './management/dashboard/dashboard.component';
 import { EditMovieComponent } from './management/edit-movie/edit-movie.component';
+import { ScheduleComponent } from './management/schedule/schedule.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -63,6 +64,8 @@ export const routes: Routes = [
     { path: 'about', component: AboutComponent },
 
     { path: 'dashboard', component: DashboardComponent },
+
+    { path: 'schedule', component: ScheduleComponent },
 
     { path: 'http-error', component: HttpResponseErrorComponent },
 

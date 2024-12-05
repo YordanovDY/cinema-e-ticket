@@ -8,6 +8,7 @@ export interface Projection {
     "dateAndTime": DateAndTime,
     "soldTickets": string[],
     "screen": ShortScreen,
+    "isCancelled": boolean,
     "createdAt": string,
     "updatedAt": string
 }

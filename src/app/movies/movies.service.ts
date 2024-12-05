@@ -6,7 +6,9 @@ import { B4AResponse } from '../types/response';
 import { environment } from '../../environments/environment.development';
 import { Options } from '../types/apiOptions';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MoviesService {
   private headers = {
     'X-Parse-Application-Id': environment.APP_ID,

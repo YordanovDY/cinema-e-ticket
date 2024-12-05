@@ -7,6 +7,8 @@ import { Options } from './types/apiOptions';
 import { Projection } from './types/projection';
 import { INFO_KEY } from './constants';
 import { InfoObject } from './types/infoObject';
+import { BehaviorSubject } from 'rxjs';
+import { Screen } from './types/screen';
 
 @Injectable()
 export class ApiService {
@@ -16,59 +18,35 @@ export class ApiService {
     'Content-Type': 'application/json'
   }
 
+  // TODO: Move into screens.service.ts
+
+  private screens$$ = new BehaviorSubject<Screen[] | null>(null);
+  private isLoading$$ = new BehaviorSubject<boolean>(false);
+
+  public screens$ = this.screens$$.asObservable();
+  public isLoading$ = this.isLoading$$.asObservable();
+
   constructor(private http: HttpClient) { }
 
-  // getMovies(records?: number) {
-  //   const options: Options = { headers: this.headers };
+  getScreens(){
+    const options: Options = { headers: {...this.headers} };
 
-  //   if (records) {
-  //     options['params'] = { order: '-createdAt', limit: records };
-  //   }
+    this.isLoading$$.next(true);
 
-  //   return this.http.get<B4AResponse>('/api/classes/Movie', options);
-  // }
+    this.http.get<B4AResponse>('/api/classes/Screen', options).subscribe(resp => {
+      const screens: Screen[] = resp.results as Screen[];
+      this.screens$$.next(screens);
 
-  // getSingleMovie(movieId: string) {
-  //   const options: Options = { headers: this.headers };
+      this.isLoading$$.next(false);
 
-  //   return this.http.get<Movie>(`/api/classes/Movie/${movieId}`, options);
-  // }
+    })
+  }
 
-  // getProjections(movieId: string) {
-  //   const options: Options = { headers: this.headers };
-  //   const now = new Date().toISOString();
-
-  //   const query = {
-  //     "movie.id": movieId,
-  //     "dateAndTime": {
-  //       "$gte": {
-  //         "__type": "Date",
-  //         "iso": now
-  //       }
-  //     }
-  //   }
-    
-  //   options['params'] = { where: JSON.stringify(query) };
-
-  //   return this.http.get<B4AResponse>('/api/classes/Projection', options);
-  // }
-
-  // getSingleProjection(projectionId: string) {
-  //   const options: Options = { headers: this.headers };
-
-  //   return this.http.get<Projection>(`/api/classes/Projection/${projectionId}`, options);
-  // }
-
-
-  // getPrices(){
-  //   const options: Options = { headers: this.headers };
-
-  //   return this.http.get<B4AResponse>('/api/classes/Price', options);
-  // }
+  // TODO: Move into screens.service.ts 
 
   getInfoObject() {
     const URL = `/api/classes/Information/${INFO_KEY}`;
-    const options: Options = { headers: this.headers };
+    const options: Options = { headers: {...this.headers} };
 
     return this.http.get<InfoObject>(URL, options);
   }

@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ShortMovie } from '../../types/movie';
-import { ShortScreen } from '../../types/screen';
-import { DateAndTime } from '../../types/dateAndTime';
+import { ScheduleService } from './schedule.service';
+import { MoviesService } from '../../movies/movies.service';
+import { ApiService } from '../../api.service';
+import { AlphabeticalArrayPipe } from '../../pipes/alphabetical-array.pipe';
+import { Movie, ShortMovie } from '../../types/movie';
+import { LoaderComponent } from '../../shared/loader/loader.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -20,12 +24,15 @@ import { DateAndTime } from '../../types/dateAndTime';
     MatNativeDateModule,
     MatInputModule,
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    LoaderComponent,
+    AlphabeticalArrayPipe
   ],
   templateUrl: './schedule.component.html',
-  styleUrl: './schedule.component.css'
+  styleUrl: './schedule.component.css',
+  providers: [ScheduleService, MoviesService, ApiService]
 })
-export class ScheduleComponent {
+export class ScheduleComponent implements OnInit{
   form = new FormGroup({
     movie: new FormControl('', [Validators.required]),
     screen: new FormControl('', [Validators.required]),
@@ -33,8 +40,46 @@ export class ScheduleComponent {
     time: new FormControl('', [Validators.required]),
   })
 
-  constructor() { }
+  movieNames: ShortMovie[] = [];
 
+  screenSchedule: string[] = [];
+
+  // Movies Service
+
+  get movies$(){
+    return this.moviesService.movies$;
+  }
+
+  get isMoviesLoading$(){
+    return this.moviesService.isLoading$;
+  }
+
+  // Screens Service
+
+  get screens$(){
+    return this.screensService.screens$;
+  }
+
+  get isScreensLoading$(){
+    return this.screensService.isLoading$;
+  }
+
+  constructor(
+    private scheduleService: ScheduleService,
+    private screensService: ApiService, // TODO: Change ApiService to ScreensService!
+    private moviesService: MoviesService,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit(): void {
+    this.movieNames = [];
+    this.moviesService.getMovies();
+    this.screensService.getScreens();
+
+    this.movieNames = this.route.snapshot.data['movieNames'];
+    console.log(this.movieNames);
+    
+  }
 
   isMissing(controlName:string): boolean{
     return this.form.get(controlName)?.touched && this.form.get(controlName)?.errors?.['required'];
@@ -42,49 +87,13 @@ export class ScheduleComponent {
 
   submitHandler(){
     const {movie, screen, date, time} = this.form.value;
-
-    if(!movie){
-      return;
-    }
-
-    if(!screen){
-      return;
-    }
-
-    if(!date){
-      return;
-    }
-
-    if(!time){
-      return;
-    }
-
-    const [movieId, movieTitle] = movie.split('@@');
-
-    const movieObj: ShortMovie = {
-      id: movieId,
-      title: movieTitle
-    }
-
-    const [screenName, rowsStr, seatsPerRowStr] = screen.split('@@');
-    const rows = Number(rowsStr);
-    const seatsPerRow = Number(seatsPerRowStr);
-
-    const screenObj: ShortScreen = {
-      name: screenName,
-      rows:rows,
-      seatsPerRow: seatsPerRow
-    }
-
-    let dateIsoString = new Date(date).toISOString();
-    dateIsoString.replace('00:00:00', time);
-
-    const dateAndTime: DateAndTime = {
-      __type:'Date',
-      iso: dateIsoString
-    }
-
-    console.log('DATA:', {movie: movieObj, screen: screenObj, dateAndTime});
     
+    this.scheduleService.addProjection(
+      movie as string, 
+      screen as string, 
+      date as string, 
+      time as string
+    );
+
   }
 }

@@ -1,0 +1,108 @@
+<section id="editScreenSection" class="d-flex jc-center ai-center">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20" [formGroup]="form" (ngSubmit)="submitHandler()">
+        <h2>Add Screen</h2>
+
+            <div class="field relative">
+                <label for="name"
+                [class]="isMissing('') || tooShort('') ? 'error-color' : ''"
+                >Name</label>
+    
+                <input type="text"
+                [class]="isMissing('') || tooShort('') ? 'error-input' : ''"
+                id="name" 
+                name="name" 
+                formControlName="name"
+                >
+            </div>
+            @if(form.get('name')?.touched){
+                <div>
+                    @if(form.get('name')?.errors?.['required']){
+                        <p class="error-msg">Name is required!</p>
+                    }
+    
+                    @if(form.get('name')?.errors?.['minlength']){
+                        <p class="error-msg">Name length must be at least 5 characters!</p>
+                    }
+                </div>
+            }
+    
+            <div class="field relative">
+                <label for="rows"
+                [class]="isMissing('') || outOfRange('') ? 'error-color' : ''"
+                >Rows</label>
+    
+                <input type="text"
+                [class]="isMissing('') || outOfRange('') ? 'error-input' : ''"
+                id="rows"
+                name="rows" 
+                formControlName="rows"
+                >
+            </div>
+            @if(form.get('rows')?.touched){
+                <div>
+                    @if(form.get('rows')?.errors?.['required']){
+                        <p class="error-msg">Rows field is required!</p>
+                    }
+                    
+                    @if(form.get('rows')?.errors?.['rangeValidator']){
+                        <p class="error-msg">Rows must be between 3 and 35</p>
+                    }
+                </div>
+            }
+    
+            <div class="field relative">
+                <label for="seats"
+                [class]="isMissing('') || outOfRange('') ? 'error-color' : ''"
+                >Seats</label>
+    
+                <input type="text"
+                [class]="isMissing('') || outOfRange('') ? 'error-input' : ''"
+                id="seats"
+                name="seats" 
+                formControlName="seats"
+                >
+            </div>
+            @if(form.get('seats')?.touched){
+                <div>
+                    @if(form.get('seats')?.errors?.['required']){
+                        <p class="error-msg">Seats field is required!</p>
+                    }
+                    
+                    @if(form.get('seats')?.errors?.['rangeValidator']){
+                        <p class="error-msg">Seats must be between 5 and 20</p>
+                    }
+                </div>
+            }
+    
+            <div class="field relative">
+                <label for="schedule"
+                [class]="isMissing('') ? 'error-color' : ''"
+                >Schedule</label>
+    
+                <select
+                [class]="isMissing('') ? 'error-input' : ''"
+                id="schedule" 
+                name="schedule" 
+                formControlName="schedule"
+                >
+                    <option value="">-- Choose screen schedule --</option>
+                    <option value="1">09:00, 13:00, 17:00</option>
+                    <option value="2">10:00, 14:00, 18:00</option>
+                    <option value="3">11:00, 15:00, 19:00</option>
+                </select>
+            </div>
+            @if(form.get('schedule')?.touched){
+                <div>
+                    @if(form.get('schedule')?.errors?.['required']){
+                        <p class="error-msg">Please, choose a schedule!</p>
+                    }
+                </div>
+            }
+            <button class="button btn-primary"
+            [class]="form.invalid ? 'disabled' : ''" 
+            [disabled]="form.invalid">
+            Edit
+        </button>
+        
+    </form>
+</section>

@@ -22,6 +22,7 @@ import { ScheduleComponent } from './management/schedule/schedule.component';
 import { MovieNamesResolver } from './management/schedule/schedule.resolver';
 import { ScreensComponent } from './management/screens/screens.component';
 import { AddScreenComponent } from './management/add-screen/add-screen.component';
+import { EditScreenComponent } from './management/edit-screen/edit-screen.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -70,7 +71,10 @@ export const routes: Routes = [
 
     { path: 'schedule', component: ScheduleComponent, resolve: { movieNames: MovieNamesResolver } },
 
-    { path: 'screens', component: ScreensComponent },
+    { path: 'screens', children:[
+        {path: '', component: ScreensComponent},
+        {path: 'edit/:screenId', component: EditScreenComponent},
+    ]},
 
     { path: 'add-screen', component: AddScreenComponent },
 

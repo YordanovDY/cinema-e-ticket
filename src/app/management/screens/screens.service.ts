@@ -33,4 +33,18 @@ export class ScreensService {
       this.isLoading$$.next(false);
     })
   }
+
+  deleteScreen(screenId: string){
+    const sessionToken = localStorage.getItem('[SessionToken]');
+    const options: Options = {
+      headers:
+      {
+        ...this.headers,
+        'X-Parse-Session-Token': sessionToken,
+        'Content-Type': 'application/json',
+      }
+    };
+
+    return this.http.delete<Screen>(`/api/classes/Screen/${screenId}`, options);
+  }
 }

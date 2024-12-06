@@ -7,7 +7,7 @@
 article{
     width: 366.66px;
     height: 273px;
-    flex:1 0 calc(100%/3 - 20px);
+    flex: 0 0 calc(100%/3 - 20px);
     background-color: #232c39;
     border-radius: 20px;
     padding: 20px;
@@ -52,3 +52,6 @@ p {
     background-color: #D4AC0D;
 }
 
+.secreens-container{
+    align-items: flex-start;
+}

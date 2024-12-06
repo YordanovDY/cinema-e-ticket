@@ -21,7 +21,7 @@
                         <li>
                             <div class="action-buttons d-flex gap-10">
                                 <a [routerLink]="['/screens/edit', screen.objectId]" class="button btn-secondary">Edit</a>
-                                <a href="#" class="button btn-secondary">Delete</a>
+                                <a #delButtonRef (click)="onDelete(delButtonRef)" [id]="screen.objectId" class="button btn-secondary">Delete</a>
                             </div>
                         </li>
                     </ul>

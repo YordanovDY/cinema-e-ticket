@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup,ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditScreenService } from './edit-screen.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonFormValidatorsService } from '../../utils/validators/common-form-validators.service';
-import { SimpleValidator } from '../../types/functions';
-import { RangeDirective } from '../../directives/range.directive';
-import { AsyncPipe } from '@angular/common';
-import { LoaderComponent } from '../../shared/loader/loader.component';
-import { Screen } from '../../types/screen';
 import { rangeValidator } from '../../utils/validators/range.validator';
 
 @Component({

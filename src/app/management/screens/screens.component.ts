@@ -3,7 +3,7 @@ import { ScreensService } from './screens.service';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { AsyncPipe } from '@angular/common';
 import { TIMES_SCHEDULE } from '../../constants';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-screens',
@@ -24,9 +24,26 @@ export class ScreensComponent implements OnInit {
     return this.screensService.isLoading$;
   }
 
-  constructor(private screensService: ScreensService){ }
+  constructor(
+    private screensService: ScreensService,
+    private router: Router
+  ){ }
 
   ngOnInit(): void {
     this.screensService.getScreens();
+  }
+
+  onDelete(buttonRef: HTMLAnchorElement){
+    const confirmation = confirm('Are you sure?');
+
+    if(!confirmation){
+      return;
+    }
+
+    const screenId = buttonRef.id;
+
+    this.screensService.deleteScreen(screenId).subscribe(() => {
+      this.screensService.getScreens();
+    })
   }
 }

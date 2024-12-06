@@ -26,6 +26,12 @@ export class ApiService {
   public screens$ = this.screens$$.asObservable();
   public isLoading$ = this.isLoading$$.asObservable();
 
+  private screen$$ = new BehaviorSubject<Screen | null>(null);
+  private isSingleLoading$$ = new BehaviorSubject<boolean>(false);
+
+  public screen$ = this.screen$$.asObservable();
+  public isSingleLoading$ = this.isSingleLoading$$.asObservable();
+
   constructor(private http: HttpClient) { }
 
   getScreens(){
@@ -39,6 +45,17 @@ export class ApiService {
 
       this.isLoading$$.next(false);
 
+    })
+  }
+
+  getSingleScreen(screenId: string){
+    const options: Options = { headers: {...this.headers} };
+
+    this.isSingleLoading$$.next(true);
+
+    this.http.get<Screen>(`/api/classes/Screen/${screenId}`, options).subscribe(screen => {
+      this.screen$$.next(screen);
+      this.isSingleLoading$$.next(false);
     })
   }
 

@@ -13,12 +13,13 @@ import { AlphabeticalArrayPipe } from '../../pipes/alphabetical-array.pipe';
 import { Movie, ShortMovie } from '../../types/movie';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ActivatedRoute } from '@angular/router';
+import { TIMES_SCHEDULE } from '../../constants';
 
 @Component({
   selector: 'app-schedule',
   standalone: true,
   imports: [
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
@@ -32,7 +33,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './schedule.component.css',
   providers: [ScheduleService, MoviesService, ApiService]
 })
-export class ScheduleComponent implements OnInit{
+export class ScheduleComponent implements OnInit {
   form = new FormGroup({
     movie: new FormControl('', [Validators.required]),
     screen: new FormControl('', [Validators.required]),
@@ -46,21 +47,21 @@ export class ScheduleComponent implements OnInit{
 
   // Movies Service
 
-  get movies$(){
+  get movies$() {
     return this.moviesService.movies$;
   }
 
-  get isMoviesLoading$(){
+  get isMoviesLoading$() {
     return this.moviesService.isLoading$;
   }
 
   // Screens Service
 
-  get screens$(){
+  get screens$() {
     return this.screensService.screens$;
   }
 
-  get isScreensLoading$(){
+  get isScreensLoading$() {
     return this.screensService.isLoading$;
   }
 
@@ -78,22 +79,39 @@ export class ScheduleComponent implements OnInit{
 
     this.movieNames = this.route.snapshot.data['movieNames'];
     console.log(this.movieNames);
-    
+
   }
 
-  isMissing(controlName:string): boolean{
+  isMissing(controlName: string): boolean {
     return this.form.get(controlName)?.touched && this.form.get(controlName)?.errors?.['required'];
   }
 
-  submitHandler(){
-    const {movie, screen, date, time} = this.form.value;
-    
+  submitHandler() {
+    const { movie, screen, date, time } = this.form.value;
+
     this.scheduleService.addProjection(
-      movie as string, 
-      screen as string, 
-      date as string, 
+      movie as string,
+      screen as string,
+      date as string,
       time as string
     );
 
+  }
+
+  refreshTimeField(timeFieldRef: HTMLDivElement) {
+    const value = this.form.get('screen')?.value
+
+    if (!value) {
+      timeFieldRef.style.display = 'none';
+      return;
+    }
+
+    timeFieldRef.style.display = 'block';
+
+    const scheduleId = value.split('@@')[3];
+
+    if (scheduleId === '1' || scheduleId === '2' || scheduleId === '3') {
+      this.screenSchedule = TIMES_SCHEDULE[scheduleId];
+    }
   }
 }

@@ -42,6 +42,7 @@
                 >Screen</label>
     
                 <select
+                (change)="refreshTimeField(timeSelectDiv)"
                 [class]="isMissing('screen') ? 'error-input' : ''"
                 id="screen" 
                 name="screen" 
@@ -49,7 +50,7 @@
                 >
                     <option value="">-- Choose a screen --</option>
                     @for (screen of screens$ | async; track $index) {
-                        <option [value]="screen.name+'@@'+screen.rows.toString()+'@@'+screen.seatsPerRow.toString()">{{screen.name}}</option>
+                        <option [value]="screen.name+'@@'+screen.rows.toString()+'@@'+screen.seatsPerRow.toString()+'@@'+screen.projSchedule">{{screen.name}}</option>
                     }
                     
                 </select>
@@ -90,30 +91,33 @@
                     }
                 </div>
             }
-    
-            <div class="field relative">
-                <label for="time"
-                [class]="isMissing('time') ? 'error-color' : ''"
-                >Time</label>
-    
-                <select
-                [class]="isMissing('time') ? 'error-input' : ''"
-                id="time" 
-                name="time" 
-                formControlName="time"
-                >
-                    <option value="">-- Pick a time --</option>
-                    <option value="17:00:00">17:00</option>
-    
-                </select>
-            </div>
-            @if(form.get('time')?.touched){
-                <div>
-                    @if(form.get('time')?.errors?.['required']){
-                        <p class="error-msg">Time is required!</p>
-                    }
-                </div>
-            }
+                <div class="field relative d-none" #timeSelectDiv>
+                    <label for="time"
+                    [class]="isMissing('time') ? 'error-color' : ''"
+                    >Time</label>
+        
+                    <select
+                    #timeSelectRef
+                    [class]="isMissing('time') ? 'error-input' : ''"
+                    id="time" 
+                    name="time" 
+                    formControlName="time"
+                    >
+                        <option value="">-- Pick a time --</option>
+                        @for (time of screenSchedule; track $index) {
+                            <option [value]="time">{{time}}</option>
+                        }
+        
+                    </select>
+                
+                @if(form.get('time')?.touched){
+                    <div>
+                        @if(form.get('time')?.errors?.['required']){
+                            <p class="error-msg">Time is required!</p>
+                        }
+                    </div>
+                }
+        </div>
     
             <button class="button btn-primary"
             [class]="form.invalid ? 'disabled' : ''" 

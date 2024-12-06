@@ -1,0 +1,36 @@
+<section id="screensSection" class="d-flex f-direction-column gap-20 padding-20 ai-center">
+    <h2>Screens</h2>
+    @if(isLoading | async){
+        <app-loader />
+
+    } @else {
+        <div class="secreens-container d-flex f-wrap gap-20 jc-center">
+            @for (screen of screens$ | async; track $index) {
+                <article>
+                    <ul class="art-ul ls-none d-flex f-direction-column ai-center">
+                        <li><h3>{{screen.name}}</h3></li>
+                        <li><p>Capacity: {{screen.rows*screen.seatsPerRow}}</p></li>
+                        <li>
+                            Projections at:
+                            <ul class="proj-ul">
+                                @for (time of TIMES_SCHEDULE[screen.projSchedule]; track $index) {
+                                    <li>{{time}}</li>
+                                }
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="action-buttons d-flex gap-10">
+                                <a href="#" class="button btn-secondary">Edit</a>
+                                <a href="#" class="button btn-secondary">Delete</a>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+            }
+    
+            <article routerLink="/add-screen" class="article-btn">
+                <i class="fa-regular fa-square-plus"></i>
+            </article>
+        </div>
+    }
+</section>

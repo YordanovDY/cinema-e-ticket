@@ -20,42 +20,22 @@ export class ApiService {
 
   // TODO: Move into screens.service.ts
 
-  private screens$$ = new BehaviorSubject<Screen[] | null>(null);
+  private screen$$ = new BehaviorSubject<Screen | null>(null);
   private isLoading$$ = new BehaviorSubject<boolean>(false);
 
-  public screens$ = this.screens$$.asObservable();
+  public screen$ = this.screen$$.asObservable();
   public isLoading$ = this.isLoading$$.asObservable();
 
-  private screen$$ = new BehaviorSubject<Screen | null>(null);
-  private isSingleLoading$$ = new BehaviorSubject<boolean>(false);
-
-  public screen$ = this.screen$$.asObservable();
-  public isSingleLoading$ = this.isSingleLoading$$.asObservable();
-
   constructor(private http: HttpClient) { }
-
-  getScreens(){
-    const options: Options = { headers: {...this.headers} };
-
-    this.isLoading$$.next(true);
-
-    this.http.get<B4AResponse>('/api/classes/Screen', options).subscribe(resp => {
-      const screens: Screen[] = resp.results as Screen[];
-      this.screens$$.next(screens);
-
-      this.isLoading$$.next(false);
-
-    })
-  }
 
   getSingleScreen(screenId: string){
     const options: Options = { headers: {...this.headers} };
 
-    this.isSingleLoading$$.next(true);
+    this.isLoading$$.next(true);
 
     this.http.get<Screen>(`/api/classes/Screen/${screenId}`, options).subscribe(screen => {
       this.screen$$.next(screen);
-      this.isSingleLoading$$.next(false);
+      this.isLoading$$.next(false);
     })
   }
 

@@ -20,6 +20,8 @@ import { DashboardComponent } from './management/dashboard/dashboard.component';
 import { EditMovieComponent } from './management/edit-movie/edit-movie.component';
 import { ScheduleComponent } from './management/schedule/schedule.component';
 import { MovieNamesResolver } from './management/schedule/schedule.resolver';
+import { ScreensComponent } from './management/screens/screens.component';
+import { AddScreenComponent } from './management/add-screen/add-screen.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -66,7 +68,11 @@ export const routes: Routes = [
 
     { path: 'dashboard', component: DashboardComponent },
 
-    { path: 'schedule', component: ScheduleComponent, resolve: {movieNames: MovieNamesResolver} },
+    { path: 'schedule', component: ScheduleComponent, resolve: { movieNames: MovieNamesResolver } },
+
+    { path: 'screens', component: ScreensComponent },
+
+    { path: 'add-screen', component: AddScreenComponent },
 
     { path: 'http-error', component: HttpResponseErrorComponent },
 

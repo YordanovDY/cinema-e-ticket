@@ -2,11 +2,17 @@ import { Injectable } from '@angular/core';
 import { ShortMovie } from '../../types/movie';
 import { ShortScreen } from '../../types/screen';
 import { DateAndTime } from '../../types/dateAndTime';
+import { environment } from '../../../environments/environment.development';
+import { Options } from '../../types/apiOptions';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ScheduleService {
-
-  constructor() { }
+  private headers = {
+    'X-Parse-Application-Id': environment.APP_ID,
+    'X-Parse-REST-API-Key': environment.REST_API_KEY,
+  }
+  constructor(private http: HttpClient) { }
 
   addProjection(movie:string, screen:string, date:string, time:string){
     const [movieId, movieTitle] = movie.split('@@');
@@ -34,6 +40,21 @@ export class ScheduleService {
       iso: dateIsoString
     }
 
-    console.log('DATA:', {movie: movieObj, screen: screenObj, dateAndTime});
+        const sessionToken = localStorage.getItem('[SessionToken]');
+    const options: Options = {
+      headers: {
+        ...this.headers,
+        'X-Parse-Session-Token': sessionToken,
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const body = {
+      movie: movieObj,
+      screen: screenObj,
+      dateAndTime
+    }
+
+    return this.http.post('/api/classes/Projection', body, options);
   }
 }

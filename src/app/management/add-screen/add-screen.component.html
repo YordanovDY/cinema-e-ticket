@@ -1,0 +1,121 @@
+<section id="addScreenSection" class="d-flex jc-center ai-center">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20" #form="ngForm" (ngSubmit)="submitHandler(form)">
+        <h2>Add Screen</h2>
+
+        <div class="field relative">
+            <label for="name"
+            [class]="isMissing!(inputName) || tooShort!(inputName) ? 'error-color' : ''"
+            >Name</label>
+
+            <input type="text"
+            [class]="isMissing!(inputName) || tooShort!(inputName) ? 'error-input' : ''"
+            id="name" 
+            name="name" 
+            placeholder="Screen Name 2D | 3D | IMAX 3D| 4D ..."
+            ngModel
+            #inputName="ngModel"
+            required
+            minlength="5"
+            >
+        </div>
+        @if(inputName.touched){
+            <div>
+                @if(inputName.errors?.['required']){
+                    <p class="error-msg">Name is required!</p>
+                }
+
+                @if(inputName.errors?.['minlength']){
+                    <p class="error-msg">Name length must be at least 5 characters!</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="rows"
+            [class]="isMissing!(inputRows) || outOfRange!(inputRows) ? 'error-color' : ''"
+            >Rows</label>
+
+            <input type="text"
+            [class]="isMissing!(inputRows) || outOfRange!(inputRows) ? 'error-input' : ''"
+            id="rows"
+            name="rows" 
+            placeholder="10"
+            ngModel
+            #inputRows="ngModel"
+            required
+            [appRange]="[3, 35]"
+            >
+        </div>
+        @if(inputRows.touched){
+            <div>
+                @if(inputRows.errors?.['required']){
+                    <p class="error-msg">Rows field is required!</p>
+                }
+                
+                @if(inputRows.errors?.['rangeValidator']){
+                    <p class="error-msg">Rows must be between 3 and 35</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="seats"
+            [class]="isMissing!(inputSeats) || outOfRange!(inputSeats) ? 'error-color' : ''"
+            >Seats</label>
+
+            <input type="text"
+            [class]="isMissing!(inputSeats) || outOfRange!(inputSeats) ? 'error-input' : ''"
+            id="seats"
+            name="seats" 
+            placeholder="12"
+            ngModel
+            #inputSeats="ngModel"
+            required
+            [appRange]="[5, 20]"
+            >
+        </div>
+        @if(inputSeats.touched){
+            <div>
+                @if(inputSeats.errors?.['required']){
+                    <p class="error-msg">Seats field is required!</p>
+                }
+                
+                @if(inputSeats.errors?.['rangeValidator']){
+                    <p class="error-msg">Seats must be between 5 and 20</p>
+                }
+            </div>
+        }
+
+        <div class="field relative">
+            <label for="schedule"
+            [class]="isMissing!(inputSchedule) ? 'error-color' : ''"
+            >Schedule</label>
+
+            <select
+            [class]="isMissing!(inputSchedule) ? 'error-input' : ''"
+            id="schedule" 
+            name="schedule" 
+            ngModel
+            #inputSchedule="ngModel"
+            required
+            >
+                <option value="">-- Choose screen schedule --</option>
+                <option value="1">09:00, 13:00, 17:00</option>
+                <option value="2">10:00, 14:00, 18:00</option>
+                <option value="3">11:00, 15:00, 19:00</option>
+            </select>
+        </div>
+        @if(inputSchedule.touched){
+            <div>
+                @if(inputSchedule.errors?.['required']){
+                    <p class="error-msg">Please, choose a schedule!</p>
+                }
+            </div>
+        }
+        <button class="button btn-primary"
+        [class]="form?.invalid ? 'disabled' : ''" 
+        [disabled]="form?.invalid">
+        Add
+    </button>
+    </form>
+</section>

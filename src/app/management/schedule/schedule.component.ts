@@ -8,12 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ScheduleService } from './schedule.service';
 import { MoviesService } from '../../movies/movies.service';
-import { ApiService } from '../../api.service';
 import { AlphabeticalArrayPipe } from '../../pipes/alphabetical-array.pipe';
-import { Movie, ShortMovie } from '../../types/movie';
+import { ShortMovie } from '../../types/movie';
 import { LoaderComponent } from '../../shared/loader/loader.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TIMES_SCHEDULE } from '../../constants';
+import { ScreensService } from '../screens/screens.service';
 
 @Component({
   selector: 'app-schedule',
@@ -31,7 +31,7 @@ import { TIMES_SCHEDULE } from '../../constants';
   ],
   templateUrl: './schedule.component.html',
   styleUrl: './schedule.component.css',
-  providers: [ScheduleService, MoviesService, ApiService]
+  providers: [ScheduleService, MoviesService, ScreensService]
 })
 export class ScheduleComponent implements OnInit {
   form = new FormGroup({
@@ -67,9 +67,10 @@ export class ScheduleComponent implements OnInit {
 
   constructor(
     private scheduleService: ScheduleService,
-    private screensService: ApiService, // TODO: Change ApiService to ScreensService!
+    private screensService: ScreensService, 
     private moviesService: MoviesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -88,13 +89,17 @@ export class ScheduleComponent implements OnInit {
 
   submitHandler() {
     const { movie, screen, date, time } = this.form.value;
+    const movieId = movie?.split('@@')[0];
 
     this.scheduleService.addProjection(
       movie as string,
       screen as string,
       date as string,
       time as string
-    );
+    ).subscribe(() => {
+
+      this.router.navigate([`/movies/${movieId}`]);
+    })
 
   }
 

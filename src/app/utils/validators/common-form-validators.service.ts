@@ -29,4 +29,8 @@ export class CommonFormValidatorsService {
   invalidRating(control: NgModel){
     return control.touched && control.errors?.['ratingValidator'];
   }
+
+  outOfRange(control: NgModel){
+    return control.touched && control.errors?.['rangeValidator'];
+  }
 }

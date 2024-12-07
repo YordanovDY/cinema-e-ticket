@@ -11,6 +11,24 @@ export const appInterceptor: HttpInterceptorFn = (req, next) => {
       url: req.url.replace('/api', environment.API_URL),
       withCredentials: true
     })
+    req.headers.append('X-Parse-Application-Id',environment.APP_ID);
+    req.headers.append('X-Parse-REST-API-Key', environment.REST_API_KEY);
+
+    const sessionToken: string = localStorage.getItem('[SessionToken]') || '';
+
+    if(sessionToken){
+      req.headers.append('X-Parse-Session-Token', sessionToken);
+    }
+
+    const method = req.method;
+    
+    if(method === 'POST' || method === 'PUT'){
+      req.headers.append('Content-Type', 'application/json');
+    }
+
+    if(req.url.endsWith('login') || req.url.endsWith('register')){
+      req.headers.append('X-Parse-Revocable-Session', '1');
+    }
   }
 
   const httpError = inject(HttpResponseErrorService);

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Projection, ProjectionPointer } from '../types/projection';
-import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Options } from '../types/apiOptions';
 import { DateAndTime } from '../types/dateAndTime';
@@ -9,10 +8,6 @@ import { UserPointer } from '../types/user';
 
 @Injectable()
 export class BuyTicketService {
-  private headers = {
-    'X-Parse-Application-Id': environment.APP_ID,
-    'X-Parse-REST-API-Key': environment.REST_API_KEY,
-  }
 
   private projection$$ = new BehaviorSubject<Projection | null>(null);
   private isLoading$$ = new BehaviorSubject<boolean>(false);
@@ -23,11 +18,10 @@ export class BuyTicketService {
   constructor(private http: HttpClient) { }
 
   getSingleProjection(projectionId: string){
-    const options: Options = { headers: { ...this.headers } };
 
     this.isLoading$$.next(true);
 
-    this.http.get<Projection>(`/api/classes/Projection/${projectionId}`, options).subscribe((projection) => {
+    this.http.get<Projection>(`/api/classes/Projection/${projectionId}`).subscribe((projection) => {
       this.projection$$.next(projection);
       this.isLoading$$.next(false);
     })
@@ -65,15 +59,6 @@ export class BuyTicketService {
       }
 
       const ticketPrice: number = Number(ticketPriceStr);
-      const sessionToken = localStorage.getItem('[SessionToken]');
-      
-      const options: Options = { 
-        headers: { 
-          ...this.headers, 
-          "X-Parse-Session-Token": sessionToken,
-          'Content-Type': 'application/json',
-        } 
-      };
 
       const body = {
         movie,
@@ -87,6 +72,6 @@ export class BuyTicketService {
         projection: projectionPointer
       }
 
-      return this.http.post('/api/classes/Ticket', body, options);
+      return this.http.post('/api/classes/Ticket', body);
   }
 }

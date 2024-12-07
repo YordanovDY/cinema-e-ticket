@@ -2,8 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { User, UserRole } from '../types/user';
 import { BehaviorSubject, Subscription, tap } from 'rxjs';
-import { Options } from '../types/apiOptions';
-import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +9,8 @@ import { environment } from '../../environments/environment.development';
 export class UserService implements OnDestroy {
   private user$$ = new BehaviorSubject<User | null>(null);
   public user$ = this.user$$.asObservable();
-  private headers = {
-    'X-Parse-Application-Id': environment.APP_ID,
-    'X-Parse-REST-API-Key': environment.REST_API_KEY
-  }
 
   user: User | null = null;
-  sessionToken: string = localStorage.getItem('[SessionToken]') || '';
   userSub: Subscription | null = null;
 
   constructor(private http: HttpClient) {
@@ -47,19 +40,13 @@ export class UserService implements OnDestroy {
   }
 
   login(username: string, password: string) {
-    const options: Options = {
-      headers: {
-        ...this.headers,
-        'X-Parse-Revocable-Session': '1'
-      }
-    }
 
     const body = {
       username,
       password
     }
 
-    return this.http.post<User>('/api/login', body, options).pipe(tap(
+    return this.http.post<User>('/api/login', body).pipe(tap(
       user => {
         this.user$$.next(user)
         localStorage.setItem('[SessionToken]', user.sessionToken);
@@ -68,13 +55,6 @@ export class UserService implements OnDestroy {
   }
 
   register(username: string, email: string, password: string) {
-    const options: Options = {
-      headers: {
-        ...this.headers,
-        'X-Parse-Revocable-Session': '1',
-        'Content-Type': 'application/json'
-      }
-    }
 
     const userRoleId = UserRole.User;
 
@@ -89,7 +69,7 @@ export class UserService implements OnDestroy {
       }
     }
 
-    return this.http.post<User>('/api/users', body, options).pipe(tap(
+    return this.http.post<User>('/api/users', body).pipe(tap(
       user => {
         this.user$$.next(user);
         localStorage.setItem('[SessionToken]', user.sessionToken);
@@ -102,14 +82,7 @@ export class UserService implements OnDestroy {
       return;
     }
 
-    const options: Options = {
-      headers: {
-        ...this.headers,
-        'X-Parse-Session-Token': this.user.sessionToken
-      }
-    }
-
-    return this.http.post('/api/logout', null, options).pipe((tap(
+    return this.http.post('/api/logout', null).pipe((tap(
       () => {
         this.user$$.next(null);
         localStorage.removeItem('[SessionToken]');
@@ -118,14 +91,7 @@ export class UserService implements OnDestroy {
   }
 
   getProfile() {
-    const options: Options = {
-      headers: {
-        ...this.headers,
-        'X-Parse-Session-Token': this.sessionToken
-      }
-    }
-
-    return this.http.get<User>('/api/users/me', options).pipe(tap(
+    return this.http.get<User>('/api/users/me').pipe(tap(
       (user) => {
         this.user$$.next(user);
       }

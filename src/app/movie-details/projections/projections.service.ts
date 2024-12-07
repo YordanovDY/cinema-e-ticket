@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Projection } from '../../types/projection';
-import { environment } from '../../../environments/environment.development';
 import { Options } from '../../types/apiOptions';
 import { HttpClient } from '@angular/common/http';
 import { B4AResponse } from '../../types/response';
 
 @Injectable()
 export class ProjectionsService {
-  private headers = {
-    'X-Parse-Application-Id': environment.APP_ID,
-    'X-Parse-REST-API-Key': environment.REST_API_KEY,
-  }
 
   private projections$$ = new BehaviorSubject<Projection[] | null>(null);
   private isLoading$$ = new BehaviorSubject<boolean>(false);
@@ -22,7 +17,7 @@ export class ProjectionsService {
   constructor(private http: HttpClient) { }
 
   getProjections(movieId: string) {
-    const options: Options = { headers: { ...this.headers } };
+    const options: Options = { };
     const now = new Date().toISOString();
 
     const query = {

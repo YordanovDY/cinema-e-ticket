@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ApiService } from '../../api.service';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { UserService } from '../../user/user.service';
+import { InfoService } from '../info.service';
 
 @Component({
   selector: 'app-hero',
@@ -10,7 +10,7 @@ import { UserService } from '../../user/user.service';
   imports: [RouterLink, LoaderComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css',
-  providers: [ApiService]
+  providers: [InfoService]
 })
 export class HeroComponent implements OnInit {
   text: string = ''
@@ -22,13 +22,13 @@ export class HeroComponent implements OnInit {
   }
 
   constructor(
-    private api: ApiService,
+    private infoService: InfoService,
     private userService: UserService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.api.getInfoObject().subscribe(obj => {
+    this.infoService.getInfoObject().subscribe(obj => {
       this.text = obj.heroText;
       this.isLoading = false;
     })

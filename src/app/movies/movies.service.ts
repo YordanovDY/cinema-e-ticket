@@ -3,18 +3,12 @@ import { BehaviorSubject } from 'rxjs';
 import { Movie } from '../types/movie';
 import { HttpClient } from '@angular/common/http';
 import { B4AResponse } from '../types/response';
-import { environment } from '../../environments/environment.development';
 import { Options } from '../types/apiOptions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesService {
-  private headers = {
-    'X-Parse-Application-Id': environment.APP_ID,
-    'X-Parse-REST-API-Key': environment.REST_API_KEY,
-  }
-
   private movies$$ = new BehaviorSubject<Movie[] | null>(null);
   private isLoading$$ = new BehaviorSubject<boolean>(false);
 
@@ -24,9 +18,9 @@ export class MoviesService {
   constructor(private http: HttpClient) { }
 
   getMovies(records?: number) {
-    const options: Options = { headers: { ...this.headers } };
+    const options: Options = {};
 
-    options['params'] = { order: '-createdAt'}
+    options['params'] = { order: '-createdAt'};
     
     if (records) {
       options['params'] = { order: '-createdAt', limit: records };

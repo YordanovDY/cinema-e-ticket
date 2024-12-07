@@ -11,7 +11,7 @@ Welcome to the Cinema Electronic Ticket (E-Ticket) Application repository! This 
 ## Technologies Used
 - Frontend: Angular 18
 - Backend & Database: Back4App
-- Authentication: JWT
+- Authentication: Session Token
 
 ## Getting Started
 

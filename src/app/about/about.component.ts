@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
+import { InfoService } from '../home/info.service';
 
 @Component({
   selector: 'app-about',
@@ -8,17 +8,17 @@ import { LoaderComponent } from '../shared/loader/loader.component';
   imports: [LoaderComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
-  providers: [ApiService]
+  providers: [InfoService]
 })
 export class AboutComponent implements OnInit {
   text: string = '';
   imgURL: string = '';
   isLoading = true;
 
-  constructor(private api: ApiService) { }
+  constructor(private infoService: InfoService) { }
 
   ngOnInit(): void {
-    this.api.getInfoObject().subscribe(obj => {
+      this.infoService.getInfoObject().subscribe(obj => {
       this.text = obj.aboutText;
       this.imgURL = obj.aboutImgURL;
       this.isLoading = false;

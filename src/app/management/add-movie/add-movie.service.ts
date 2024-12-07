@@ -1,16 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
 import { UserPointer } from '../../types/user';
-import { Options } from '../../types/apiOptions';
-
 
 @Injectable()
 export class AddMovieService {
-  private headers = {
-    'X-Parse-Application-Id': environment.APP_ID,
-    'X-Parse-REST-API-Key': environment.REST_API_KEY,
-  }
 
   constructor(private http: HttpClient) { }
 
@@ -32,15 +25,6 @@ export class AddMovieService {
       objectId: userId
     }
 
-    const sessionToken = localStorage.getItem('[SessionToken]');
-    const options: Options = {
-      headers: {
-        ...this.headers,
-        'X-Parse-Session-Token': sessionToken,
-        'Content-Type': 'application/json',
-      },
-    }
-
     const body = {
       title,
       description,
@@ -52,7 +36,7 @@ export class AddMovieService {
       author
     }
 
-    return this.http.post('/api/classes/Movie', body, options);
+    return this.http.post('/api/classes/Movie', body);
   }
 }
 

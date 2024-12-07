@@ -1,18 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Ticket } from '../../types/ticket';
-import { environment } from '../../../environments/environment.development';
 import { Options } from '../../types/apiOptions';
 import { HttpClient } from '@angular/common/http';
 import { B4AResponse } from '../../types/response';
 
 @Injectable()
 export class TicketsService {
-  private headers = {
-    'X-Parse-Application-Id': environment.APP_ID,
-    'X-Parse-REST-API-Key': environment.REST_API_KEY,
-  }
-
   private tickets$$ = new BehaviorSubject<Ticket[] | null>(null);
   private isLoading$$ = new BehaviorSubject<boolean>(false);
 
@@ -22,15 +16,7 @@ export class TicketsService {
   constructor(private http: HttpClient) { }
 
   getTicketsFromUser(userId: string){
-    const sessionToken = localStorage.getItem('[SessionToken]');
-      
-    const options: Options = { 
-      headers: { 
-        ...this.headers, 
-        "X-Parse-Session-Token": sessionToken,
-        'Content-Type': 'application/json',
-      } 
-    };
+    const options: Options = { };
 
     const query = {
       user: {
@@ -56,15 +42,7 @@ export class TicketsService {
   }
 
   getTicketsFromProjection(projectionId: string){
-    const sessionToken = localStorage.getItem('[SessionToken]');
-      
-    const options: Options = { 
-      headers: { 
-        ...this.headers, 
-        "X-Parse-Session-Token": sessionToken,
-        'Content-Type': 'application/json',
-      } 
-    };
+    const options: Options = { };
 
     const query = {
       projection: {

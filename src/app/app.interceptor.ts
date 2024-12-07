@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 import { environment } from '../environments/environment.development';
 import { inject } from '@angular/core';
 import { HttpResponseErrorService } from './invalid-pages/http-response-error/http-response-error.service';
@@ -6,29 +6,33 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 
 export const appInterceptor: HttpInterceptorFn = (req, next) => {
-  if(req.url.startsWith('/api')) {
-    req = req.clone({
-      url: req.url.replace('/api', environment.API_URL),
-      withCredentials: true
-    })
-    req.headers.append('X-Parse-Application-Id',environment.APP_ID);
-    req.headers.append('X-Parse-REST-API-Key', environment.REST_API_KEY);
+  let reqHeaders = req.headers  
+  .set('X-Parse-Application-Id', environment.APP_ID)
+  .set('X-Parse-REST-API-Key', environment.REST_API_KEY);
 
     const sessionToken: string = localStorage.getItem('[SessionToken]') || '';
 
     if(sessionToken){
-      req.headers.append('X-Parse-Session-Token', sessionToken);
+      reqHeaders = reqHeaders.set('X-Parse-Session-Token', sessionToken);
     }
 
     const method = req.method;
     
     if(method === 'POST' || method === 'PUT'){
-      req.headers.append('Content-Type', 'application/json');
+      reqHeaders = reqHeaders.set('Content-Type', 'application/json');
     }
 
     if(req.url.endsWith('login') || req.url.endsWith('register')){
-      req.headers.append('X-Parse-Revocable-Session', '1');
+      reqHeaders = reqHeaders.set('X-Parse-Revocable-Session', '1');
     }
+
+    if(req.url.startsWith('/api')) {
+      req = req.clone({
+        url: req.url.replace('/api', environment.API_URL),
+        withCredentials: true,
+        headers: reqHeaders
+      })
+
   }
 
   const httpError = inject(HttpResponseErrorService);

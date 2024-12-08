@@ -35,4 +35,8 @@ export class MoviesService {
       this.isLoading$$.next(false);
     })
   }
+
+  emptyMoviesObservable(){
+    this.movies$$.next(null);
+  }
 }

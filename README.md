@@ -30,3 +30,6 @@ export const  REST_API_KEY = '';
 where the values should be your APP ID and REST API KEY.
 
 4. Run the application (ng serve);
+
+## Found Bugs
+- Upon login or registration (more frequently during registration), the router occasionally fails to redirect to the home page. As a result, users must manually navigate to http://localhost:4200. If the Login and Register buttons still appear, repeat the process until a circular button with the first letter of your username is displayed, indicating successful login.

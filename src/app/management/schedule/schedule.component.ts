@@ -79,8 +79,6 @@ export class ScheduleComponent implements OnInit {
     this.screensService.getScreens();
 
     this.movieNames = this.route.snapshot.data['movieNames'];
-    console.log(this.movieNames);
-
   }
 
   isMissing(controlName: string): boolean {

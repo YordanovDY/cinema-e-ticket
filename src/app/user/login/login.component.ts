@@ -9,13 +9,12 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, FormsModule, LoaderComponent],
+  imports: [RouterLink, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   providers: [CommonFormValidatorsService]
 })
 export class LoginComponent implements OnInit {
-  isLoading = false;
 
   isMissing: SimpleValidator | null = null;
   tooShort: SimpleValidator | null = null;
@@ -32,8 +31,6 @@ export class LoginComponent implements OnInit {
   }
 
   loginSubmitHandler(form: NgForm){
-    this.isLoading = true;
-
     if(form.invalid) {
       return
     }
@@ -41,10 +38,7 @@ export class LoginComponent implements OnInit {
     const {username, password} = form.value;
     
     this.userService.login(username, password).subscribe(() => {
-      setTimeout(()=>{
-        this.isLoading = false;
         this.router.navigate(['/home']);
-      }, 3000)
     })
   }
 }

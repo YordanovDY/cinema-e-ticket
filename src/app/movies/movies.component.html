@@ -1,6 +1,6 @@
 <section id="moviesSection" class="d-flex f-direction-column gap-30">
     <h2>All movies</h2>
-    @if(isManager){
+    @if(isManager || isAdmin){
         <a class="button btn-secondary" routerLink="/add-movie">Add New Movie</a>
     }
     <div class="wrapper">

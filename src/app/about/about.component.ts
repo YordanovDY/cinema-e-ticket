@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { InfoService } from '../home/info.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [LoaderComponent, RouterLink],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
   providers: [InfoService]

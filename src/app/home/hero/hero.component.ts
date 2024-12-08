@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { UserService } from '../../user/user.service';
@@ -13,9 +13,10 @@ import { InfoService } from '../info.service';
   providers: [InfoService]
 })
 export class HeroComponent implements OnInit {
+  @Input('isAdmin') isAdmin = false;
+
   text: string = ''
   isLoading = true;
-  isAdmin: boolean = false;
 
   get isLoggedIn(): boolean {
     return this.userService.isLogged;
@@ -24,7 +25,6 @@ export class HeroComponent implements OnInit {
   constructor(
     private infoService: InfoService,
     private userService: UserService,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -32,8 +32,6 @@ export class HeroComponent implements OnInit {
       this.text = obj.heroText;
       this.isLoading = false;
     })
-
-    this.isAdmin = this.route.snapshot.data['isAdmin'];
   }
 
 }

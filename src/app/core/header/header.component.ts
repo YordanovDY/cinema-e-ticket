@@ -33,6 +33,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.userService.isManager;
   }
 
+  get isAdmin(){
+    return this.userService.isAdmin;
+  }
+
   showMenu(): void {
     this.dropDownMenu = !this.dropDownMenu;
   }

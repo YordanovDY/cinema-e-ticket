@@ -8,7 +8,7 @@
             <li><a class="nav-button" routerLink="/prices">Prices</a></li>
             <li><a class="nav-button" routerLink="/about">About</a></li>
             <li><a class="nav-button" routerLink="/contacts">Contacts</a></li>
-            @if(isManager){
+            @if(isManager || isAdmin){
                 <li><a class="nav-button" routerLink="/dashboard">Dashboard</a></li>
             }
         </ul>

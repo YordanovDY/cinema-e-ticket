@@ -31,6 +31,7 @@ export class MovieDetailsComponent implements OnInit {
   // }
 
   isManager:boolean = false;
+  isAdmin:boolean = false;
   userId: string = '';
   movieId: string = '';
 
@@ -45,6 +46,7 @@ export class MovieDetailsComponent implements OnInit {
     this.movieDetailsService.getSingleMovie(movieId);
     this.movieId = movieId;
     this.isManager = this.route.snapshot.data['isManager'];
+    this.isAdmin = this.route.snapshot.data['isAdmin'];
     this.userId = this.route.snapshot.data['userId'];
   }
 

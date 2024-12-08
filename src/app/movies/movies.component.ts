@@ -29,6 +29,7 @@ export class MoviesComponent implements OnInit {
   }
 
   isManager: boolean = false;
+  isAdmin: boolean = false;
 
 
   constructor(
@@ -40,5 +41,6 @@ export class MoviesComponent implements OnInit {
   ngOnInit(): void {
     this.moviesService.getMovies();
     this.isManager = this.route.snapshot.data['isManager'];
+    this.isAdmin = this.route.snapshot.data['isAdmin'];
   }
 }

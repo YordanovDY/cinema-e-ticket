@@ -23,6 +23,7 @@ import { MovieNamesResolver } from './management/schedule/schedule.resolver';
 import { ScreensComponent } from './management/screens/screens.component';
 import { AddScreenComponent } from './management/add-screen/add-screen.component';
 import { EditScreenComponent } from './management/edit-screen/edit-screen.component';
+import { NonAvailableFeatureComponent } from './invalid-pages/non-available-feature/non-available-feature.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -30,11 +31,11 @@ export const routes: Routes = [
 
     {
         path: 'movies', children: [
-            { path: '', component: MoviesComponent, resolve: { isManager: IsManagerResolver } },
+            { path: '', component: MoviesComponent, resolve: { isManager: IsManagerResolver, isAdmin: IsAdminResolver } },
             {
                 path: ':movieId',
                 component: MovieDetailsComponent,
-                resolve: { isManager: IsManagerResolver, userId: UserIdResolver }
+                resolve: { isManager: IsManagerResolver, userId: UserIdResolver, isAdmin: IsAdminResolver }
             },
             { path: 'edit/:movieId', component: EditMovieComponent }
         ]
@@ -77,6 +78,8 @@ export const routes: Routes = [
     ]},
 
     { path: 'add-screen', component: AddScreenComponent },
+
+    { path: 'naf', component: NonAvailableFeatureComponent },
 
     { path: 'http-error', component: HttpResponseErrorComponent },
 

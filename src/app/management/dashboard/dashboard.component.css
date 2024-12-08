@@ -3,3 +3,16 @@
     color: #fcf2b1;
     min-height: 800px;
 }
+
+li {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #232c39;
+    font-size: 18px;
+    width: 800px;
+    text-align: center;
+}
+
+li:hover{
+    outline: 1px solid #D4AC0D;
+}

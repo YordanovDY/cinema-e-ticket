@@ -11,7 +11,6 @@ import { AboutComponent } from './about/about.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PageNotFoundComponent } from './invalid-pages/page-not-found/page-not-found.component';
 import { TicketsComponent } from './user/tickets/tickets.component';
-import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
 import { TicketDetailsComponent } from './user/ticket-details/ticket-details.component';
 import { HttpResponseErrorComponent } from './invalid-pages/http-response-error/http-response-error.component';
 import { IsAdminResolver, IsManagerResolver, UserIdResolver, UserResolver } from './user/user.resolver';
@@ -66,9 +65,9 @@ export const routes: Routes = [
 
     { path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard], resolve: { user: UserResolver } },
 
-    { path: 'about', component: AboutComponent },
+    { path: 'about', component: AboutComponent, resolve: { isAdmin: IsAdminResolver } },
 
-    { path: 'dashboard', component: DashboardComponent },
+    { path: 'dashboard', component: DashboardComponent, resolve: { isAdmin: IsAdminResolver } },
 
     { path: 'schedule', component: ScheduleComponent, resolve: { movieNames: MovieNamesResolver } },
 

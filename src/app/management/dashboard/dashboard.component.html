@@ -1,9 +1,12 @@
 <section id="dashboardSection" class="d-flex f-direction-column ai-center gap-20">
     <h2>Dashboard</h2>
     <div class="menu">
-        <ul>
-            <li><a routerLink="/schedule">Schedule</a></li>
-            <li><a routerLink="/screens">Screens</a></li>
+        <ul class="ls-none d-flex f-direction-column gap-10">
+            <a routerLink="/schedule"><li>Schedule</li></a>
+            <a routerLink="/screens"><li>Screens</li></a>
+            @if(isAdmin){
+                <a routerLink="/naf"><li>Register a Manager</li></a>
+            }
         </ul>
     </div>
 </section>

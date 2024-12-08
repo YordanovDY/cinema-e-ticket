@@ -41,10 +41,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dropDownMenu = !this.dropDownMenu;
   }
 
-  // logout() {
-  //   this.userService.logout();
-  // }
-
   ngOnDestroy(): void {
     this.unsubFnArray.forEach(funct => funct());
   }

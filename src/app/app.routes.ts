@@ -23,6 +23,8 @@ import { ScreensComponent } from './management/screens/screens.component';
 import { AddScreenComponent } from './management/add-screen/add-screen.component';
 import { EditScreenComponent } from './management/edit-screen/edit-screen.component';
 import { NonAvailableFeatureComponent } from './invalid-pages/non-available-feature/non-available-feature.component';
+import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
+import { NoAccessComponent } from './invalid-pages/no-access/no-access.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -40,7 +42,7 @@ export const routes: Routes = [
         ]
     },
 
-    { path: 'add-movie', component: AddMovieComponent, resolve: { userId: UserIdResolver } },
+    { path: 'add-movie', component: AddMovieComponent, canActivate: [AuthGuard], resolve: { userId: UserIdResolver } },
 
     {
         path: 'buy-ticket',
@@ -67,18 +69,20 @@ export const routes: Routes = [
 
     { path: 'about', component: AboutComponent, resolve: { isAdmin: IsAdminResolver } },
 
-    { path: 'dashboard', component: DashboardComponent, resolve: { isAdmin: IsAdminResolver } },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], resolve: { isAdmin: IsAdminResolver } },
 
-    { path: 'schedule', component: ScheduleComponent, resolve: { movieNames: MovieNamesResolver } },
+    { path: 'schedule', component: ScheduleComponent, canActivate: [AuthGuard], resolve: { movieNames: MovieNamesResolver } },
 
     { path: 'screens', children:[
         {path: '', component: ScreensComponent},
         {path: 'edit/:screenId', component: EditScreenComponent},
     ]},
 
-    { path: 'add-screen', component: AddScreenComponent },
+    { path: 'add-screen', component: AddScreenComponent, canActivate: [AuthGuard] },
 
     { path: 'naf', component: NonAvailableFeatureComponent },
+
+    { path: 'no-access', component: NoAccessComponent },
 
     { path: 'http-error', component: HttpResponseErrorComponent },
 

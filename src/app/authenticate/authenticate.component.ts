@@ -5,7 +5,7 @@ import { LoaderComponent } from '../shared/loader/loader.component';
 @Component({
   selector: 'app-authenticate',
   standalone: true,
-  imports: [LoaderComponent, LoaderComponent],
+  imports: [LoaderComponent],
   templateUrl: './authenticate.component.html',
   styleUrl: './authenticate.component.css'
 })
@@ -15,6 +15,9 @@ export class AuthenticateComponent implements OnInit{
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    console.log('AuthenticateComponent rendering...');
+    
+
     this.userService.getProfile().subscribe({
       next: () => {
         this.isAuthenticating = false;

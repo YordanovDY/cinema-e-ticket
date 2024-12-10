@@ -1,0 +1,27 @@
+<section id="messageDetailsSection" class="d-flex jc-center">
+    <article class="message d-flex f-direction-column gap-20">
+        @if(isLoading$ | async){
+            <app-loader />
+        } @else {
+            <header class="d-flex f-direction-column gap-10">
+                <h2>Subject: <span class="underline">{{(message$ | async)?.subject}}</span></h2>
+                <p>From: {{(message$ | async)?.email}}</p>
+                <p>Sent at: {{(message$ | async)?.createdAt | date: 'dd MMM yyyy hh:mm'}}</p>
+                <div class="action-buttons d-flex gap-10 jc-flex-end">
+                    <a (click)="onDelete(deleteBtnRef)" [id]="(message$ | async)?.objectId" #deleteBtnRef class="button btn-secondary">
+                        <i class="fa-solid fa-xmark"></i>
+                    </a>
+                    <a class="button btn-secondary" href="mailto:{{(message$ | async)?.email}}" target="_blank">
+                        <i class="fa-solid fa-reply"></i>
+                    </a>
+                </div>
+            </header>
+            <main>
+                <p>
+                    {{(message$ | async)?.text}}
+                </p>
+            </main>
+        }
+    </article>
+    
+</section>

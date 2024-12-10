@@ -26,6 +26,7 @@ import { NonAvailableFeatureComponent } from './invalid-pages/non-available-feat
 import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
 import { NoAccessComponent } from './invalid-pages/no-access/no-access.component';
 import { MessagesComponent } from './messages/messages.component';
+import { MessageDetailsComponent } from './message-details/message-details.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -54,8 +55,8 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
 
-    { path: 'login', component: LoginComponent, canActivate:[PreventDoubleLoginGuard] },
-    { path: 'register', component: RegisterComponent, canActivate:[PreventDoubleLoginGuard] },
+    { path: 'login', component: LoginComponent, canActivate: [PreventDoubleLoginGuard] },
+    { path: 'register', component: RegisterComponent, canActivate: [PreventDoubleLoginGuard] },
     {
         path: 'tickets',
         children: [
@@ -74,17 +75,21 @@ export const routes: Routes = [
 
     { path: 'schedule', component: ScheduleComponent, canActivate: [AuthGuard], resolve: { movieNames: MovieNamesResolver } },
 
-    { path: 'screens', children:[
-        {path: '', component: ScreensComponent, canActivate: [AuthGuard]},
-        {path: 'edit/:screenId', component: EditScreenComponent, canActivate: [AuthGuard]},
-    ]},
+    {
+        path: 'screens', children: [
+            { path: '', component: ScreensComponent, canActivate: [AuthGuard] },
+            { path: 'edit/:screenId', component: EditScreenComponent, canActivate: [AuthGuard] },
+        ]
+    },
 
     { path: 'add-screen', component: AddScreenComponent, canActivate: [AuthGuard] },
 
-    { path: 'messages', children: [
-        {path:'', component: MessagesComponent}
-    ],  
-        canActivate: [AuthGuard] 
+    {
+        path: 'messages', children: [
+            { path: '', component: MessagesComponent },
+            { path: ':messageId', component: MessageDetailsComponent }
+        ],
+        canActivate: [AuthGuard]
     },
 
     { path: 'naf', component: NonAvailableFeatureComponent },

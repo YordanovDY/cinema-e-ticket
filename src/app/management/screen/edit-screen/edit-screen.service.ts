@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Options } from '../../types/apiOptions';
-import { Screen } from '../../types/screen';
+import { Screen } from '../../../types/screen';
 
 @Injectable()
 export class EditScreenService {

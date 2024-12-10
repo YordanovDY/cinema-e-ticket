@@ -7,13 +7,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ScheduleService } from './schedule.service';
-import { MoviesService } from '../../movies/movies.service';
 import { AlphabeticalArrayPipe } from '../../pipes/alphabetical-array.pipe';
 import { ShortMovie } from '../../types/movie';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TIMES_SCHEDULE } from '../../constants';
-import { ScreensService } from '../screens/screens.service';
+import { MoviesService } from '../../movie/movies/movies.service';
+import { ScreensService } from '../screen/screens/screens.service';
 
 @Component({
   selector: 'app-schedule',

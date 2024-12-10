@@ -1,7 +1,7 @@
 import { inject } from "@angular/core";
-import { MoviesService } from "../../movies/movies.service";
 import { ResolveFn } from "@angular/router";
 import { ShortMovie } from "../../types/movie";
+import { MoviesService } from "../../movie/movies/movies.service";
 
 export const MovieNamesResolver: ResolveFn<ShortMovie[]> = (route) => {
     const moviesService = inject(MoviesService);

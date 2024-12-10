@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Message } from '../types/message';
 import { HttpClient } from '@angular/common/http';
+import { Message } from '../../types/message';
 
 @Injectable()
 export class MessageDetailsService {

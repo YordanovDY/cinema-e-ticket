@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../shared/loader/loader.component';
-import { MoviesService } from '../../movies/movies.service';
 import { AsyncPipe } from '@angular/common';
+import { MoviesService } from '../../movie/movies/movies.service';
 
 @Component({
   selector: 'app-now-showing',

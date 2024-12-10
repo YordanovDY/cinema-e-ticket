@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LoaderComponent } from "../shared/loader/loader.component";
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PaginatorComponent } from "../shared/paginator/paginator.component";
 import { MoviesService } from './movies.service';
 import { AsyncPipe } from '@angular/common';
-import { UserService } from '../user/user.service';
+import { LoaderComponent } from '../../shared/loader/loader.component';
+import { PaginatorComponent } from '../../shared/paginator/paginator.component';
 
 @Component({
   selector: 'app-movies',
@@ -17,7 +16,7 @@ import { UserService } from '../user/user.service';
   ],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.css',
-  providers: [MoviesService, UserService]
+  providers: [MoviesService]
 })
 export class MoviesComponent implements OnInit {
   get isLoading$() {
@@ -34,7 +33,6 @@ export class MoviesComponent implements OnInit {
 
   constructor(
     private moviesService: MoviesService, 
-    private userService: UserService,
     private route: ActivatedRoute
   ) { };
 

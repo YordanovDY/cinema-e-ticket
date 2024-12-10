@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Message } from '../types/message';
 import { HttpClient } from '@angular/common/http';
-import { B4AResponse } from '../types/response';
+import { Message } from '../../types/message';
+import { B4AResponse } from '../../types/response';
 
 @Injectable()
 export class MessagesService {

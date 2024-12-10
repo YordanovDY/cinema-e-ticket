@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { B4AResponse } from '../../types/response';
-import { Screen } from '../../types/screen';
+import { Screen } from '../../../types/screen';
+import { B4AResponse } from '../../../types/response';
 
 @Injectable()
 export class ScreensService {

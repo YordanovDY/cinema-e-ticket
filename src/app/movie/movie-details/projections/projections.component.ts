@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PaginatorComponent } from "../../shared/paginator/paginator.component";
-// import { ApiService } from '../../api.service';
-import { Projection } from '../../types/projection';
 import { RouterLink } from '@angular/router';
 import { ProjectionsService } from './projections.service';
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { LoaderComponent } from "../../shared/loader/loader.component";
+import { PaginatorComponent } from '../../../shared/paginator/paginator.component';
+import { LoaderComponent } from '../../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-projections',

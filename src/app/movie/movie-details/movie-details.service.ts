@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Movie } from '../types/movie';
 import { HttpClient } from '@angular/common/http';
+import { Movie } from '../../types/movie';
 
 @Injectable()
 export class MovieDetailsService {

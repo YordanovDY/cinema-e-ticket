@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Projection } from '../../types/projection';
-import { Options } from '../../types/apiOptions';
 import { HttpClient } from '@angular/common/http';
-import { B4AResponse } from '../../types/response';
+import { Projection } from '../../../types/projection';
+import { B4AResponse } from '../../../types/response';
+import { Options } from '../../../types/apiOptions';
 
 @Injectable()
 export class ProjectionsService {

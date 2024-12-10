@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Movie } from '../types/movie';
 import { HttpClient } from '@angular/common/http';
-import { B4AResponse } from '../types/response';
-import { Options } from '../types/apiOptions';
+import { Movie } from '../../types/movie';
+import { Options } from '../../types/apiOptions';
+import { B4AResponse } from '../../types/response';
 
 @Injectable({
   providedIn: 'root'

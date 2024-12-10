@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { MoviesComponent } from './movies/movies.component';
+import { MoviesComponent } from './movie/movies/movies.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
-import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 import { PricesComponent } from './prices/prices.component';
 import { ContactsComponent } from './contacts/contacts.component';
@@ -14,19 +13,20 @@ import { TicketsComponent } from './user/tickets/tickets.component';
 import { TicketDetailsComponent } from './user/ticket-details/ticket-details.component';
 import { HttpResponseErrorComponent } from './invalid-pages/http-response-error/http-response-error.component';
 import { IsAdminResolver, IsManagerResolver, UserIdResolver, UserResolver } from './user/user.resolver';
-import { AddMovieComponent } from './management/add-movie/add-movie.component';
+import { AddMovieComponent } from './movie/add-movie/add-movie.component';
 import { DashboardComponent } from './management/dashboard/dashboard.component';
-import { EditMovieComponent } from './management/edit-movie/edit-movie.component';
+import { EditMovieComponent } from './movie/edit-movie/edit-movie.component';
 import { ScheduleComponent } from './management/schedule/schedule.component';
 import { MovieNamesResolver } from './management/schedule/schedule.resolver';
-import { ScreensComponent } from './management/screens/screens.component';
-import { AddScreenComponent } from './management/add-screen/add-screen.component';
-import { EditScreenComponent } from './management/edit-screen/edit-screen.component';
 import { NonAvailableFeatureComponent } from './invalid-pages/non-available-feature/non-available-feature.component';
 import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
 import { NoAccessComponent } from './invalid-pages/no-access/no-access.component';
-import { MessagesComponent } from './messages/messages.component';
-import { MessageDetailsComponent } from './message-details/message-details.component';
+import { ScreensComponent } from './management/screen/screens/screens.component';
+import { EditScreenComponent } from './management/screen/edit-screen/edit-screen.component';
+import { AddScreenComponent } from './management/screen/add-screen/add-screen.component';
+import { MessageDetailsComponent } from './message/message-details/message-details.component';
+import { MovieDetailsComponent } from './movie/movie-details/movie-details.component';
+import { MessagesComponent } from './message/messages/messages.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },

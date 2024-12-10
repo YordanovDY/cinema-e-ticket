@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { LoaderComponent } from '../shared/loader/loader.component';
-import { ProjectionsComponent } from "./projections/projections.component";
 import { MovieDetailsService } from './movie-details.service';
 import { AsyncPipe } from '@angular/common';
-import { UserService } from '../user/user.service';
+import { LoaderComponent } from '../../shared/loader/loader.component';
+import { ProjectionsComponent } from './projections/projections.component';
+import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -25,10 +25,6 @@ export class MovieDetailsComponent implements OnInit {
   get isLoading$() {
     return this.movieDetailsService.isLoading$;
   }
-
-  // get isManager(): boolean{
-  //   return this.userService.isManager;
-  // }
 
   isManager:boolean = false;
   isAdmin:boolean = false;

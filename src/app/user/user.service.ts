@@ -71,24 +71,6 @@ export class UserService implements OnDestroy {
 
     return this.http.post<RegistrationResponse>('/api/users', body).pipe(tap(
       resp => {
-
-        // this.user$$.next({
-        //   objectId: user.objectId,
-        //   username: username,
-        //   email: email,
-        //   role: {
-        //     __type: "Pointer",
-        //     className: "_Role",
-        //     objectId: userRoleId
-        //   },
-        //   money: 0,
-        //   createdAt: user.createdAt,
-        //   updatedAt: user.createdAt,
-        //   __type: "Object",
-        //   className: "_User",
-        //   sessionToken: user.sessionToken
-        // });
-
         localStorage.setItem('[SessionToken]', resp.sessionToken);
         localStorage.setItem('[UserId]', resp.objectId);
       }

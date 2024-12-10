@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ScreensService } from './screens.service';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { AsyncPipe } from '@angular/common';
-import { TIMES_SCHEDULE } from '../../constants';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { LoaderComponent } from '../../../shared/loader/loader.component';
+import { TIMES_SCHEDULE } from '../../../constants';
 
 @Component({
   selector: 'app-screens',
@@ -26,7 +26,6 @@ export class ScreensComponent implements OnInit {
 
   constructor(
     private screensService: ScreensService,
-    private router: Router
   ){ }
 
   ngOnInit(): void {

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { RangeDirective } from '../../directives/range.directive';
-import { CommonFormValidatorsService } from '../../utils/validators/common-form-validators.service';
-import { SimpleValidator } from '../../types/functions';
 import { AddScreenService } from './add-screen.service';
 import { Router } from '@angular/router';
+import { RangeDirective } from '../../../directives/range.directive';
+import { CommonFormValidatorsService } from '../../../utils/validators/common-form-validators.service';
+import { SimpleValidator } from '../../../types/functions';
 
 @Component({
   selector: 'app-add-screen',

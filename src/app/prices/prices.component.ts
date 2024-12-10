@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// !import { ApiService } from '../api.service';
-// !import { Price } from '../types/price';
 import { LoaderComponent } from '../shared/loader/loader.component';
 import { PricesService } from './prices.service';
 import { AsyncPipe } from '@angular/common';
@@ -25,11 +23,6 @@ export class PricesComponent implements OnInit{
   constructor(private pricesService: PricesService) { }
 
   ngOnInit(): void {
-    //! this.api.getPrices().subscribe(resp => {
-    //   this.prices = resp.results as Price[];
-    //   this.isLoading = false;
-    // });
-
     this.pricesService.getPrices();
   }
 }

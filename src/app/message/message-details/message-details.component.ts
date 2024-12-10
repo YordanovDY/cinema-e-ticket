@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageDetailsService } from './message-details.service';
-import { LoaderComponent } from '../shared/loader/loader.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AsyncPipe, DatePipe } from '@angular/common';
+import { LoaderComponent } from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-message-details',

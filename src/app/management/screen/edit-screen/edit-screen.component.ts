@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup,ReactiveFormsModule, Validators } from '@angular/forms';
 import { EditScreenService } from './edit-screen.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { rangeValidator } from '../../utils/validators/range.validator';
+import { rangeValidator } from '../../../utils/validators/range.validator';
 
 @Component({
   selector: 'app-edit-screen',

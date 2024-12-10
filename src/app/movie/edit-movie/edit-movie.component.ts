@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { numberValidator } from '../../utils/validators/number.validator';
 import { ratingValidator } from '../../utils/validators/rating.validator';
-import { MovieDetailsService } from '../../movie-details/movie-details.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditMovieService } from './edit-movie.service';
+import { MovieDetailsService } from '../movie-details/movie-details.service';
 
 @Component({
   selector: 'app-edit-movie',

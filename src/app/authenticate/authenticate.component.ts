@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { LoaderComponent } from '../shared/loader/loader.component';
 
@@ -15,10 +15,15 @@ export class AuthenticateComponent implements OnInit{
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    console.log('AuthenticateComponent rendering...');
-    
+    const userInfo = this.userService.getUserInfo();
+    const {userId, sessionToken} = userInfo;
 
-    this.userService.getProfile().subscribe({
+    if(!userId || !sessionToken){
+      this.isAuthenticating = false;
+      return;
+    }
+
+    this.userService.setUserById(userInfo.userId, userInfo.sessionToken).subscribe({
       next: () => {
         this.isAuthenticating = false;
       },

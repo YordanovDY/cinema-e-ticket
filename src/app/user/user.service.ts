@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { User, UserRole } from '../types/user';
+import { LoggingResponse, ReadingUserResponse, RegistrationResponse, User, UserRole } from '../types/user';
 import { BehaviorSubject, Subscription, tap } from 'rxjs';
 
 @Injectable({
@@ -24,15 +24,15 @@ export class UserService implements OnDestroy {
   }
 
   get isManager(): boolean {
-    if(this.user){
+    if (this.user) {
       return this.user.role.objectId === UserRole.Manager;
     }
-    
+
     return false;
   }
 
   get isAdmin(): boolean {
-    if(this.user) {
+    if (this.user) {
       return this.user.role.objectId === UserRole.Admin;
     }
 
@@ -46,10 +46,10 @@ export class UserService implements OnDestroy {
       password
     }
 
-    return this.http.post<User>('/api/login', body).pipe(tap(
-      user => {
-        this.user$$.next(user)
-        localStorage.setItem('[SessionToken]', user.sessionToken);
+    return this.http.post<LoggingResponse>('/api/login', body).pipe(tap(
+      resp => {
+        localStorage.setItem('[SessionToken]', resp.sessionToken);
+        localStorage.setItem('[UserId]', resp.objectId);
       }
     ))
   }
@@ -69,10 +69,28 @@ export class UserService implements OnDestroy {
       }
     }
 
-    return this.http.post<User>('/api/users', body).pipe(tap(
-      user => {
-        this.user$$.next(user);
-        localStorage.setItem('[SessionToken]', user.sessionToken);
+    return this.http.post<RegistrationResponse>('/api/users', body).pipe(tap(
+      resp => {
+
+        // this.user$$.next({
+        //   objectId: user.objectId,
+        //   username: username,
+        //   email: email,
+        //   role: {
+        //     __type: "Pointer",
+        //     className: "_Role",
+        //     objectId: userRoleId
+        //   },
+        //   money: 0,
+        //   createdAt: user.createdAt,
+        //   updatedAt: user.createdAt,
+        //   __type: "Object",
+        //   className: "_User",
+        //   sessionToken: user.sessionToken
+        // });
+
+        localStorage.setItem('[SessionToken]', resp.sessionToken);
+        localStorage.setItem('[UserId]', resp.objectId);
       }
     ))
   }
@@ -86,16 +104,33 @@ export class UserService implements OnDestroy {
       () => {
         this.user$$.next(null);
         localStorage.removeItem('[SessionToken]');
+        localStorage.removeItem('[UserId]');
       }
     )))
   }
 
-  getProfile() {
-    return this.http.get<User>('/api/users/me').pipe(tap(
-      (user) => {
-        this.user$$.next(user);
-      }
-    ))
+  getUserInfo(){
+    return {
+      userId: localStorage.getItem('[UserId]') as string,
+      sessionToken: localStorage.getItem('[SessionToken]') as string
+    }
+  }
+
+  setUserById(userId: string, sessionToken: string) {
+    return this.http.get<ReadingUserResponse>(`/api/users/${userId}`).pipe(tap((user) =>{
+      this.user$$.next({
+        objectId: user.objectId,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        money: user.money,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        __type: "Object",
+        className: "_User",
+        sessionToken: sessionToken
+      })
+    }))
   }
 
   ngOnDestroy(): void {

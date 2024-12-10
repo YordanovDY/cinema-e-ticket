@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { EmailDirective } from '../../directives/email.directive';
 import { DOMAINS } from '../../constants';
 import { PasswordsMatchingDirective } from '../../directives/passwords-matching.directive';
@@ -31,7 +31,6 @@ export class RegisterComponent implements OnInit {
   constructor(
     private validator: CommonFormValidatorsService,
     private userService: UserService,
-    private router: Router
   ) { }
   
   ngOnInit(): void {
@@ -50,7 +49,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.userService.register(username, email, password).subscribe(()=>{
-      this.router.navigate(['/home']);
+      window.location.href = '/home';
     })
   }
 }

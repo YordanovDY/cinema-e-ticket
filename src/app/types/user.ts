@@ -28,3 +28,27 @@ export interface UserPointer {
     className: "_User",
     objectId: string
 }
+
+export interface RegistrationResponse{ 
+    objectId: string,
+    createdAt: string,
+    sessionToken: string
+}
+
+export interface LoggingResponse {
+    objectId: string,
+    username:string,
+    createdAt:string,
+    updatedAt:string,
+    sessionToken:string
+  }
+
+  export interface ReadingUserResponse{
+    "username":string,
+    "email":string,
+    "money":number,
+    "role":Role,
+    "createdAt": string,
+    "updatedAt": string,
+    "objectId": string,
+  }

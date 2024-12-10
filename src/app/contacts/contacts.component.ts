@@ -35,9 +35,6 @@ export class ContactsComponent implements OnInit{
   ngOnInit(): void {
     this.isMissing = this.validator.isMissing;
     this.tooShort = this.validator.tooShort;
-    // this.userService.getProfile().subscribe(usr =>{
-    //   this.email = usr?.email;
-    // })
 
     const user:User = this.route.snapshot.data['user'];
     this.email = user.email;

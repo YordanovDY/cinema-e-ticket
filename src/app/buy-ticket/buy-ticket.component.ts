@@ -95,18 +95,12 @@ export class BuyTicketComponent implements OnInit {
 
     this.projection$.subscribe(proj => {
       this.form.patchValue({
+        userId: this.userService.getUserInfo().userId,
         projectionId: projectionId,
         movie: proj?.movie.title,
         screen: proj?.screen.name,
         dateAndTime: proj?.dateAndTime.iso,
-      })
-
-      this.userService.getProfile().subscribe(user => {
-        this.form.patchValue({
-          userId: user.objectId
-        })
-      })
-    })
+      })})
 
     this.ticketsService.getTicketsFromProjection(projectionId);
     this.tickets$.pipe(tap(

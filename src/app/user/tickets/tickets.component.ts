@@ -32,13 +32,11 @@ export class TicketsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userService.getProfile().subscribe(user => {
-      this.userId = user.objectId;
+      this.userId = this.userService.getUserInfo().userId;
       this.ticketsService.getTicketsFromUser(this.userId);
       this.tickets$.subscribe(tickets => {
         this.tickets = tickets as Ticket[];
       })
-    })
   }
 
 }

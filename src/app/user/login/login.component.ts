@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CommonFormValidatorsService } from '../../utils/validators/common-form-validators.service';
 import { SimpleValidator } from '../../types/functions';
 import { UserService } from '../user.service';
-import { LoaderComponent } from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +21,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private validator: CommonFormValidatorsService,
     private userService: UserService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +36,7 @@ export class LoginComponent implements OnInit {
     const {username, password} = form.value;
     
     this.userService.login(username, password).subscribe(() => {
-        this.router.navigate(['/home']);
+        window.location.href = '/home';
     })
   }
 }

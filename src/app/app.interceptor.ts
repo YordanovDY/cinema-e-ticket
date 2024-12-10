@@ -40,11 +40,16 @@ export const appInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((err)=> {
-        console.log(err.error.error);
+      console.log(err.error.error);
 
-        httpError.setError(err);  // Set an error, get null in http-response-error.component
+      if(err.error.code === 209){
+        router.navigate(['/home']);
+
+      } else{
+        httpError.setError(err);
 
         router.navigate(['/http-error']);
+      }
 
       return [err];
     })

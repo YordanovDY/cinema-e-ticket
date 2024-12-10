@@ -1,6 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { HttpResponseErrorService } from './http-response-error.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-http-response-error',

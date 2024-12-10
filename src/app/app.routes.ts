@@ -53,8 +53,8 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
 
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: 'login', component: LoginComponent, canActivate:[PreventDoubleLoginGuard] },
+    { path: 'register', component: RegisterComponent, canActivate:[PreventDoubleLoginGuard] },
     {
         path: 'tickets',
         children: [
@@ -74,8 +74,8 @@ export const routes: Routes = [
     { path: 'schedule', component: ScheduleComponent, canActivate: [AuthGuard], resolve: { movieNames: MovieNamesResolver } },
 
     { path: 'screens', children:[
-        {path: '', component: ScreensComponent},
-        {path: 'edit/:screenId', component: EditScreenComponent},
+        {path: '', component: ScreensComponent, canActivate: [AuthGuard]},
+        {path: 'edit/:screenId', component: EditScreenComponent, canActivate: [AuthGuard]},
     ]},
 
     { path: 'add-screen', component: AddScreenComponent, canActivate: [AuthGuard] },

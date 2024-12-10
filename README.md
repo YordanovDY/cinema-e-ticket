@@ -32,14 +32,18 @@ where the values should be your APP ID and REST API KEY.
 4. Run the application (ng serve);
 
 ## Some users for testing:
-username: Dido1             //role: User
-password: qwerty
 
-username: bobi11            //role: Manager
-password: qwerty
+### User Role
+- username: Dido1
+- password: qwerty
 
-username: Administrator     //role: Admin
-password: qwerty
+### Manager Role
+- username: bobi11
+- password: qwerty
+
+### Admin Role
+- username: Administrator
+- password: qwerty
 
 ## Found Bugs
 - Upon login or registration, the router occasionally fails to redirect to the home page. As a result, users must manually navigate to http://localhost:4200. If the Login and Register buttons still appear, repeat the process until a circular button with the first letter of your username is displayed, indicating successful login.

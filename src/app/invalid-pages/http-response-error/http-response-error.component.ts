@@ -10,13 +10,12 @@ import { HttpResponseErrorService } from './http-response-error.service';
   providers: [HttpResponseErrorService]
 })
 export class HttpResponseErrorComponent implements OnInit {
-  errorMsg = signal('');
+  errorMsg = signal('Something went wrong. Please try again!');
 
   constructor(private httpError: HttpResponseErrorService) { }
 
   ngOnInit(): void {
     this.httpError.apiError$.subscribe((error) => {
-      console.log(error); // null ?
       
       if (error) {
         this.errorMsg.set(error.error.error);

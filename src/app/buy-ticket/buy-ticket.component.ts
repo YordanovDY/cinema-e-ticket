@@ -167,7 +167,7 @@ export class BuyTicketComponent implements OnInit {
       ticketPrice as string
       
     ).subscribe(() =>{
-      this.router.navigate(['/movies']);
+      this.router.navigate(['/tickets']);
     });
 
   }

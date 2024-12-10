@@ -10,7 +10,7 @@ export const AuthGuard: CanActivateFn = (route, state) =>{
     
     if(!isLoggedIn) {
 
-        if(url === '/contacts'){
+        if(url === '/contacts' || url.startsWith('/buy-ticket/')){
             router.navigate(['/login']);
 
         } else{

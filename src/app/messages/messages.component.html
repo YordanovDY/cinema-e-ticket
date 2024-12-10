@@ -1,0 +1,25 @@
+<section id="messagesSection" class="d-flex f-direction-column gap-30">
+    <h2>Messages</h2>
+    <div class="messages-container d-flex f-direction-column gap-20 ai-center">
+        @if(isLoading$ | async){
+            <app-loader />
+        } @else{
+            @for (message of messages$ | async; track $index) {
+                <a [routerLink]="message.objectId">
+                    <article class="message d-flex f-direction-column gap-20">
+                        <h3>{{message.subject}}</h3>
+                        <p>Sent at: {{message.createdAt | date: 'dd MMM yyyy hh:mm'}}</p>
+                        <p>{{message.text | ellipsis: 220}}</p>
+    
+                        @if(message.isRead){
+                            <app-read />
+    
+                        } @else {
+                            <app-unread />
+                        }
+                    </article>
+                </a>
+            }
+        }
+    </div>
+</section>

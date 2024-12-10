@@ -3,5 +3,6 @@ export interface Message {
     createdAt: string,
     updatedAt: string,
     subject: string,
-    text: string
+    text: string,
+    isRead: boolean
 }

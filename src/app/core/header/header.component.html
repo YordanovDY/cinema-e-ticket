@@ -11,6 +11,10 @@
             @if(isManager || isAdmin){
                 <li><a class="nav-button" routerLink="/dashboard">Dashboard</a></li>
             }
+
+            @if(isAdmin){
+                <li><a class="nav-button" routerLink="/messages">Messages</a></li>
+            }
         </ul>
 
         @if(isLoggedIn) {

@@ -1,0 +1,38 @@
+#messagesSection {
+    background-color: #2e3a4a;
+    color: #fcf2b1;
+    min-height: 800px;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 22px;
+    text-align: center;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+p {
+    font-size: 18px;
+}
+
+.message {
+    background-color: #232c39;
+    border-radius: 20px;
+    padding: 20px;
+    width: 880px;
+    position: relative;
+}
+
+.message:hover{
+    outline: 1px solid #D4AC0D;
+}
+
+app-read,
+app-unread{
+    position: absolute;
+    top: 22px;
+    right: 10px;
+}

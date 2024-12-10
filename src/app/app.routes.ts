@@ -25,6 +25,7 @@ import { EditScreenComponent } from './management/edit-screen/edit-screen.compon
 import { NonAvailableFeatureComponent } from './invalid-pages/non-available-feature/non-available-feature.component';
 import { PreventDoubleLoginGuard } from './guards/prevent-double-login.guard';
 import { NoAccessComponent } from './invalid-pages/no-access/no-access.component';
+import { MessagesComponent } from './messages/messages.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -79,6 +80,12 @@ export const routes: Routes = [
     ]},
 
     { path: 'add-screen', component: AddScreenComponent, canActivate: [AuthGuard] },
+
+    { path: 'messages', children: [
+        {path:'', component: MessagesComponent}
+    ],  
+        canActivate: [AuthGuard] 
+    },
 
     { path: 'naf', component: NonAvailableFeatureComponent },
 

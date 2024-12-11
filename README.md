@@ -2,11 +2,24 @@
 Welcome to the Cinema Electronic Ticket (E-Ticket) Application repository! This project is designed to provide users with a seamless experience for browsing movies, booking tickets, and managing their cinema visits—all from the convenience of their devices.
 
 ## Features
-- Everyone can browse movies and check for upcoming projections.
-- Logged in users can view available seats and choose the perfect spot for their viewing experience.
-- Users can purchase tickets at any time of the day and access them by their mobile device at check-in.
-- Managers can add movies, create schedule and organize the screen halls. They can also read messages sent through the contact form.
-- The administrator has the powers of a manager and can change some of the text and images in static web pages. The administrator can also register manager accounts.
+### Guests:
+- can browse movies and check for upcoming projections;
+- can navigate through base pages - home, prices, about; 
+
+### Users:
+- can view available seats and buy tickets;
+- can write to the administrator via the contact form;
+
+### Managers:
+- can add, update, delete movies (update and delete only if he is the author);
+- can add, update, delete screen halls;
+- can create a screening schedule for existing movies;
+
+### Admins:
+- has the powers of a manager, but also can update and delete all movies;
+- can read messages sent through the contact form;
+- Can modify some text and images on static web pages. (Note: Only the buttons for this feature are currently visible; functionality is not implemented yet.);
+- Can create manager accounts. (Note: Only the button for this feature is currently visible; functionality is not implemented yet.);
 
 ## Technologies Used
 - Frontend: Angular 18

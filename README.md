@@ -37,8 +37,8 @@ Welcome to the Cinema Electronic Ticket (E-Ticket) Application repository! This 
 2. Navigate to src / environments;
 3. Create a file named keys.ts in environments folder with the following structure:
 
-export const APP_ID = '';
-export const  REST_API_KEY = '';
+- export const APP_ID = '';
+- export const  REST_API_KEY = '';
 
 where the values should be your APP ID and REST API KEY.
 

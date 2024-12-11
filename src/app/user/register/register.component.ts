@@ -40,7 +40,10 @@ export class RegisterComponent implements OnInit {
     this.mismatchedPasswords = this.validator.mismatchedPasswords;
   }
 
-  registerSubmitHandler(form: NgForm) {
+  registerSubmitHandler(form: NgForm, btn: HTMLButtonElement) {
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('disabled');
+
     const {username, email, passwordGroup} = form.value;
     const {password, repassword} = passwordGroup;
 

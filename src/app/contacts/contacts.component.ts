@@ -40,7 +40,10 @@ export class ContactsComponent implements OnInit{
     this.email = user.email;
   }
 
-  contactsSubmitHandler(form: NgForm) {
+  contactsSubmitHandler(form: NgForm, btn:HTMLButtonElement) {
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('disabled');
+
     const {subject, message} = form.value;
     this.contactsService.sendMessage(subject,message,this.email).subscribe(
       () => {

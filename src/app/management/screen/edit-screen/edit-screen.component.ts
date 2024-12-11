@@ -53,7 +53,10 @@ export class EditScreenComponent implements OnInit {
     return this.form.get(controlName)?.touched && this.form.get(controlName)?.errors?.['rangeValidator'];
   }
 
-  submitHandler(){
+  submitHandler(btn: HTMLButtonElement){
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('disabled');
+    
     const {name, rows, seats, schedule} = this.form.value;
 
     this.editScreenService.editScreen(

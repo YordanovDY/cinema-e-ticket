@@ -74,7 +74,10 @@ export class EditMovieComponent implements OnInit {
     return this.form.get(controlName)?.touched && this.form.get(controlName)?.errors?.['ratingValidator'];
   }
 
-  submitHandler(){
+  submitHandler(btn: HTMLButtonElement){
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('disabled');
+
     const {
       title,
       imageUrl,

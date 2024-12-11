@@ -1,5 +1,5 @@
 <section id="loginSection" class="d-flex jc-center ai-center">
-    <form class="d-flex f-direction-column ai-center gap-20 padding-20" #form="ngForm" (ngSubmit)="loginSubmitHandler(form)">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20" #form="ngForm" (ngSubmit)="loginSubmitHandler(form, btnRef)">
         <h2>Login</h2>
         <div class="field relative">
             <i class="fa-regular fa-circle-user absolute"
@@ -63,7 +63,7 @@
             </div>
         }
         <p class="c-light">Don't have an account? <a routerLink="/register" class="hlink">Register here</a></p>
-        <button class="button btn-primary"
+        <button #btnRef class="button btn-primary"
             [class]="form?.invalid ? 'disabled' : ''" 
             [disabled]="form?.invalid">
             Login

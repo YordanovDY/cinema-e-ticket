@@ -1,5 +1,5 @@
 <section id="contactsSection" class="d-flex jc-center ai-center">
-    <form class="d-flex f-direction-column ai-center gap-20 padding-20" #form="ngForm" (ngSubmit)="contactsSubmitHandler(form)">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20" #form="ngForm" (ngSubmit)="contactsSubmitHandler(form, btnRef)">
         <h2>Contacts</h2>
         <div class="field relative">
             <label for="subject"
@@ -56,7 +56,7 @@
             </div>
         }
         
-        <button class="button btn-primary"
+        <button #btnRef class="button btn-primary"
             [class]="form?.invalid ? 'disabled' : ''" 
             [disabled]="form?.invalid">
             Send

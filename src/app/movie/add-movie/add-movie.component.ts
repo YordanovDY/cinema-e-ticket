@@ -41,7 +41,10 @@ export class AddMovieComponent implements OnInit {
     this.userId = this.route.snapshot.data['userId'];
   }
 
-  submitHandler(form: NgForm) {
+  submitHandler(form: NgForm, btn: HTMLButtonElement) {
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('disabled');
+
     if(!this.userId){
       this.router.navigate(['/http-error']);
       return;

@@ -28,7 +28,10 @@ export class LoginComponent implements OnInit {
     this.tooShort = this.validator.tooShort;
   }
 
-  loginSubmitHandler(form: NgForm){
+  loginSubmitHandler(form: NgForm, btn: HTMLButtonElement){
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('disabled');
+
     if(form.invalid) {
       return
     }

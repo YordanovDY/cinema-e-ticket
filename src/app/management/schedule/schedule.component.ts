@@ -85,7 +85,10 @@ export class ScheduleComponent implements OnInit {
     return this.form.get(controlName)?.touched && this.form.get(controlName)?.errors?.['required'];
   }
 
-  submitHandler() {
+  submitHandler(btn: HTMLButtonElement) {
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('disabled');
+
     const { movie, screen, date, time } = this.form.value;
     const movieId = movie?.split('@@')[0];
 

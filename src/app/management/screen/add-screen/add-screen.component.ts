@@ -31,7 +31,10 @@ export class AddScreenComponent implements OnInit{
     this.outOfRange = this.validator.outOfRange;
   }
 
-  submitHandler(form: NgForm){
+  submitHandler(form: NgForm, btn:HTMLButtonElement){
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('disabled');
+    
     const {name, rows, seats, schedule} = form.value;
     
     this.addScreenService.addScreen(name, rows, seats, schedule).subscribe(() => {

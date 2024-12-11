@@ -1,5 +1,5 @@
 <section id="editMovieSection" class="d-flex jc-center ai-center">
-    <form class="d-flex f-direction-column ai-center gap-20 padding-20"  [formGroup]="form" (ngSubmit)="submitHandler()">
+    <form class="d-flex f-direction-column ai-center gap-20 padding-20"  [formGroup]="form" (ngSubmit)="submitHandler(btnRef)">
         <h2>Edit Movie</h2>
 
         <div class="field relative">
@@ -146,7 +146,7 @@
                 <option value="16+">16+</option>
             </select>
         </div>
-        <button class="button btn-primary"
+        <button #btnRef class="button btn-primary"
         [class]="form.invalid ? 'disabled' : ''" 
         [disabled]="form.invalid">
         Edit

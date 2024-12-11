@@ -4,7 +4,7 @@
         </section>
     } @else {
     <section (change)="typeTicketChange(ticketTypeRef)" id="projectionInfo" class="d-flex jc-center ai-center padding-50">
-        <form class="ticket bg-dark d-flex f-direction-column jc-space-between padding-30" [formGroup]="form" (ngSubmit)="submitHandler()">
+        <form class="ticket bg-dark d-flex f-direction-column jc-space-between padding-30" [formGroup]="form" (ngSubmit)="submitHandler(btnRef)">
             <div class="d-flex jc-space-between ai-center f-wrap gap-10">
                 <div class="field">
                     <label for="movieName">Movie:</label>
@@ -100,7 +100,7 @@
 
                 </div>
             </div>
-            <button class="button btn-primary"
+            <button #btnRef class="button btn-primary"
             [class]="this.form.invalid ? 'disabled':''"
             [disabled]="this.form.invalid"
             >BUY</button>

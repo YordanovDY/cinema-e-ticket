@@ -139,7 +139,9 @@ export class BuyTicketComponent implements OnInit {
     currentTarget.classList.add('chosen');
   }
 
-  submitHandler() {
+  submitHandler(btn: HTMLButtonElement) {
+    btn.setAttribute('disabled', 'disabled');
+    btn.classList.add('disabled');
 
     this.prices$.subscribe(data => {
       const TicketInfo = data?.find(ticket => ticket.ticketPrice === Number(this.form.value.ticketType));

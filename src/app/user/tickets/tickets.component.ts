@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketsService } from './tickets.service';
 import { UserService } from '../user.service';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { Ticket } from '../../types/ticket';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -9,7 +9,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-tickets',
   standalone: true,
-  imports: [LoaderComponent, AsyncPipe, RouterLink],
+  imports: [LoaderComponent, AsyncPipe, RouterLink, DatePipe],
   templateUrl: './tickets.component.html',
   styleUrl: './tickets.component.css',
   providers: [TicketsService, UserService]

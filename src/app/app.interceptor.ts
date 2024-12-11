@@ -6,32 +6,32 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 
 export const appInterceptor: HttpInterceptorFn = (req, next) => {
-  let reqHeaders = req.headers  
-  .set('X-Parse-Application-Id', environment.APP_ID)
-  .set('X-Parse-REST-API-Key', environment.REST_API_KEY);
+  let reqHeaders = req.headers
+    .set('X-Parse-Application-Id', environment.APP_ID)
+    .set('X-Parse-REST-API-Key', environment.REST_API_KEY);
 
-    const sessionToken: string = localStorage.getItem('[SessionToken]') || '';
+  const sessionToken: string = localStorage.getItem('[SessionToken]') || '';
 
-    if(sessionToken){
-      reqHeaders = reqHeaders.set('X-Parse-Session-Token', sessionToken);
-    }
+  if (sessionToken) {
+    reqHeaders = reqHeaders.set('X-Parse-Session-Token', sessionToken);
+  }
 
-    const method = req.method;
-    
-    if(method === 'POST' || method === 'PUT'){
-      reqHeaders = reqHeaders.set('Content-Type', 'application/json');
-    }
+  const method = req.method;
 
-    if(req.url.endsWith('login') || req.url.endsWith('register')){
-      reqHeaders = reqHeaders.set('X-Parse-Revocable-Session', '1');
-    }
+  if (method === 'POST' || method === 'PUT') {
+    reqHeaders = reqHeaders.set('Content-Type', 'application/json');
+  }
 
-    if(req.url.startsWith('/api')) {
-      req = req.clone({
-        url: req.url.replace('/api', environment.API_URL),
-        withCredentials: true,
-        headers: reqHeaders
-      })
+  if (req.url.endsWith('login') || req.url.endsWith('register')) {
+    reqHeaders = reqHeaders.set('X-Parse-Revocable-Session', '1');
+  }
+
+  if (req.url.startsWith('/api')) {
+    req = req.clone({
+      url: req.url.replace('/api', environment.API_URL),
+      withCredentials: true,
+      headers: reqHeaders
+    })
 
   }
 
@@ -39,15 +39,11 @@ export const appInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
 
   return next(req).pipe(
-    catchError((err)=> {
-      if(err.error.code === 209){
-        router.navigate(['/home']);
+    catchError((err) => {
 
-      } else{
-        httpError.setError(err);
+      httpError.setError(err);
 
-        router.navigate(['/http-error']);
-      }
+      router.navigate(['/http-error']);
 
       return [err];
     })

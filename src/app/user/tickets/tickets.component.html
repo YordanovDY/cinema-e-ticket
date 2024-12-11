@@ -8,7 +8,7 @@
                     <a [routerLink]="ticket.objectId" class="item">
                         <li class="d-flex jc-space-between f-wrap ai-center">
                             <h4>{{ticket.movie}}</h4>
-                            <p>{{ticket.dateAndTime.iso}}</p>
+                            <p>{{ticket.dateAndTime.iso | date: 'dd MMM yyyy hh:mm'}}</p>
                             <p>{{ticket.screen}}</p>
                             <p>row: {{ticket.row}}</p>
                             <p>seat: {{ticket.seat}}</p>
